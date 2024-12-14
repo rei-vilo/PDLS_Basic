@@ -1,2 +1,96 @@
-# PDLS_Basic
-Library for Pervasive Displays iTC screens, extension boards and development kits
+# Pervasive Displays Library Suite - Basic edition
+
+[![Release](https://img.shields.io/github/v/release/rei-vilo/PDLS_Basic)](https://github.com/rei-vilo/PDLS_EXT3_Basic_BWRY/releases) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/77ecc9fa99834e299505f5f2a7c83e53)](https://app.codacy.com/gh/rei-vilo/PDLS_Basic/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rei-vilo/PDLS_EXT3_Basic&amp;utm_campaign=Badge_Grade) ![Arduino lint](https://github.com/rei-vilo/PDLS_Basic/actions/workflows/main.yml/badge.svg) [![GitHub issues](https://img.shields.io/github/issues/rei-vilo/PDLS_Basic)](https://github.com/rei-vilo/PDLS_EXT3_Basic/issues)
+
+[![](https://img.shields.io/badge/-Wiki-orange)](https://docs.pervasivedisplays.com/) [![](https://img.shields.io/badge/-User_Guide-orange)](https://pdls.pervasivedisplays.com/userguide/index.html) [![](https://img.shields.io/badge/-Reference_manual-orange)](https://rei-vilo.github.io/PDLS_EXT3_Basic_Documentation/html/index.html)
+
+The Pervasive Displays Library Suite is specifically designed for the [Pervasive Displays](https://www.pervasivedisplays.com) e-paper screens, extension boards and evaluation kits.
+
+![](https://pdls.pervasivedisplays.com/userguide/img/Logo_PDI_text_320.png)
+
+Release 9 inaugurates a new structure based on drivers developed by Pervasive Displays.
+
+The **PDLS_Basic** edition supports the screens
+
+* iTC [black-white-red-yellow colour](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white-red-yellow) screens (film `Q`),
+* iTC [monochrome with wide temperature and embedded fast update](https://www.pervasivedisplays.com/products/?_sft_etc_itc=pu&_sft_temperature_range=m15c-to-p60c) (film `K`);
+
+the boards
+
+* [EPD Extension Kit Gen 3 (EXT3 or EXT3.1)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-3-EXT3/),
+* [Touch Expansion Board for EXT3 (EXT3-Touch)](https://www.pervasivedisplays.com/product/touch-expansion-board-ext3-touch/) for EXT3.1,
+* Pervasive Displays [EPD Extension Kit Gen 4 (EXT4)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-4-EXT4/) and EXT4-to-Nano adapter boards;
+
+and the kits
+
+* [EPD Pico Kit (EPDK)](https://www.pervasivedisplays.com/product/epd-pico-kit-epdk/), which includes a Raspberry Pi Pico RP2040, an EXT3-1 extension board and a 2.66" monochrome panel,
+* [EPD Pico Kit Touch (EPDK-271-Touch)](https://www.pervasivedisplays.com/product/touch-expansion-board-ext3-touch/#tab-3), which includes an EXT3.1 extension board, an EXT3-Touch expansion board, and a 2.71"-Touch monochrome panel with embedded fast update and capacitive touch,
+* [E-Paper Development Kit for Matter (EPDK-Matter)](https://www.pervasivedisplays.com), which includes a Pervasive Displays [EPD Extension Kit Gen 4 (EXT4)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-4-EXT4/) and a Pervasive Displays EXT4-to-Nano adapter boards, a Pervasive Displays [2.9″ 384x168 E-ink monochrome high-definition](https://www.pervasivedisplays.com/product/2-9-e-ink-displays/) with embedded fast update and wide temperature display, an [Arduino Nano Matter](https://store.arduino.cc/pages/nano-matter) board based on [Silicon Labs MGM240S](https://www.silabs.com/wireless/zigbee/efr32mg24-series-2-modules).
+
+Legacy release 8 supports the screens
+
+* iTC monochrome [with normal update](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white) (film `C`), 
+* iTC monochrome [with touch](https://www.pervasivedisplays.com/products/?_sft_etc_itc=tp), 
+* iTC monochrome [with embedded fast update](https://www.pervasivedisplays.com/products/?_sft_etc_itc=pu&_sft_product_colour=black-white) (film `P`), and
+* iTC colour [black-white-red](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white-red) (film `J`).
+
+## Features
+
+The Pervasive Displays Library Suite provides a high-level interface to drive the e-paper screens.
+
+* Normal and fast update
+* Graphics routines
+* Text routines
+* Four extended fonts with double-sized variants
+
+## Documentation
+
+* [Pervasive Displays Technical Wiki](https://docs.pervasivedisplays.com/) 
+* [User guide](https://pdls.pervasivedisplays.com/userguide/index.html) with commented examples
+* [Reference manual](https://pdls.pervasivedisplays.com/reference/html/index.html) 
+
+## Support
+
+* Please refer to the [PDLS_Basic](https://github.com/rei-vilo/PDLS_Basic/issues) repository for reporting issues and contributing pull requests.
+
+## Installation
+
+Software
+
+* [Arduino IDE](https://www.arduino.cc/en/software) or [Arduino CLI](https://arduino.github.io/arduino-cli/)
+* [Installing Additional Arduino Libraries](https://www.arduino.cc/en/guide/libraries)
+
+    + Using the Library Manager
+    + Importing a `.zip` Library
+
+Hardware
+
+* [Connecting the Pervasive Displays e-Paper EPD Extension Kit Gen 3](https://embeddedcomputing.weebly.com/connecting-the-e-paper-epd-extension-kit-gen-3.html)
+
+## Configuration
+
+Software
+
+* Arduino SDK
+* SPI library
+* Wire library
+
+Hardware
+
+* Pervasive Displays EPD Extension Kit Gen 3 (EXT3 or EXT3.1)
+* Pervasive Displays EPD Extension Kit Gen 4 (EXT4)
+* Pervasive Displays iTC black-white-red-yellow colour screens (film `Q`)
+* Pervasive Displays iTC monochrome screens with wide temperature and embedded fast update (film `K`).
+
+## Licence
+
+**Copyright** &copy; Rei Vilo, 2010-2024
+
+For exclusive use with Pervasive Displays screens
+
+**Licence** [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](./LICENCE.md)
+
+![](img/by-sa.svg)
+
+**Portions** &copy; Pervasive Displays, 2010-2024
+
