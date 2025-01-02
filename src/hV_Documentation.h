@@ -7,7 +7,7 @@
 ///
 /// @mainpage Pervasive Displays Library Suite - Basic edition
 ///
-/// @details The Pervasive Displays Library Suite is specifically designed for the [Pervasive Displays](https://www.pervasivedisplays.com/) e-paper screens, boards and kits.
+/// @details The Pervasive Displays Library Suite is specifically designed for the [Pervasive Displays](https://www.pervasivedisplays.com/) e-paper screens, extension boards and development kits.
 ///
 /// @image html Logo-PDI-text-320.jpeg
 /// @image latex Logo-PDI-text-320.pdf width=10cm
@@ -21,16 +21,16 @@
 /// * iTC monochrome [with wide temperature and embedded fast update](https://www.pervasivedisplays.com/products/?_sft_etc_itc=pu&_sft_temperature_range=m15c-to-p60c&_sft_product_colour=black-white) (film `K`),
 /// * iTC colour [black-white-red-yellow](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white-red-yellow) (film `Q`);
 ///
-/// the boards
+/// the extension boards
 ///
 /// * [EPD Extension Kit Gen 3 (EXT3 or EXT3.1)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-3-EXT3/),
 /// * [Touch Expansion Board for EXT3 (EXT3-Touch)](https://www.pervasivedisplays.com/product/touch-expansion-board-ext3-touch/) for EXT3.1,
 /// * [EPD Extension Kit Gen 4 (EXT4)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-4-EXT4/);
 ///
-/// and the kits
+/// and the development kits
 ///
 /// * [EPD Pico Kit (EPDK-266)](https://www.pervasivedisplays.com/product/epd-pico-kit-epdk/), which includes a Raspberry Pi Pico RP2040, an EXT3.1 extension board and a 2.66&quot; monochrome panel,
-/// * [EPD Pico Kit Touch (EPDK-271-Touch)](https://www.pervasivedisplays.com/product/touch-expansion-board-ext3-touch/#tab-3), which includes a Raspberry Pi Pico RP2040, an EXT3.1 and EXT3-Touch boards and a 2.71&quot;-Touch monochrome panel with embedded fast update, and
+/// * [EPD Pico Kit Touch (EPDK-271-Touch)](https://www.pervasivedisplays.com/product/touch-expansion-board-ext3-touch/#tab-3), which includes an EXT3.1 extension board, an EXT3-Touch expansion board, and a 2.71&quot;-Touch monochrome panel with embedded fast update, and
 /// * [E-Paper Development Kit for Matter (EPDK-Matter)](https://www.pervasivedisplays.com/product/epdk-matter/#tab-3), which bundles an Arduino Nano Matter, an EXT4 board and a 2.90&quot; high-definition monochrome panel with embedded fast update and wide temperature.
 ///
 /// Legacy release 8 supports the screens
@@ -46,7 +46,7 @@
 ///
 /// The drivers are available at the [Pervasive Displays GitHub page](https://github.com/PervasiveDisplays).
 ///
-/// Drivers &copy; Pervasive Displays, 2010-2024
+/// Drivers &copy; Pervasive Displays, 2010-2025
 ///
 /// @b Documentation
 ///
@@ -59,10 +59,10 @@
 /// Additionally, the **[Pervasive Displays Technical Wiki](https://docs.pervasivedisplays.com/)** provides a gradual introduction to the e-paper technology and how to use it.
 ///
 /// @author Rei Vilo
-/// @date 21 Nov 2024
-/// @version 900 step 112
+/// @date 21 Jan 2025
+/// @version 902
 ///
-/// @copyright &copy; Rei Vilo, 2010-2024
+/// @copyright &copy; Rei Vilo, 2010-2025
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 ///

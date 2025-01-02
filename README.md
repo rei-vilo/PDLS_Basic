@@ -12,16 +12,17 @@ Release 9 inaugurates a new structure based on drivers developed by Pervasive Di
 
 The **PDLS_Basic** edition supports the screens
 
-* iTC [black-white-red-yellow colour](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white-red-yellow) screens (film `Q`),
-* iTC [monochrome with wide temperature and embedded fast update](https://www.pervasivedisplays.com/products/?_sft_etc_itc=pu&_sft_temperature_range=m15c-to-p60c) (film `K`);
+* iTC [monochrome with wide temperature and embedded fast update](https://www.pervasivedisplays.com/products/?_sft_etc_itc=pu&_sft_temperature_range=m15c-to-p60c) (film `K`),
+* iTC monochrome [with touch](https://www.pervasivedisplays.com/products/?_sft_etc_itc=tp), 
+* iTC [black-white-red-yellow colour](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white-red-yellow) screens (film `Q`);
 
-the boards
+the extension boards
 
 * [EPD Extension Kit Gen 3 (EXT3 or EXT3.1)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-3-EXT3/),
-<!-- * [Touch Expansion Board for EXT3 (EXT3-Touch)](https://www.pervasivedisplays.com/product/touch-expansion-board-ext3-touch/) for EXT3.1, -->
+* [Touch Expansion Board for EXT3 (EXT3-Touch)](https://www.pervasivedisplays.com/product/touch-expansion-board-ext3-touch/) for EXT3.1,
 * ![](https://img.shields.io/badge/-New-orange) Pervasive Displays [EPD Extension Kit Gen 4 (EXT4)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-4-EXT4/) and EXT4-to-Nano adapter boards;
 
-and the kits
+and the development kits
 
 * [EPD Pico Kit (EPDK)](https://www.pervasivedisplays.com/product/epd-pico-kit-epdk/), which includes a Raspberry Pi Pico RP2040, an EXT3-1 extension board and a 2.66" monochrome panel,
 * [EPD Pico Kit Touch (EPDK-271-Touch)](https://www.pervasivedisplays.com/product/touch-expansion-board-ext3-touch/#tab-3), which includes an EXT3.1 extension board, an EXT3-Touch expansion board, and a 2.71"-Touch monochrome panel with embedded fast update and capacitive touch,
@@ -30,7 +31,6 @@ and the kits
 Legacy release 8 supports the screens
 
 * iTC monochrome [with normal update](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white) (film `C`), 
-* iTC monochrome [with touch](https://www.pervasivedisplays.com/products/?_sft_etc_itc=tp), 
 * iTC monochrome [with embedded fast update](https://www.pervasivedisplays.com/products/?_sft_etc_itc=pu&_sft_product_colour=black-white) (film `P`), and
 * iTC colour [black-white-red](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white-red) (film `J`).
 
@@ -84,13 +84,11 @@ Hardware
 
 ## Licence
 
-**Copyright** &copy; Rei Vilo, 2010-2024
+**Copyright** &copy; Rei Vilo, 2010-2025
 
 For exclusive use with Pervasive Displays screens
 
 **Licence** [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](./LICENCE.md)
 
 ![](img/by-sa.svg)
-
-**Portions** &copy; Pervasive Displays, 2010-2024
 

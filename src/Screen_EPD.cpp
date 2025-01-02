@@ -8,12 +8,11 @@
 //
 // Created by Rei Vilo, 28 Jun 2016
 //
-// Copyright (c) Rei Vilo, 2010-2024
+// Copyright (c) Rei Vilo, 2010-2025
 // Licence Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 // For exclusive use with Pervasive Displays screens
-// Portions (c) Pervasive Displays, 2010-2024
 //
-// Release 508: Added support for E2969CS0B and B98-CS-0B
+// Release 508: Added support for 969-CS-0B and B98-CS-0B
 // Release 511: Improved stability for external SPI SRAM
 // Release 529: Added support for pixmap file
 // Release 530: Added support for external SRAM
@@ -38,6 +37,7 @@
 // Release 810: Added support for EXT4
 // Release 900: Added new driver library
 // Release 901: Added support for screen 340-KS-0G
+// Release 902: Improved power management
 //
 
 // Library header
@@ -69,26 +69,26 @@ void Screen_EPD::begin()
     uint8_t flagCOG = false;
     switch (u_codeFilm)
     {
-        case FILM_C: // Film C, Standard
-        case FILM_H: // Film H, Freeze
-        case FILM_J: // Film J, BWR, "Spectra"
-        case FILM_E: // Film E, BWR, deprecated
-        case FILM_F: // Film F, BWR, deprecated
-        case FILM_G: // Film G, BWY, deprecated
+        case FILM_C: // Standard
+        case FILM_H: // Freeze
+        case FILM_J: // BWR, "Spectra"
+        case FILM_E: // BWR, deprecated
+        case FILM_F: // BWR, deprecated
+        case FILM_G: // BWY, deprecated
 
             flagCOG = (checkCOG == FILM_C);
             break;
 
-        case FILM_Q: // Film Q, BWRY, "Spectra 4"
+        case FILM_Q: // BWRY, "Spectra 4"
 
             flagCOG = (checkCOG == u_codeFilm);
             break;
 
-        case FILM_P: // Film P, Embedded fast update
-        case FILM_K: // Film K, Wide temperature and embedded fast update
+        case FILM_P: // Embedded fast update
+        case FILM_K: // Wide temperature and embedded fast update
 
             flagCOG = (checkCOG == u_codeFilm);
-            flagCOG |= (checkCOG == FILM_T); // Film T, proxy for P or K with touch
+            flagCOG |= (checkCOG == FILM_T); // Proxy for P or K with touch
             break;
 
         default:
@@ -103,7 +103,7 @@ void Screen_EPD::begin()
 
     // Configure board
     s_driver->begin();
-    // setPowerProfile(POWER_MODE_MANUAL, POWER_SCOPE_NONE);
+    setPowerProfile(POWER_MODE_MANUAL, POWER_SCOPE_NONE);
 
     // Sizes
     switch (u_codeSize)
@@ -315,8 +315,6 @@ void Screen_EPD::begin()
     v_touchTrim = 0x00; // no touch
     v_touchEvent = false; // no touch event
 
-#if (TOUCH_MODE != USE_TOUCH_NONE)
-
     v_touchTrim = 0x10; // standard threshold
     v_touchEvent = true;
 
@@ -355,8 +353,6 @@ void Screen_EPD::begin()
 
             break;
     }
-
-#endif // TOUCH_MODE
     //
     // === End of Touch section
     //
@@ -368,7 +364,7 @@ void Screen_EPD::clear(uint16_t colour)
 
     switch (u_codeFilm)
     {
-        case FILM_Q: // BWRY
+        case FILM_Q: // BWRY, "Spectra 4"
 
             if (colour == myColours.grey)
             {
@@ -491,7 +487,7 @@ void Screen_EPD::clear(uint16_t colour)
             }
             break;
 
-        default: // C, J, H, E
+        default: // Normal update and deprecated
 
             if (colour == myColours.red)
             {
@@ -557,6 +553,7 @@ void Screen_EPD::clear(uint16_t colour)
 
 void Screen_EPD::flush()
 {
+    resume(); // GPIO
     // flushMode(UPDATE_NORMAL);
 
     // Update
@@ -576,12 +573,12 @@ void Screen_EPD::flush()
 
         switch (u_codeFilm)
         {
-            case FILM_Q:
+            case FILM_Q: // BWRY, "Spectra 4"
 
                 // Not yet supported
                 break;
 
-            case FILM_K: // Wide temperature and rmbedded fast update
+            case FILM_K: // Wide temperature and embedded fast update
             case FILM_P: // Embedded fast update
 
                 s_driver->updateFast(frameM1, frameM2, frameS1, frameS2, u_subPageColourSize);
@@ -621,6 +618,11 @@ void Screen_EPD::flush()
                 break;
         }
     }
+
+    if (u_suspendMode == POWER_MODE_AUTO)
+    {
+        suspend(u_suspendScope); // GPIO
+    }
 }
 
 void Screen_EPD::flushFast()
@@ -632,7 +634,7 @@ void Screen_EPD::regenerate(uint8_t mode)
 {
     switch (u_codeFilm)
     {
-        case FILM_K: // Wide temperature and rmbedded fast update
+        case FILM_K: // Wide temperature and embedded fast update
         case FILM_P: // Embedded fast update
 
             clear(myColours.black);
@@ -673,7 +675,7 @@ void Screen_EPD::s_setPoint(uint16_t x1, uint16_t y1, uint16_t colour)
 
     switch (u_codeFilm)
     {
-        case FILM_Q: // BWRY
+        case FILM_Q: // BWRY, "Spectra 4"
 
             // Combined colours
             if (colour == myColours.grey)
@@ -983,7 +985,35 @@ uint16_t Screen_EPD::s_getPoint(uint16_t x1, uint16_t y1)
 //
 // === Power section
 //
+void Screen_EPD::setPowerProfile(uint8_t mode, uint8_t scope)
+{
+    u_suspendMode = mode;
+    u_suspendScope = POWER_SCOPE_GPIO_ONLY;
 
+    if (s_driver->b_pin.panelPower == NOT_CONNECTED)
+    {
+        u_suspendMode = POWER_MODE_MANUAL;
+        u_suspendScope = POWER_SCOPE_NONE;
+    }
+}
+
+void Screen_EPD::suspend(uint8_t suspendScope)
+{
+    // s_driver->b_suspend(); // GPIO
+    if (s_driver->b_pin.panelPower != NOT_CONNECTED)
+    if ((suspendScope & FSM_GPIO_MASK) == FSM_GPIO_MASK)
+    if ((s_driver->b_fsmPowerScreen & FSM_GPIO_MASK) == FSM_GPIO_MASK)
+    {
+        s_driver->b_suspend(); // GPIO
+        s_driver->b_fsmPowerScreen &= ~FSM_GPIO_MASK;
+    }
+}
+
+void Screen_EPD::resume()
+{
+    s_driver->b_resume(); // GPIO
+    s_driver->b_fsmPowerScreen |= FSM_GPIO_MASK;
+}
 //
 // === End of Power section
 //
@@ -1006,7 +1036,7 @@ uint8_t Screen_EPD::checkTemperatureMode(uint8_t updateMode)
 {
     switch (u_codeFilm)
     {
-        case FILM_P: // Film P, Embedded fast update
+        case FILM_P: // Embedded fast update
 
             // Fast 	PS 	Embedded fast update 	FU: +15 to +30 °C 	GU: 0 to +50 °C
             if (updateMode == UPDATE_FAST) // Fast update
@@ -1025,7 +1055,7 @@ uint8_t Screen_EPD::checkTemperatureMode(uint8_t updateMode)
             }
             break;
 
-        case FILM_K: // Film K, Wide temperature and embedded fast update
+        case FILM_K: // Wide temperature and embedded fast update
 
             // Wide 	KS 	Wide temperature and embedded fast update 	FU: 0 to +50 °C 	GU: -15 to +60 °C
             if (updateMode == UPDATE_FAST) // Fast update
@@ -1054,11 +1084,11 @@ uint8_t Screen_EPD::checkTemperatureMode(uint8_t updateMode)
             }
             break;
 
-        case FILM_J: // Film J, BWR, "Spectra"
-        case FILM_E: // Film E, BWR, deprecated
-        case FILM_F: // Film F, BWR, deprecated
-        case FILM_G: // Film G, BWY, deprecated
-        case FILM_Q: // Film Q, BWRY, "Spectra 4"
+        case FILM_J: // BWR, "Spectra"
+        case FILM_E: // BWR, deprecated
+        case FILM_F: // BWR, deprecated
+        case FILM_G: // BWY, deprecated
+        case FILM_Q: // BWRY, "Spectra 4"
 
             // BWR  JS 	Red colour 	FU: - 	GU: 0 to +40 °C
             // BWRY  QS 	Red and yellow colours 	FU: - 	GU: 0 to +40 °C
@@ -1068,7 +1098,7 @@ uint8_t Screen_EPD::checkTemperatureMode(uint8_t updateMode)
             }
             break;
 
-        default: // Film C, Standard
+        default: // Standard
 
             // Normal 	CS 	Normal update above 0 °C 	FU: - 	GU: 0 to +50 °C
             updateMode = UPDATE_NORMAL;
@@ -1094,34 +1124,34 @@ STRING_TYPE Screen_EPD::WhoAmI()
 
     switch (u_codeFilm)
     {
-        case FILM_P: // Film P, Embedded fast update
+        case FILM_P: // Embedded fast update
 
             strcat(work, "-Fast");
             break;
 
-        case FILM_K: // Film K, Wide temperature and embedded fast update
+        case FILM_K: // Wide temperature and embedded fast update
 
             strcat(work, "-Wide");
             break;
 
-        case FILM_H: // Film H, Freezer
+        case FILM_H: // Freezer
 
             strcat(work, "-Freezer");
             break;
 
-        case FILM_J: // Film J, BWR, "Spectra"
-        case FILM_E: // Film E, BWR, deprecated
-        case FILM_F: // Film F, BWR, deprecated
+        case FILM_J: // BWR, "Spectra"
+        case FILM_E: // BWR, deprecated
+        case FILM_F: // BWR, deprecated
 
             strcat(work, "-BWR");
             break;
 
-        case FILM_G: // Film G, BWY, deprecated
+        case FILM_G: // BWY, deprecated
 
             strcat(work, "-BWY");
             break;
 
-        case FILM_Q: // Film Q, BWRY, "Spectra 4"
+        case FILM_Q: // BWRY, "Spectra 4"
 
             strcat(work, "-BWRY");
             break;
@@ -1190,23 +1220,23 @@ uint8_t Screen_EPD::screenColours()
 
     switch (u_codeFilm)
     {
-        case FILM_C: // Film C, Standard
-        case FILM_P: // Film P, Embedded fast update
-        case FILM_K: // Film K, Wide temperature and embedded fast update
-        case FILM_H: // Film H, Freeze
+        case FILM_C: // Standard
+        case FILM_P: // Embedded fast update
+        case FILM_K: // Wide temperature and embedded fast update
+        case FILM_H: // Freeze
 
             result = 2;
             break;
 
-        case FILM_J: // Film J, BWR, "Spectra"
-        case FILM_E: // Film E, BWR, deprecated
-        case FILM_F: // Film F, BWR, deprecated
-        case FILM_G: // Film G, BWY, deprecated
+        case FILM_J: // BWR, "Spectra"
+        case FILM_E: // BWR, deprecated
+        case FILM_F: // BWR, deprecated
+        case FILM_G: // BWY, deprecated
 
             result = 3;
             break;
 
-        case FILM_Q: // Film Q, BWRY, "Spectra 4"
+        case FILM_Q: // BWRY, "Spectra 4"
 
             result = 4;
             break;
@@ -1262,7 +1292,7 @@ void Screen_EPD::debugVariant(uint8_t contextFilm)
             hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c with no wide temperature and embedded fast update", u_codeSize, u_codeFilm, u_codeDriver);
             break;
 
-        case FILM_Q: // BWRY
+        case FILM_Q: // BWRY, "Spectra 4"
 
             hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not black-white-red-yellow", u_codeSize, u_codeFilm, u_codeDriver);
             break;
@@ -1285,12 +1315,12 @@ void Screen_EPD::debugVariant(uint8_t contextFilm)
             hV_HAL_log(LEVEL_CRITICAL, "Use PDLS_EXT3_%s_%s instead", "Basic", "Wide");
             break;
 
-        case FILM_Q: // BWRY
+        case FILM_Q: // BWRY, "Spectra 4"
 
             hV_HAL_log(LEVEL_CRITICAL, "Use PDLS_EXT3_%s_%s instead", "Basic", "BWRY");
             break;
 
-        default:
+        default: // Normal update and deprecated
 
             hV_HAL_log(LEVEL_CRITICAL, "Use PDLS_EXT3_%s_%s instead", "Basic", "Normal");
             break;
@@ -1306,8 +1336,6 @@ void Screen_EPD::debugVariant(uint8_t contextFilm)
 //
 // === Touch section
 //
-#if (TOUCH_MODE != USE_TOUCH_NONE)
-
 void Screen_EPD::s_getRawTouch(touch_t & touch)
 {
     s_driver->d_getRawTouch(touch);
@@ -1316,10 +1344,7 @@ void Screen_EPD::s_getRawTouch(touch_t & touch)
 bool Screen_EPD::s_getInterruptTouch()
 {
     return s_driver->d_getInterruptTouch();
-
 };
-
-#endif // TOUCH_MODE
 //
 // === End of Touch section
 //

@@ -6,10 +6,10 @@
 /// @n Based on highView technology
 ///
 /// @author Rei Vilo
-/// @date 21 Nov 2024
-/// @version 900
+/// @date 21 Jan 2025
+/// @version 902
 ///
-/// @copyright (c) Rei Vilo, 2010-2024
+/// @copyright (c) Rei Vilo, 2010-2025
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 ///
@@ -33,8 +33,8 @@
 // Screen
 #include "PDLS_Basic.h"
 
-#if (SCREEN_EPD_RELEASE < 900)
-#error Required SCREEN_EPD_RELEASE 900
+#if (SCREEN_EPD_RELEASE < 902)
+#error Required SCREEN_EPD_RELEASE 902
 #endif // SCREEN_EPD_RELEASE
 
 #if (USE_EXT_BOARD != BOARD_EXT4)

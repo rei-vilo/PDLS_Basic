@@ -1,15 +1,15 @@
 ///
-/// @file Basic_Touch_GUI.ino
+/// @file Touch_GUI.ino
 /// @brief Example of features for Evaluation edition
 ///
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
 /// @author Rei Vilo
-/// @date 21 Nov 2024
-/// @version 900
+/// @date 21 Jan 2025
+/// @version 902
 ///
-/// @copyright (c) Rei Vilo, 2010-2024
+/// @copyright (c) Rei Vilo, 2010-2025
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 ///
@@ -37,8 +37,8 @@
 // Screen
 #include "PDLS_Basic.h"
 
-#if (SCREEN_EPD_RELEASE < 900)
-#error Required SCREEN_EPD_RELEASE 900
+#if (SCREEN_EPD_RELEASE < 902)
+#error Required SCREEN_EPD_RELEASE 902
 #endif // SCREEN_EPD_RELEASE
 
 // Set parameters
@@ -62,10 +62,6 @@ uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 #ifndef WITH_TOUCH
 #error Required WITH_TOUCH
 #endif // WITH_TOUCH
-
-#if (TOUCH_MODE == USE_TOUCH_NONE)
-#error Required TOUCH_MODE USE_TOUCH_YES
-#endif // TOUCH_MODE
 
 // Prototypes
 
@@ -134,7 +130,7 @@ void displayGUI()
                 k -= 1;
                 chrono32 = hV_HAL_getMilliseconds() - chrono32;
                 myText.draw(formatString("%s in %i ms (%i left)", "Normal", chrono32, k));
-                hV_HAL_log(LEVEL_INFO, formatString("%3i: %s in %i ms", k, "Normal", chrono32));
+                hV_HAL_log(LEVEL_INFO, "%3i: %s in %i ms", k, "Normal", chrono32);
             }
 
             chrono32 = hV_HAL_getMilliseconds();
@@ -143,7 +139,7 @@ void displayGUI()
                 k -= 1;
                 chrono32 = hV_HAL_getMilliseconds() - chrono32;
                 myText.draw(formatString("%s in %i ms (%i left)", "Instant", chrono32, k));
-                hV_HAL_log(LEVEL_INFO, formatString("%3i: %s in %i ms", k, "Instant", chrono32));
+                hV_HAL_log(LEVEL_INFO, "%3i: %s in %i ms", k, "Instant", chrono32);
             }
         } // getTouchInterrupt
 

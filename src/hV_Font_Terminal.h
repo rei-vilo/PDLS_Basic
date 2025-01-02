@@ -6,10 +6,10 @@
 /// @n Based on highView technology
 ///
 /// @author Rei Vilo
-/// @date 21 Nov 2024
-/// @version 900
+/// @date 21 Jan 2025
+/// @version 902
 ///
-/// @copyright (c) Rei Vilo, 2010-2024
+/// @copyright (c) Rei Vilo, 2010-2025
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 ///
@@ -38,8 +38,8 @@
 // SDK and configuration
 #include "PDLS_Common.h"
 
-#if (PDLS_COMMON_RELEASE < 900)
-#error Required PDLS_COMMON_RELEASE 900
+#if (PDLS_COMMON_RELEASE < 902)
+#error Required PDLS_COMMON_RELEASE 902
 #endif // PDLS_COMMON_RELEASE
 
 // The Arduino IDE does not allow to select the libraries, hence this condition.
@@ -49,7 +49,7 @@
 ///
 /// @brief Release
 ///
-#define hV_FONT_TERMINAL_RELEASE 900
+#define hV_FONT_TERMINAL_RELEASE 902
 
 // Font structure
 #include "hV_Font.h"

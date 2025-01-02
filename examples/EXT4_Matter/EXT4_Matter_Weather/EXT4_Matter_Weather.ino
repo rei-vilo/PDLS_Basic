@@ -18,10 +18,10 @@
 /// @author Tamas Jozsi (Silicon Labs)
 ///
 /// @author Rei Vilo
-/// @date 21 Nov 2024
-/// @version 900
+/// @date 21 Jan 2025
+/// @version 902
 ///
-/// @copyright (c) Rei Vilo, 2010-2024
+/// @copyright (c) Rei Vilo, 2010-2025
 /// * 2024-06-06 Rei Vilo (Pervasive Displays)
 /// * Added support for EXT4
 /// @copyright All rights reserved
@@ -47,8 +47,8 @@
 // Screen
 #include "PDLS_Basic.h"
 
-#if (SCREEN_EPD_RELEASE < 900)
-#error Required SCREEN_EPD_RELEASE 900
+#if (SCREEN_EPD_RELEASE < 902)
+#error Required SCREEN_EPD_RELEASE 902
 #endif // SCREEN_EPD_RELEASE
 
 // Include application, user and local libraries
@@ -587,7 +587,6 @@ void setup()
 
 #endif // FONT_MODE
 
-    myScreen.setPowerProfile(POWER_MODE_AUTO, POWER_SCOPE_GPIO_ONLY);
     myScreen.setOrientation(ORIENTATION_LANDSCAPE);
     myScreen.regenerate(); // Clear buffer and screen
 

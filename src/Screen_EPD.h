@@ -6,10 +6,10 @@
 /// @n Based on highView technology
 ///
 /// @author Rei Vilo
-/// @date 21 Nov 2024
-/// @version 901
+/// @date 21 Jan 2025
+/// @version 902
 ///
-/// @copyright (c) Rei Vilo, 2010-2024
+/// @copyright (c) Rei Vilo, 2010-2025
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 ///
@@ -35,22 +35,22 @@
 // SDK and configuration
 #include "PDLS_Common.h"
 
-#if (PDLS_COMMON_RELEASE < 900)
-#error Required PDLS_COMMON_RELEASE 900
+#if (PDLS_COMMON_RELEASE < 902)
+#error Required PDLS_COMMON_RELEASE 902
 #endif // PDLS_COMMON_RELEASE
 
 // Other libraries
 #include "hV_Screen_Buffer.h"
 
-#if (hV_SCREEN_BUFFER_RELEASE < 900)
-#error Required hV_SCREEN_BUFFER_RELEASE 900
+#if (hV_SCREEN_BUFFER_RELEASE < 902)
+#error Required hV_SCREEN_BUFFER_RELEASE 902
 #endif // hV_SCREEN_BUFFER_RELEASE
 
 #ifndef SCREEN_EPD_RELEASE
 ///
 /// @brief Library release number
 ///
-#define SCREEN_EPD_RELEASE 901
+#define SCREEN_EPD_RELEASE 902
 
 #include "Driver_EPD_Virtual.h"
 
@@ -121,6 +121,37 @@ class Screen_EPD final : public hV_Screen_Buffer
     /// @param mode default = UPDATE_NORMAL = normal mode
     ///
     void regenerate(uint8_t mode = UPDATE_NORMAL);
+
+    //
+    // === Power section
+    //
+    /// @brief Set the power profile
+    /// @param mode default = POWER_MODE_AUTO, otherwise POWER_MODE_MANUAL
+    /// @param scope default = POWER_SCOPE_GPIO_ONLY, otherwise POWER_SCOPE_GPIO_BUS, POWER_SCOPE_NONE
+    /// @note If panelPower is NOT_CONNECTED, (POWER_MODE_AUTO, POWER_SCOPE_GPIO_ONLY) defaults to (POWER_MODE_MANUAL, POWER_SCOPE_NONE)
+    /// @note Call suspend(POWER_SCOPE_GPIO_BUS) manually
+    /// @note Advanced edition only
+    ///
+    void setPowerProfile(uint8_t mode = POWER_MODE_AUTO, uint8_t scope = POWER_SCOPE_GPIO_ONLY);
+
+    ///
+    /// @brief Suspend
+    /// @param bus include SPI bus, default = POWER_SCOPE_GPIO_ONLY, otherwise POWER_SCOPE_BUS_GPIO or POWER_SCOPE_NONE
+    /// @details Power off and set all GPIOs low, POWER_SCOPE_BUS_GPIO also turns SPI off
+    /// @note If panelPower is NOT_CONNECTED, POWER_SCOPE_GPIO_ONLY defaults to POWER_SCOPE_NONE
+    /// @note Advanced edition only
+    ///
+    void suspend(uint8_t suspendScope = POWER_SCOPE_GPIO_ONLY);
+
+    ///
+    /// @brief Resume after suspend()
+    /// @details Turn SPI on and set all GPIOs levels
+    /// @note Advanced edition only
+    ///
+    void resume();
+    //
+    // === End of Power section
+    //
 
     //
     // === Temperature section
@@ -275,15 +306,14 @@ class Screen_EPD final : public hV_Screen_Buffer
     uint16_t u_bufferSizeV, u_bufferSizeH, u_bufferDepth;
     uint32_t u_pageColourSize;
 
+    uint8_t u_suspendMode = POWER_MODE_AUTO;
+    uint8_t u_suspendScope = POWER_SCOPE_GPIO_ONLY;
+
     //
     // === Touch section
     //
-#if (TOUCH_MODE != USE_TOUCH_NONE)
-
     virtual void s_getRawTouch(touch_t & touch);
     virtual bool s_getInterruptTouch();
-
-#endif // TOUCH_MODE
     //
     // === End of Touch section
     //

@@ -9,7 +9,7 @@
 // Created by Rei Vilo, 14 Jun 2013
 // Last updated by Rei Vilo, 25 Jan 2022
 //
-// Copyright (c) Rei Vilo, 2010-2024
+// Copyright (c) Rei Vilo, 2010-2025
 // Licence All rights reserved
 //
 // See hV_GUI.h and ReadMe.txt for references
