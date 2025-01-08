@@ -45,10 +45,7 @@
 /// - Flash the compiled Fonts_3.hex on the external SPI Flash with Segger J-Flash or similar
 ///
 
-// SDK
-#include "hV_HAL_Peripherals.h"
-
-// Configuration
+// SDK and configuration
 #include "PDLS_Common.h"
 
 // The Arduino IDE does not allow to select the libraries, hence this condition.

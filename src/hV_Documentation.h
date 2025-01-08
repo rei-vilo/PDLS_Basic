@@ -19,6 +19,7 @@
 /// The library supports the screens through drivers
 ///
 /// * iTC monochrome [with wide temperature and embedded fast update](https://www.pervasivedisplays.com/products/?_sft_etc_itc=pu&_sft_temperature_range=m15c-to-p60c&_sft_product_colour=black-white) (film `K`),
+/// * iTC monochrome [with touch](https://www.pervasivedisplays.com/products/?_sft_etc_itc=tp),
 /// * iTC colour [black-white-red-yellow](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white-red-yellow) (film `Q`);
 ///
 /// the extension boards
@@ -36,7 +37,6 @@
 /// Legacy release 8 supports the screens
 ///
 /// * iTC monochrome [with normal update](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white) (film `C`),
-/// * iTC monochrome [with touch](https://www.pervasivedisplays.com/products/?_sft_etc_itc=tp),
 /// * iTC monochrome [with embedded fast update](https://www.pervasivedisplays.com/products/?_sft_etc_itc=pu&_sft_product_colour=black-white) (film `P`), and
 /// * iTC colour [black-white-red](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white-red) (film `J`).
 ///
@@ -92,66 +92,79 @@
 ///
 /// Examples are under the examples folders.
 ///
-/// * Common
-///     * Common_Colours.ino
+/// **Common**
+///
+/// * Common_Colours.ino
 /// @image html T2_PALET.jpg
 /// @image latex T2_PALET.jpg width=8cm
-///     * Common_Fonts.ino
+/// * Common_Fonts.ino
 /// @image html T2_FONTS.jpg
 /// @image latex T2_FONTS.jpg width=8cm
-///     * Common_Orientation.ino
+/// * Common_Orientation.ino
 /// @image html T2_ORIEN.jpg
 /// @image latex T2_ORIEN.jpg width=8cm
-///     * Common_Forms.ino
+/// * Common_Forms.ino
 /// @image html T2_FORMS.jpg
 /// @image latex T2_FORMS.jpg width=8cm
-///     * Common_Text.ino
+/// * Common_Text.ino
 /// @image html T2_CHARA.jpg
 /// @image latex T2_CHARA.jpg width=8cm
-///     * Common_WhoAmI.ino
+/// * Common_WhoAmI.ino
 /// @image html T2_WHOAMI.jpg
 /// @image latex T2_WHOAMI.jpg width=8cm
 ///
-/// * Black-White-Red-Yellow
-///     * BWRY_Colours.ino
+/// **Black-White-Red-Yellow**
+///
+/// The examples below require a colour Black-White-Red-Yellow screen (film `Q`).
+///
+/// * BWRY_Colours.ino
 /// @image html BWRY_Colours.jpg
 /// @image latex BWRY_Colours.jpg width=8cm
-///     * BWRY_Palette.ino
+/// * BWRY_Palette.ino
 /// @image html BWRY_Palette.jpg
 /// @image latex BWRY_Palette.jpg width=8cm
-///     * BWRY_Contrasts.ino
+/// * BWRY_Contrasts.ino
 /// @image html BWRY_Contrasts.jpg
 /// @image latex BWRY_Contrasts.jpg width=8cm
 ///
-/// * Wide
-///     * Fast_Line.ino
-///     * Normal_Speed.ino
+/// **Wide**
+///
+/// The examples below require a screen with wide temperature and embedded fast update (film `K`).
+///
+/// * Fast_Line.ino
+/// * Normal_Speed.ino
 /// @image html Global.jpg
 /// @image latex Global.jpg width=8cm
-///     * Fast_Orientation.ino
-///     * Fast_Speed.ino
+/// * Fast_Orientation.ino
+/// * Fast_Speed.ino
 /// @image html Fast.jpg
 /// @image latex Fast.jpg width=8cm
-///     * Fast_Temperature.ino
+/// * Fast_Temperature.ino
 ///
-/// * EXT4
-///     * EXT4_Accelerometer.ino
+/// **EXT4**
+///
+/// The examples below require the EXT4 extension board.
+///
+/// * EXT4_Accelerometer.ino
 /// @image html EXT4_8.gif
 /// @image latex EXT4_8.gif width=8cm
-///     * EXT4_LargeFont.ino
+/// * EXT4_LargeFont.ino
 /// @image html EXT4_7.jpg
 /// @image latex EXT4_7.jpg width=8cm
-///     * EXT4_Weather.ino
+/// * EXT4_Weather.ino
 /// @image html EXT4_3.jpg
 /// @image latex EXT4_3.jpg width=8cm
-///     * EXT4_WhoAmI.ino
-///     * EXT4_WS2813C.ino
+/// * EXT4_WhoAmI.ino
+/// * EXT4_WS2813C.ino
 ///
-/// * EXT4 Matter
-///     * EXT4_Matter_RGB.ino
+/// **EXT4 Matter**
+///
+/// The examples below require the EXT4 extension board and a controller board supported by the Silicon Labs Core for Arduino, like the Arduino Nano Matter.
+///
+/// * EXT4_Matter_RGB.ino
 /// @image html EXT4_4.jpg
 /// @image latex EXT4_4.jpg width=8cm
-///     * EXT4_Matter_Weather.ino
+/// * EXT4_Matter_Weather.ino
 /// @image html EXT4_3.jpg
 /// @image latex EXT4_3.jpg width=8cm
 ///

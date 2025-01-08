@@ -1001,11 +1001,15 @@ void Screen_EPD::suspend(uint8_t suspendScope)
 {
     // s_driver->b_suspend(); // GPIO
     if (s_driver->b_pin.panelPower != NOT_CONNECTED)
-    if ((suspendScope & FSM_GPIO_MASK) == FSM_GPIO_MASK)
-    if ((s_driver->b_fsmPowerScreen & FSM_GPIO_MASK) == FSM_GPIO_MASK)
     {
-        s_driver->b_suspend(); // GPIO
-        s_driver->b_fsmPowerScreen &= ~FSM_GPIO_MASK;
+        if ((suspendScope & FSM_GPIO_MASK) == FSM_GPIO_MASK)
+        {
+            if ((s_driver->b_fsmPowerScreen & FSM_GPIO_MASK) == FSM_GPIO_MASK)
+            {
+                s_driver->b_suspend(); // GPIO
+                s_driver->b_fsmPowerScreen &= ~FSM_GPIO_MASK;
+            }
+        }
     }
 }
 
