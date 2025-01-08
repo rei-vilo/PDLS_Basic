@@ -115,7 +115,7 @@ void displayWhoAmI()
     y = myScreen.screenSizeY() - myScreen.characterSizeY() - 4;
     myScreen.gText(x, y, text);
 
-#else
+#elif (STRING_MODE == USE_CHAR_ARRAY)
 
     char text[64];
     strcpy(text, myScreen.screenNumber().c_str());

@@ -108,7 +108,16 @@ void displayContrastsBWRY()
         for (uint8_t j = 0; j < grid; j++)
         {
             myScreen.dRectangle(x0 + dz * i, y0 + dz * j, dz, dz, colours[i]);
+
+#if (STRING_MODE == USE_STRING_OBJECT)
+
             myScreen.gText(x0 + dz * i + dx, y0 + dz * j + dy, String(label[j]), colours[j]);
+
+#elif (STRING_MODE == USE_CHAR_ARRAY)
+
+            myScreen.gText(x0 + dz * i + dx, y0 + dz * j + dy, label[j], colours[j]);
+
+#endif // STRING_MODE
         }
     }
 

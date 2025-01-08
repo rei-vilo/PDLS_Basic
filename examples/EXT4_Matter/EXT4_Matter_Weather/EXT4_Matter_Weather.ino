@@ -306,8 +306,8 @@ void displayAbout()
     myScreen.gText(x, y, formatString("%8s %s", "Number", myScreen.screenNumber().c_str()));
     y += dy;
     myScreen.gText(x, y, formatString("%8s %s", "PDLS", myScreen.reference().c_str()));
-
     y += dy;
+
     myScreen.setPenSolid(true);
     myScreen.dRectangle(x + dy * 0, y, dy - 1, dy - 1, myColours.black);
     myScreen.setPenSolid(false);

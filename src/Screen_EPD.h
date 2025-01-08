@@ -64,9 +64,9 @@
 ///
 /// @brief Class for Pervasive Displays iTC screens
 /// @details Screen controllers
-/// * LCD: proprietary, SPI
-/// * touch: proprietary, I2C
-/// * fonts: no external Flash
+/// * LCD: Proprietary, SPI
+/// * Touch: Proprietary, I2C
+/// * Fonts: No external Flash
 ///
 /// @note All commands work on the frame-buffer,
 /// to be displayed on screen with flush()

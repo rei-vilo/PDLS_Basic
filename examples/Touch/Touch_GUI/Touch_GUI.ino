@@ -48,7 +48,7 @@
 
 // Define variables and constants
 // Driver
-// Driver_EPD myDriver(eScreen_EPD_370_PS_0C_Touch, boardRaspberryPiPico_RP2040);
+// Pervasive_Touch_Small myDriver(eScreen_EPD_370_PS_0C_Touch, boardRaspberryPiPico_RP2040);
 Pervasive_Touch_Small myDriver(eScreen_EPD_271_KS_09_Touch, boardRaspberryPiPico_RP2040);
 
 // Screen

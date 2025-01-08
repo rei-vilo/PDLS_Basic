@@ -145,16 +145,16 @@ void setup()
 #if (DISPLAY_FORMS == 1)
 
     hV_HAL_log(LEVEL_INFO, "DISPLAY_FORMS");
-               myScreen.clear();
-               displayForms();
-               wait(8);
+    myScreen.clear();
+    displayForms();
+    wait(8);
 
 #endif // DISPLAY_FORMS
 
-               hV_HAL_log(LEVEL_INFO, "Regenerate");
-               myScreen.regenerate();
+    hV_HAL_log(LEVEL_INFO, "Regenerate");
+    myScreen.regenerate();
 
-               hV_HAL_exit();
+    hV_HAL_exit();
 }
 
 ///
