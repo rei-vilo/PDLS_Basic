@@ -32,7 +32,7 @@
 // #include <SPI.h>
 
 // Driver
-#include "Driver_EPD_Touch_Small.h"
+#include "Pervasive_Touch_Small.h"
 
 // Screen
 #include "PDLS_Basic.h"
@@ -53,7 +53,7 @@
 // Define variables and constants
 // Driver
 // Driver_EPD myDriver(eScreen_EPD_370_PS_0C_Touch, boardRaspberryPiPico_RP2040);
-Driver_EPD_Touch_Small myDriver(eScreen_EPD_271_KS_09_Touch, boardRaspberryPiPico_RP2040);
+Pervasive_Touch_Small myDriver(eScreen_EPD_271_KS_09_Touch, boardRaspberryPiPico_RP2040);
 
 // Screen
 Screen_EPD myScreen(&myDriver);
@@ -65,7 +65,7 @@ struct coordinates_s
 };
 
 coordinates_s coordinates;
-uint8_t fontMedium;
+uint8_t fontVery, fontLarge, fontMedium, fontSmall;
 
 // Define variables and constants
 uint16_t x, y, dx, dy;

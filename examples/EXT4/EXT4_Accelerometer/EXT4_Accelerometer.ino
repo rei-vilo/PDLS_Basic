@@ -28,7 +28,7 @@
 #include "PDLS_Common.h"
 
 // Driver
-#include "Driver_EPD_Wide_Small.h"
+#include "Pervasive_Wide_Small.h"
 
 // Screen
 #include "PDLS_Basic.h"
@@ -52,7 +52,7 @@
 // Define variables and constants
 pins_t myBoard = boardArduinoNanoMatter;
 // pins_t myBoard = boardSiLabsBG24Explorer;
-Driver_EPD_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
+Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
 Screen_EPD myScreen(&myDriver);
 
 uint8_t fontSmall, fontMedium, fontLarge, fontVery;

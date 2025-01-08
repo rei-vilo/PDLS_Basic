@@ -42,7 +42,7 @@
 #include "PDLS_Common.h"
 
 // Driver
-#include "Driver_EPD_Wide_Small.h"
+#include "Pervasive_Wide_Small.h"
 
 // Screen
 #include "PDLS_Basic.h"
@@ -90,7 +90,7 @@ pins_t myBoard = boardArduinoNanoMatter;
 
 // Driver
 // pins_t myBoard = boardSiLabsBG24Explorer;
-Driver_EPD_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
+Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
 
 // Screen
 Screen_EPD myScreen(&myDriver);
@@ -119,8 +119,6 @@ static uint32_t chrono32 = 0;
 static uint8_t countFlush = 1; // Counter for normal update
 const uint8_t FAST_BEFORE_NORMAL = 8; // Number of fast updates before normal update
 bool flagDisplay = true;
-
-uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 
 // Prototypes
 
@@ -307,7 +305,8 @@ void displayAbout()
     y += dy;
     myScreen.gText(x, y, formatString("%8s %s", "Number", myScreen.screenNumber().c_str()));
     y += dy;
-    myScreen.gText(x, y, formatString("%8s %s v%i.%i.%i", "PDLS", SCREEN_EPD_EXT3_VARIANT, SCREEN_EPD_EXT3_RELEASE / 100, (SCREEN_EPD_EXT3_RELEASE / 10) % 10, SCREEN_EPD_EXT3_RELEASE % 10));
+    myScreen.gText(x, y, formatString("%8s %s", "PDLS", myScreen.reference().c_str()));
+
     y += dy;
     myScreen.setPenSolid(true);
     myScreen.dRectangle(x + dy * 0, y, dy - 1, dy - 1, myColours.black);
@@ -671,7 +670,7 @@ void setup()
     y += dy;
     myScreen.flush();
 
-    while (!myMatterRGB.is_online())
+    while (!myMatterTemperature.is_online())
     {
         hV_HAL_delayMilliseconds(200);
     }

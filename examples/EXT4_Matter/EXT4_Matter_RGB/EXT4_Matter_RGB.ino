@@ -44,7 +44,7 @@
 #include "PDLS_Common.h"
 
 // Driver
-#include "Driver_EPD_Wide_Small.h"
+#include "Pervasive_Wide_Small.h"
 
 // Screen
 #include "PDLS_Basic.h"
@@ -92,7 +92,7 @@ pins_t myBoard = boardArduinoNanoMatter;
 
 // Driver
 // pins_t myBoard = boardSiLabsBG24Explorer;
-Driver_EPD_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
+Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
 
 // Screen
 Screen_EPD myScreen(&myDriver);
@@ -246,7 +246,7 @@ void displayValue(bool flag)
 
             // Release 2.2.0 replaces set_all() by set_all()
             myRGB.set_all(wsRed, wsGreen, wsBlue);
-            hV_HAL_log(LEVEL_INFO, formatString("Setting bulb color to > r: %u  g: %u  b: %u", r, g, b));
+            hV_HAL_log(LEVEL_INFO, "Setting bulb color to > r: %u  g: %u  b: %u", r, g, b);
             mySerial.println();
         }
         else
@@ -329,7 +329,7 @@ void displayAbout()
     y += dy;
     myScreen.gText(x, y, formatString("%8s %s", "Number", myScreen.screenNumber().c_str()));
     y += dy;
-    myScreen.gText(x, y, formatString("%8s %s v%i.%i.%i", "PDLS", SCREEN_EPD_EXT3_VARIANT, SCREEN_EPD_EXT3_RELEASE / 100, (SCREEN_EPD_EXT3_RELEASE / 10) % 10, SCREEN_EPD_EXT3_RELEASE % 10));
+    myScreen.gText(x, y, formatString("%8s %s", "PDLS", myScreen.reference().c_str()));
     y += dy;
     myScreen.setPenSolid(true);
     myScreen.dRectangle(x + dy * 0, y, dy - 1, dy - 1, myColours.black);

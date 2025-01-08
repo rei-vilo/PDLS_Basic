@@ -28,7 +28,7 @@
 #include "PDLS_Common.h"
 
 // Driver
-#include "Driver_EPD_Wide_Small.h"
+#include "Pervasive_Wide_Small.h"
 
 // Screen
 #include "PDLS_Basic.h"
@@ -52,12 +52,12 @@ pins_t myBoard = boardArduinoNanoMatter;
 // pins_t myBoard = boardSiLabsBG24Explorer;
 
 // Driver
-// Driver_EPD_Wide_Small myDriver(eScreen_EPD_152_KS_0J, myBoard);
-// Driver_EPD_Wide_Small myDriver(eScreen_EPD_206_KS_0E, myBoard);
-// Driver_EPD_Wide_Small myDriver(eScreen_EPD_213_KS_0E, myBoard);
-// Driver_EPD_Wide_Small myDriver(eScreen_EPD_266_KS_0C, myBoard);
-// Driver_EPD_Wide_Small myDriver(eScreen_EPD_271_KS_0C, myBoard);
-Driver_EPD_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
+// Pervasive_Wide_Small myDriver(eScreen_EPD_152_KS_0J, myBoard);
+// Pervasive_Wide_Small myDriver(eScreen_EPD_206_KS_0E, myBoard);
+// Pervasive_Wide_Small myDriver(eScreen_EPD_213_KS_0E, myBoard);
+// Pervasive_Wide_Small myDriver(eScreen_EPD_266_KS_0C, myBoard);
+// Pervasive_Wide_Small myDriver(eScreen_EPD_271_KS_0C, myBoard);
+Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
 
 // Screen
 Screen_EPD myScreen(&myDriver);
@@ -107,10 +107,23 @@ void displayWhoAmI()
     myScreen.dRectangle(x + dy * 1, y, dy - 1, dy - 1, myColours.black);
 
     myScreen.selectFont(fontSmall);
-    char * text = myScreen.screenNumber();
+
+#if (STRING_MODE == USE_STRING_OBJECT)
+    
+    String text = myScreen.screenNumber();
     x = myScreen.screenSizeX() - myScreen.stringSizeX(text) - 4;
     y = myScreen.screenSizeY() - myScreen.characterSizeY() - 4;
     myScreen.gText(x, y, text);
+
+#else
+
+    char text[64];
+    strcpy(text, myScreen.screenNumber().c_str());
+    x = myScreen.screenSizeX() - myScreen.stringSizeX(text) - 4;
+    y = myScreen.screenSizeY() - myScreen.characterSizeY() - 4;
+    myScreen.gText(x, y, text);
+
+#endif // STRING_MODE
 
     myScreen.flush();
 }

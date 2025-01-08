@@ -32,7 +32,7 @@
 // #include <SPI.h>
 
 // Driver
-#include "Driver_EPD_Touch_Small.h"
+#include "Pervasive_Touch_Small.h"
 
 // Screen
 #include "PDLS_Basic.h"
@@ -49,13 +49,13 @@
 // Define variables and constants
 // Driver
 // Driver_EPD myDriver(eScreen_EPD_370_PS_0C_Touch, boardRaspberryPiPico_RP2040);
-Driver_EPD_Touch_Small myDriver(eScreen_EPD_271_KS_09_Touch, boardRaspberryPiPico_RP2040);
+Pervasive_Touch_Small myDriver(eScreen_EPD_271_KS_09_Touch, boardRaspberryPiPico_RP2040);
 
 // Screen
 Screen_EPD myScreen(&myDriver);
 
 const uint8_t myOrientation = ORIENTATION_LANDSCAPE;
-uint8_t fontExtra, fontLarge, fontMedium, fontSmall;
+uint8_t fontVery, fontLarge, fontMedium, fontSmall;
 
 #ifndef WITH_TOUCH
 #error Required WITH_TOUCH

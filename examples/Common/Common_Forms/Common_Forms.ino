@@ -31,7 +31,7 @@
 // #include <SPI.h>
 
 // Driver
-#include "Driver_EPD_Wide_Small.h"
+#include "Pervasive_Wide_Small.h"
 
 // Screen
 #include "PDLS_Basic.h"
@@ -47,7 +47,7 @@
 
 // Define variables and constants
 // Driver
-Driver_EPD_Wide_Small myDriver(eScreen_EPD_271_KS_09, boardRaspberryPiPico_RP2040);
+Pervasive_Wide_Small myDriver(eScreen_EPD_271_KS_09, boardRaspberryPiPico_RP2040);
 
 // Screen
 Screen_EPD myScreen(&myDriver);
@@ -144,17 +144,17 @@ void setup()
     // Example
 #if (DISPLAY_FORMS == 1)
 
-    hV_HAL_log(LEVEL_INFO, ("DISPLAY_FORMS");
-    myScreen.clear();
-    displayForms();
-    wait(8);
+    hV_HAL_log(LEVEL_INFO, "DISPLAY_FORMS");
+               myScreen.clear();
+               displayForms();
+               wait(8);
 
 #endif // DISPLAY_FORMS
 
-    hV_HAL_log(LEVEL_INFO, "Regenerate");
-    myScreen.regenerate();
+               hV_HAL_log(LEVEL_INFO, "Regenerate");
+               myScreen.regenerate();
 
-    hV_HAL_exit();
+               hV_HAL_exit();
 }
 
 ///

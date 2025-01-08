@@ -31,7 +31,7 @@
 // #include <SPI.h>
 
 // Driver
-#include "Driver_EPD_Wide_Small.h"
+#include "Pervasive_Wide_Small.h"
 
 // Screen
 #include "PDLS_Basic.h"
@@ -50,7 +50,7 @@
 
 // Define variables and constants
 // Driver
-Driver_EPD_Wide_Small myDriver(eScreen_EPD_290_KS_0F, boardRaspberryPiPico_RP2040);
+Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, boardRaspberryPiPico_RP2040);
 
 // Screen
 Screen_EPD myScreen(&myDriver);
@@ -84,7 +84,7 @@ void flush_ms()
 {
     uint32_t chrono = (uint32_t)hV_HAL_getMilliseconds();
     myScreen.flush();
-    hV_HAL_log(LEVEL_INFO, hV_HAL_getMilliseconds() - chrono);
+    hV_HAL_log(LEVEL_INFO, "%i", hV_HAL_getMilliseconds() - chrono);
     mySerial.println(" ms");
 }
 
@@ -182,3 +182,4 @@ void loop()
 {
     hV_HAL_delayMilliseconds(1000);
 }
+
