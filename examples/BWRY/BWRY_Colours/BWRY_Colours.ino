@@ -31,7 +31,7 @@
 // #include <SPI.h>
 
 // Driver
-#include "Driver_EPD_BWRY_Small.h"
+#include "Pervasive_BWRY_Small.h"
 
 // Screen
 #include "PDLS_Basic.h"
@@ -50,9 +50,9 @@
 
 // Define variables and constants
 // Driver
-Driver_EPD_BWRY_Small myDriver(eScreen_EPD_154_QS_0F, boardRaspberryPiPico_RP2040);
-// Driver_EPD_BWRY_Small myDriver(eScreen_EPD_213_QS_0F, boardRaspberryPiPico_RP2040);
-// Driver_EPD_BWRY_Small myDriver(eScreen_EPD_266_QS_0F, boardRaspberryPiPico_RP2040);
+Pervasive_BWRY_Small myDriver(eScreen_EPD_154_QS_0F, boardRaspberryPiPico_RP2040);
+// Pervasive_BWRY_Small myDriver(eScreen_EPD_213_QS_0F, boardRaspberryPiPico_RP2040);
+// Pervasive_BWRY_Small myDriver(eScreen_EPD_266_QS_0F, boardRaspberryPiPico_RP2040);
 
 // Screen
 Screen_EPD myScreen(&myDriver);
