@@ -14,6 +14,18 @@
 ///
 /// It provides a high-level interface to drive the e-paper screens with normal and fast update, supports capacitive touch and haptic feed-back.
 ///
+/// @warning The following libraries are legacy and remain available. 
+/// * `PDLS_EXT3_Basic_Global`
+/// * `PDLS_EXT3_Basic_Fast`, and 
+/// * `PDLS_EXT4_Basic_Matter`.
+/// 
+/// @deprecated The following libraries and deprecated and replaced by `PDLS_Basic` with a driver (9.0.0).
+/// * `PDLS_EXT4_Basic_BWRY` replaced by `PDLS_Basic` with driver `Pervasive_BWRY_Small`, 
+/// * `PDLS_EXT4_Basic_Wide` replaced by `PDLS_Basic` with drivers `Pervasive_Wide_Small` or `Pervasive_Wide_Medium`, and
+/// * `PDLS_EXT4_Basic_Touch` replaced by `PDLS_Basic` with driver `Pervasive_Touch_Small`.
+/// 
+/// @note The technical note [Migrate from release 8 to release 9](https://pdls.pervasivedisplays.com/userguide/Volume5/Chapter1/Part6/Section22/) provides more information. 
+///
 /// Release 9 inaugurates a new structure based on drivers developed by Pervasive Displays.
 ///
 /// The library supports the screens through drivers
