@@ -14,18 +14,6 @@
 ///
 /// It provides a high-level interface to drive the e-paper screens with normal and fast update, supports capacitive touch and haptic feed-back.
 ///
-/// @warning The following libraries are legacy and remain available. 
-/// * `PDLS_EXT3_Basic_Global`
-/// * `PDLS_EXT3_Basic_Fast`, and 
-/// * `PDLS_EXT4_Basic_Matter`.
-/// 
-/// @deprecated The following libraries and deprecated and replaced by `PDLS_Basic` with a driver (9.0.0).
-/// * `PDLS_EXT4_Basic_BWRY` replaced by `PDLS_Basic` with driver `Pervasive_BWRY_Small`, 
-/// * `PDLS_EXT4_Basic_Wide` replaced by `PDLS_Basic` with drivers `Pervasive_Wide_Small` or `Pervasive_Wide_Medium`, and
-/// * `PDLS_EXT4_Basic_Touch` replaced by `PDLS_Basic` with driver `Pervasive_Touch_Small`.
-/// 
-/// @note The technical note [Migrate from release 8 to release 9](https://pdls.pervasivedisplays.com/userguide/Volume5/Chapter1/Part6/Section22/) provides more information. 
-///
 /// Release 9 inaugurates a new structure based on drivers developed by Pervasive Displays.
 ///
 /// The library supports the screens through drivers
@@ -71,8 +59,8 @@
 /// Additionally, the **[Pervasive Displays Technical Wiki](https://docs.pervasivedisplays.com/)** provides a gradual introduction to the e-paper technology and how to use it.
 ///
 /// @author Rei Vilo
-/// @date 21 Jan 2025
-/// @version 903
+/// @date 21 Feb 2025
+/// @version 904
 ///
 /// @copyright &copy; Rei Vilo, 2010-2025
 /// @copyright All rights reserved
@@ -99,6 +87,24 @@
 /// @b Disclaimer
 ///
 /// The software, including the related documentation, is provided to you "as is," and we make no express or implied warranties whatsoever with respect to its functionality, operability, or use, including, without limitation, any implied warranties of merchantability, fitness for a particular purpose, or infringement. We expressly disclaim any liability whatsoever for any direct, indirect, consequential, incidental or special damages, including, without limitation, lost revenues, lost profits, losses resulting from business interruption or loss of data, regardless of the form of action or legal theory under which the liability may be asserted, even if advised of the possibility or likelihood of such damages.
+///
+/// @page Release9 New release 9
+///
+/// Release 9 inaugurates a new structure based on drivers developed by Pervasive Displays.
+///
+/// @warning The following libraries are legacy and remain available. 
+/// * `PDLS_EXT3_Advanced_Global`
+/// * `PDLS_EXT3_Advanced_Fast`, and 
+/// * `PDLS_EXT4_Advanced_Matter`.
+/// 
+/// @deprecated The following libraries and deprecated and replaced by `PDLS_Advanced` with a driver (9.0.0).
+/// * `PDLS_EXT4_Advanced_BWRY` is replaced by `PDLS_Advanced` with the driver `Pervasive_BWRY_Small`, 
+/// * `PDLS_EXT4_Advanced_Wide` is replaced by `PDLS_Advanced` with the drivers `Pervasive_Wide_Small` or `Pervasive_Wide_Medium`, and
+/// * `PDLS_EXT4_Advanced_Touch` is replaced by `PDLS_Advanced` with the driver `Pervasive_Touch_Small`.
+/// 
+/// @note The technical note [Migrate from release 8 to release 9](https://pdls.pervasivedisplays.com/userguide/Volume5/Chapter1/Part6/Section22/) provides more information. 
+///
+/// the drivers are avaialble at [Pervasive Displays](Pervasive Displays) GitHub repository.
 ///
 /// @page Examples Examples
 ///
