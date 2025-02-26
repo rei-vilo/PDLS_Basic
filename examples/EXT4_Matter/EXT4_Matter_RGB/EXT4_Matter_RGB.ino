@@ -150,11 +150,11 @@ void displayValue(bool flag = true);
 ///
 /// @param button GPIO of the button
 /// @param title text for title
-/// @param option1 text for option 0, required
-/// @param option2 text for option 1, optional
-/// @param option3 text for option 2, optional
-/// @param option4 text for option 3, optional
-/// @return number of the selected option
+/// @param option1 text for option 1, required
+/// @param option2 text for option 2, optional
+/// @param option3 text for option 3, optional
+/// @param option4 text for option 4, optional
+/// @return number of the selected option, 0 = none
 /// @note Procedure
 /// * Press and hold the button to choose the option
 /// * A progress bar shows the selected option

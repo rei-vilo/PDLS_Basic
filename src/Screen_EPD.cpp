@@ -564,6 +564,11 @@ void Screen_EPD::flush()
 
         FRAMEBUFFER_TYPE nextBuffer = s_newImage;
         FRAMEBUFFER_TYPE previousBuffer = s_newImage + u_pageColourSize;
+        // FRAMEBUFFER_TYPE frameM1 = nextBuffer;
+        // FRAMEBUFFER_TYPE frameM2 = previousBuffer;
+        // FRAMEBUFFER_TYPE frameS1 = nextBuffer + u_subPageColourSize;
+        // FRAMEBUFFER_TYPE frameS2 = previousBuffer + u_subPageColourSize;
+
         FRAMEBUFFER_TYPE blackBuffer = s_newImage;
         FRAMEBUFFER_TYPE redBuffer = s_newImage + u_pageColourSize;
         FRAMEBUFFER_TYPE frameM1 = blackBuffer;

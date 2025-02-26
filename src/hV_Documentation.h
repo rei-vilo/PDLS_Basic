@@ -104,7 +104,7 @@
 /// 
 /// @note The technical note [Migrate from release 8 to release 9](https://pdls.pervasivedisplays.com/userguide/Volume5/Chapter1/Part6/Section22/) provides more information. 
 ///
-/// the drivers are avaialble at [Pervasive Displays](Pervasive Displays) GitHub repository.
+/// The drivers are available at the [Pervasive Displays](https://github.com/PervasiveDisplays) GitHub repository.
 ///
 /// @page Examples Examples
 ///
