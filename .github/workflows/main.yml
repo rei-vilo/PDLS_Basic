@@ -10,4 +10,3 @@ jobs:
         with:
           library-manager: update
           compliance: permissive
-          
