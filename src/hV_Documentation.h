@@ -60,7 +60,7 @@
 ///
 /// @author Rei Vilo
 /// @date 21 Feb 2025
-/// @version 905
+/// @version 906
 ///
 /// @copyright &copy; Rei Vilo, 2010-2025
 /// @copyright All rights reserved

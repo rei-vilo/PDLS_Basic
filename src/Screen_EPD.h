@@ -6,8 +6,8 @@
 /// @n Based on highView technology
 ///
 /// @author Rei Vilo
-/// @date 21 Jan 2025
-/// @version 904
+/// @date 21 Feb 2025
+/// @version 906
 ///
 /// @copyright (c) Rei Vilo, 2010-2025
 /// @copyright All rights reserved
@@ -50,7 +50,7 @@
 ///
 /// @brief Library release number
 ///
-#define SCREEN_EPD_RELEASE 904
+#define SCREEN_EPD_RELEASE 906
 
 #include "Driver_EPD_Virtual.h"
 
