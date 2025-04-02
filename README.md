@@ -84,11 +84,13 @@ Hardware
 
 ## Licence
 
-**Copyright** &copy; Rei Vilo, 2010-2025
+**Copyright** &copy; Pervasive Displays Inc., 2021-2025, under licence by Rei Vilo
 
 *For exclusive use with Pervasive Displays screens*
 
 **Licence** [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](./LICENCE.md)
 
 ![](img/by-sa.svg)
+
+**Copyright** &copy; Rei Vilo, 2010-2025
 

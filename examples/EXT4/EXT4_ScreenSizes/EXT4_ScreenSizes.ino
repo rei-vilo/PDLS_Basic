@@ -109,7 +109,7 @@ void displayWhoAmI()
     myScreen.selectFont(fontSmall);
 
 #if (STRING_MODE == USE_STRING_OBJECT)
-    
+
     String text = myScreen.screenNumber();
     x = myScreen.screenSizeX() - myScreen.stringSizeX(text) - 4;
     y = myScreen.screenSizeY() - myScreen.characterSizeY() - 4;

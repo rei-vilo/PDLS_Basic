@@ -59,12 +59,15 @@
 /// Additionally, the **[Pervasive Displays Technical Wiki](https://docs.pervasivedisplays.com/)** provides a gradual introduction to the e-paper technology and how to use it.
 ///
 /// @author Rei Vilo
-/// @date 21 Feb 2025
-/// @version 906
+/// @date 21 Mar 2025
+/// @version 907
 ///
+/// @copyright &copy; Pervasive Displays Inc., 2021-2025, under licence by Rei Vilo
+/// @copyright All rights reserved
+/// @copyright *For exclusive use with Pervasive Displays screens*
+/// @n
 /// @copyright &copy; Rei Vilo, 2010-2025
 /// @copyright All rights reserved
-/// @copyright For exclusive use with Pervasive Displays screens
 ///
 /// * Basic edition: for hobbyists and for basic usage
 /// @n Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
@@ -92,17 +95,17 @@
 ///
 /// Release 9 inaugurates a new structure based on drivers developed by Pervasive Displays.
 ///
-/// @warning The following libraries are legacy and remain available. 
+/// @warning The following libraries are legacy and remain available.
 /// * `PDLS_EXT3_Advanced_Global`
-/// * `PDLS_EXT3_Advanced_Fast`, and 
+/// * `PDLS_EXT3_Advanced_Fast`, and
 /// * `PDLS_EXT4_Advanced_Matter`.
-/// 
+///
 /// @deprecated The following libraries and deprecated and replaced by `PDLS_Advanced` with a driver (9.0.0).
-/// * `PDLS_EXT4_Advanced_BWRY` is replaced by `PDLS_Advanced` with the driver `Pervasive_BWRY_Small`, 
+/// * `PDLS_EXT4_Advanced_BWRY` is replaced by `PDLS_Advanced` with the driver `Pervasive_BWRY_Small`,
 /// * `PDLS_EXT4_Advanced_Wide` is replaced by `PDLS_Advanced` with the drivers `Pervasive_Wide_Small` or `Pervasive_Wide_Medium`, and
 /// * `PDLS_EXT4_Advanced_Touch` is replaced by `PDLS_Advanced` with the driver `Pervasive_Touch_Small`.
-/// 
-/// @note The technical note [Migrate from release 8 to release 9](https://pdls.pervasivedisplays.com/userguide/Volume5/Chapter1/Part6/Section22/) provides more information. 
+///
+/// @note The technical note [Migrate from release 8 to release 9](https://pdls.pervasivedisplays.com/userguide/Volume5/Chapter1/Part6/Section22/) provides more information.
 ///
 /// The drivers are available at the [Pervasive Displays](https://github.com/PervasiveDisplays) GitHub repository.
 ///
