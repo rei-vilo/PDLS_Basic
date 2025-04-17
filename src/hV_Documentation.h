@@ -43,10 +43,15 @@
 /// @b Drivers
 ///
 /// PDLS relies on drivers developed and maintained by Pervasive Displays.
+/// * Pervasive_BWRY_Small
+/// * Pervasive_Wide_Small
+/// * Pervasive_Wide_Medium
+/// * Pervasive_Wide_Large
+/// * Pervasive_Touch_Small
 ///
 /// The drivers are available at the [Pervasive Displays GitHub page](https://github.com/PervasiveDisplays).
 ///
-/// Drivers &copy; Pervasive Displays, 2010-2025
+/// Drivers &copy; Pervasive Displays, 2021-2025
 ///
 /// @b Documentation
 ///
@@ -59,32 +64,32 @@
 /// Additionally, the **[Pervasive Displays Technical Wiki](https://docs.pervasivedisplays.com/)** provides a gradual introduction to the e-paper technology and how to use it.
 ///
 /// @author Rei Vilo
-/// @date 21 Mar 2025
-/// @version 907
+/// @date 21 Apr 2025
+/// @version 908
 ///
-/// @copyright &copy; Pervasive Displays Inc., 2021-2025, under licence by Rei Vilo
+/// @copyright @n &copy; Pervasive Displays Inc., 2021-2025, under licence by Rei Vilo
 /// @copyright All rights reserved
 /// @copyright *For exclusive use with Pervasive Displays screens*
 /// @n
-/// @copyright &copy; Rei Vilo, 2010-2025
+/// @copyright @n &copy; Rei Vilo, 2010-2025
 /// @copyright All rights reserved
 ///
-/// * Basic edition: for hobbyists and for basic usage
+/// * **Basic edition**: for hobbyists and for basic usage
 /// @n Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 /// ([summary](https://creativecommons.org/licenses/by-sa/4.0/deed.en) and [legal code](https://creativecommons.org/licenses/by-sa/4.0/legalcode.en))
 ///
-/// @n Consider the Evaluation or Commercial editions for professionals or organisations and for commercial usage
+/// Consider the Evaluation or Commercial editions for professionals or organisations and for commercial usage
 ///
-/// * Evaluation edition: for professionals or organisations, evaluation only, no commercial usage
+/// * **Evaluation edition**: for professionals or organisations, evaluation only, no commercial usage
 /// @n All rights reserved
 ///
-/// * Commercial edition: for professionals or organisations, commercial usage
+/// * **Commercial edition**: for professionals or organisations, commercial usage
 /// @n All rights reserved
 ///
-/// * Viewer edition: for professionals or organisations
+/// * **Viewer edition**: for professionals or organisations
 /// @n All rights reserved
 ///
-/// * Documentation
+/// * **Documentation**
 /// @n All rights reserved
 ///
 /// @b Disclaimer
