@@ -7,3 +7,4 @@ Doxyfile.dox
 footer.html
 *.ctu-info
 *.dump
+.DS_Store
