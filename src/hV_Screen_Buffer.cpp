@@ -21,6 +21,7 @@
 // Release 703: Improved orientation function
 // Release 801: Improved functions names consistency
 // Release 805: Added large variant for gText()
+// Release 910: Added check on vector coordinates
 //
 
 // Library header
@@ -208,6 +209,11 @@ void hV_Screen_Buffer::circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_
 
 void hV_Screen_Buffer::dLine(uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, uint16_t colour)
 {
+    if ((dx == 0) or (dy == 0))
+    {
+        return;
+    }
+
     line(x0, y0, x0 + dx - 1, y0 + dy - 1, colour);
 }
 
@@ -335,6 +341,11 @@ void hV_Screen_Buffer::rectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t
 
 void hV_Screen_Buffer::dRectangle(uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, uint16_t colour)
 {
+    if ((dx == 0) or (dy == 0))
+    {
+        return;
+    }
+
     rectangle(x0, y0, x0 + dx - 1, y0 + dy - 1, colour);
 }
 
