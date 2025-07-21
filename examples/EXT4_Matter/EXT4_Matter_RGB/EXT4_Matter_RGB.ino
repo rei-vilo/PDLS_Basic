@@ -39,7 +39,7 @@
 /// @n All rights reserved
 ///
 
-// SDK
+// SDK and configuration
 // #include <Arduino.h>
 #include "PDLS_Common.h"
 
@@ -77,7 +77,8 @@
 MatterColorLightbulb myMatterRGB;
 
 // WS2813C
-#include "ezWS2812gpio.h"
+// #include "ezWS2812gpio.h"
+#include "rawWS2813C.h"
 
 // Set parameters
 #define MATTER_EXAMPLE_NAME "Matter RGB"
@@ -101,7 +102,8 @@ Screen_EPD myScreen(&myDriver);
 uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 
 // WS2813
-ezWS2812gpio myRGB(1, myBoard.ledData);
+// ezWS2812gpio myRGB(1, myBoard.ledData);
+rawWS2813C myRGB(1, myBoard.ledData);
 
 static bool wsState = false;
 const uint8_t wsLimit = 64; // Limit for each RGB channel

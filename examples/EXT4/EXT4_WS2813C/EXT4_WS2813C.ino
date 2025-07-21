@@ -40,12 +40,14 @@
 // Include application, user and local libraries
 // #include <SPI.h>
 
+// Checks: Pervasive Displays EXT4 only
 #if (USE_EXT_BOARD != BOARD_EXT4)
 #error Required USE_EXT_BOARD = BOARD_EXT4
 #endif // USE_EXT_BOARD
 
 // WS2813C
-#include "ezWS2812gpio.h"
+// #include "ezWS2812gpio.h"
+#include "rawWS2813C.h"
 
 // Set parameters
 
@@ -55,7 +57,8 @@
 const pins_t myBoard = boardArduinoNanoMatter;
 
 // WS2813
-ezWS2812gpio myRGB(1, myBoard.ledData);
+// ezWS2812gpio myRGB(1, myBoard.ledData);
+rawWS2813C myRGB(1, myBoard.ledData);
 
 // Prototypes
 
