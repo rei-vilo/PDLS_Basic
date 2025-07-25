@@ -6,8 +6,8 @@
 /// @n Based on highView technology
 ///
 /// @author Rei Vilo
-/// @date 21 Jan 2025
-/// @version 902
+/// @date 21 Aug 2025
+/// @version 912
 ///
 /// @copyright (c) Rei Vilo, 2010-2025
 /// @copyright All rights reserved
@@ -46,6 +46,7 @@
 #endif // USE_EXT_BOARD
 
 // WS2813C
+/// @warning ezWS2812gpio hangs. Back to previous rawWS2813C
 // #include "ezWS2812gpio.h"
 #include "rawWS2813C.h"
 
@@ -57,6 +58,7 @@
 const pins_t myBoard = boardArduinoNanoMatter;
 
 // WS2813
+/// @warning ezWS2812gpio hangs. Back to previous rawWS2813C
 // ezWS2812gpio myRGB(1, myBoard.ledData);
 rawWS2813C myRGB(1, myBoard.ledData);
 

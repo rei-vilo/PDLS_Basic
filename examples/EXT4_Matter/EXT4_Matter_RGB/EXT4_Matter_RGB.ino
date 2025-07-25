@@ -77,6 +77,7 @@
 MatterColorLightbulb myMatterRGB;
 
 // WS2813C
+/// @warning ezWS2812gpio hangs. Back to previous rawWS2813C
 // #include "ezWS2812gpio.h"
 #include "rawWS2813C.h"
 
@@ -102,6 +103,7 @@ Screen_EPD myScreen(&myDriver);
 uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 
 // WS2813
+/// @warning ezWS2812gpio hangs. Back to previous rawWS2813C
 // ezWS2812gpio myRGB(1, myBoard.ledData);
 rawWS2813C myRGB(1, myBoard.ledData);
 
