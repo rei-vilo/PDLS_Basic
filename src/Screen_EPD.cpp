@@ -38,7 +38,10 @@
 // Release 900: Added new driver library
 // Release 901: Added support for screen 340-KS-0G
 // Release 902: Improved power management
-// Release 906: Added support for Wide large screens
+// Release 904: Added report on frame-buffer
+// Release 905: Added support for Wide large screens
+// Release 910: Added check on vector coordinates
+// Release 912: Added temperature functions to driver 
 //
 
 // Library header
@@ -273,6 +276,8 @@ void Screen_EPD::begin()
 
     if (s_newImage == 0)
     {
+        hV_HAL_log(LEVEL_DEBUG, "Create frame-buffer [%i]", u_bufferDepth * u_pageColourSize);
+
         static uint8_t * _newFrameBuffer;
         _newFrameBuffer = (uint8_t *) ps_malloc(u_pageColourSize * u_bufferDepth);
         s_newImage = (uint8_t *) _newFrameBuffer;
@@ -991,6 +996,15 @@ uint16_t Screen_EPD::s_getPoint(uint16_t x1, uint16_t y1)
 //
 // === Power section
 //
+void Screen_EPD::setPanelPowerPin(uint8_t panelPowerPin)
+{
+    s_driver->b_pin.panelPower = panelPowerPin;
+    if (s_driver->b_pin.flashCS == panelPowerPin)
+    {
+        s_driver->b_pin.flashCS = NOT_CONNECTED;
+    }
+}
+
 void Screen_EPD::setPowerProfile(uint8_t mode, uint8_t scope)
 {
     u_suspendMode = mode;
@@ -1033,13 +1047,15 @@ void Screen_EPD::resume()
 //
 void Screen_EPD::setTemperatureC(int8_t temperatureC)
 {
-    s_driver->u_temperature = temperatureC;
+    // s_driver->u_temperature = temperatureC;
+    s_driver->setTemperatureC(temperatureC);
 }
 
 void Screen_EPD::setTemperatureF(int16_t temperatureF)
 {
-    int8_t temperatureC = ((temperatureF - 32) * 5) / 9; // C = (F - 32) * 5 / 9
-    setTemperatureC(temperatureC);
+    // int8_t temperatureC = ((temperatureF - 32) * 5) / 9; // C = (F - 32) * 5 / 9
+    // setTemperatureC(temperatureC);
+    s_driver->setTemperatureF(temperatureF);
 }
 
 uint8_t Screen_EPD::checkTemperatureMode(uint8_t updateMode)

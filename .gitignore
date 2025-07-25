@@ -5,6 +5,7 @@ latex/
 xml/
 Doxyfile.dox
 footer.html
+.github/
 *.ctu-info
 *.dump
 .DS_Store

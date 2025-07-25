@@ -76,6 +76,7 @@
 class hV_Screen_Buffer : protected hV_Font_Terminal
 {
   public:
+
     ///
     /// @brief Constructor
     ///

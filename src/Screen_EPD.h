@@ -6,8 +6,8 @@
 /// @n Based on highView technology
 ///
 /// @author Rei Vilo
-/// @date 21 Apr 2025
-/// @version 908
+/// @date 21 Aug 2025
+/// @version 912
 ///
 /// @copyright (c) Rei Vilo, 2010-2025
 /// @copyright All rights reserved
@@ -50,7 +50,7 @@
 ///
 /// @brief Library release number
 ///
-#define SCREEN_EPD_RELEASE 908
+#define SCREEN_EPD_RELEASE 912
 
 #include "Driver_EPD_Virtual.h"
 
@@ -156,6 +156,15 @@ class Screen_EPD final : public hV_Screen_Buffer
     //
     // === Temperature section
     //
+    ///
+    /// @brief Set panelPower pin
+    /// @param panelPowerPin panelPower pin
+    /// @note EXT4 requires panelPower
+    /// @note If flashCS defined with panelPowerPin, then flashCS set to NOT_CONNECTED
+    /// @warning setPanelPowerPin() should be called before begin()
+    ///
+    void setPanelPowerPin(uint8_t panelPowerPin = NOT_CONNECTED);
+
     ///
     /// @brief Set temperature in Celsius
     /// @details Set the temperature for update
