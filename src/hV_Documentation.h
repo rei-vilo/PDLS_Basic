@@ -5,18 +5,41 @@
 /// @details Project Pervasive Displays Library Suite - Basic edition
 /// @n Based on highView technology
 ///
-/// @mainpage Pervasive Displays Library Suite - Basic edition
+/// @mainpage Software Reference Manual
 ///
-/// @details The Pervasive Displays Library Suite is specifically designed for the [Pervasive Displays](https://www.pervasivedisplays.com/) e-paper screens, extension boards and development kits.
+/// @details The software includes the **drivers** and the **Pervasive Displays Library Suite - Basic edition**.
+///
+/// They are specifically designed for the [Pervasive Displays](https://www.pervasivedisplays.com/) e-paper screens, extension boards and development kits.
 ///
 /// @image html Logo-PDI-text-320.jpeg
 /// @image latex Logo-PDI-text-320.pdf width=10cm
 ///
-/// It provides a high-level interface to drive the e-paper screens with normal and fast update, supports capacitive touch and haptic feed-back.
+/// ## Drivers
+///
+/// The driver library manages the panel and the board. It sends the content of a C-array image to the screen and refreshes the panel. It is based on the film and the size of the screen.
+///
+/// * @ref Pervasive_BWRY_Small
+/// * @ref Pervasive_Wide_Small
+/// * @ref Pervasive_Wide_Medium
+/// * @ref Pervasive_Wide_Large
+/// * @ref Pervasive_Touch_Small
+///
+/// The drivers are available at the [Pervasive Displays GitHub page](https://github.com/PervasiveDisplays).
+///
+/// ## Pervasive Displays Library Suite - Basic edition
+///
+/// The Pervasive Displays Library Suite provides the text and graphics functions and the fonts to generate the image to be displayed through the driver.
+///
+/// * @ref Screen_EPD, derived from
+/// * @ref hV_Screen_Buffer
 ///
 /// Release 9 inaugurates a new structure based on drivers developed by Pervasive Displays.
 ///
-/// The library supports the screens through drivers
+/// PDLS Basic edition is available at the [Pervasive Displays GitHub page](https://github.com/PervasiveDisplays).
+///
+/// ## Scope
+///
+/// The software supports the screens
 ///
 /// * iTC monochrome [with wide temperature and embedded fast update](https://www.pervasivedisplays.com/products/?_sft_etc_itc=pu&_sft_temperature_range=m15c-to-p60c&_sft_product_colour=black-white) (film `K`),
 /// * iTC monochrome [with touch](https://www.pervasivedisplays.com/products/?_sft_etc_itc=tp),
@@ -34,38 +57,11 @@
 /// * [EPD Pico Kit Touch (EPDK-271-Touch)](https://www.pervasivedisplays.com/product/touch-expansion-board-ext3-touch/#tab-3), which includes an EXT3.1 extension board, an EXT3-Touch expansion board, and a 2.71&quot;-Touch monochrome panel with embedded fast update, and
 /// * [E-Paper Development Kit for Matter (EPDK-Matter)](https://www.pervasivedisplays.com/product/epdk-matter/#tab-3), which bundles an Arduino Nano Matter, an EXT4 board and a 2.90&quot; high-definition monochrome panel with embedded fast update and wide temperature.
 ///
-/// Legacy release 8 supports the screens
-///
-/// * iTC monochrome [with normal update](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white) (film `C`),
-/// * iTC monochrome [with embedded fast update](https://www.pervasivedisplays.com/products/?_sft_etc_itc=pu&_sft_product_colour=black-white) (film `P`), and
-/// * iTC colour [black-white-red](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white-red) (film `J`).
-///
-/// @b Drivers
-///
-/// PDLS relies on drivers developed and maintained by Pervasive Displays.
-/// * Pervasive_BWRY_Small
-/// * Pervasive_Wide_Small
-/// * Pervasive_Wide_Medium
-/// * Pervasive_Wide_Large
-/// * Pervasive_Touch_Small
-///
-/// The drivers are available at the [Pervasive Displays GitHub page](https://github.com/PervasiveDisplays).
-///
-/// Drivers &copy; Pervasive Displays, 2021-2025
-///
-/// @b Documentation
-///
-/// The documentation includes two documents:
-///
-/// * This **Reference manual** lists all the objects and functions, with details for their parameters and returned results.
-///
-/// * The [User guide](https://pdls.pervasivedisplays.com/userguide/index.html) focuses on how to use the different libraries, with commented examples.
-///
-/// Additionally, the **[Pervasive Displays Technical Wiki](https://docs.pervasivedisplays.com/)** provides a gradual introduction to the e-paper technology and how to use it.
+/// ## Copyright, licence and disclaimer
 ///
 /// @author Rei Vilo
 /// @date 21 Aug 2025
-/// @version 912
+/// @version 920
 ///
 /// @copyright @n &copy; Pervasive Displays Inc., 2021-2025, under licence by Rei Vilo
 /// @copyright All rights reserved
@@ -92,7 +88,7 @@
 /// * **Documentation**
 /// @n All rights reserved
 ///
-/// @b Disclaimer
+/// ## Disclaimer
 ///
 /// The software, including the related documentation, is provided to you "as is," and we make no express or implied warranties whatsoever with respect to its functionality, operability, or use, including, without limitation, any implied warranties of merchantability, fitness for a particular purpose, or infringement. We expressly disclaim any liability whatsoever for any direct, indirect, consequential, incidental or special damages, including, without limitation, lost revenues, lost profits, losses resulting from business interruption or loss of data, regardless of the form of action or legal theory under which the liability may be asserted, even if advised of the possibility or likelihood of such damages.
 ///
@@ -110,9 +106,19 @@
 /// * `PDLS_EXT4_Advanced_Wide` is replaced by `PDLS_Advanced` with the drivers `Pervasive_Wide_Small` or `Pervasive_Wide_Medium`, and
 /// * `PDLS_EXT4_Advanced_Touch` is replaced by `PDLS_Advanced` with the driver `Pervasive_Touch_Small`.
 ///
-/// @note The technical note [Migrate from release 8 to release 9](https://pdls.pervasivedisplays.com/userguide/Volume5/Chapter1/Part6/Section22/) provides more information.
+/// @note The technical note [Migrate from release 8 to release 9](https://docs.pervasivedisplays.com/knowledge/Software/Volume5/Chapter1/Part6/Section22.html) provides more information.
 ///
 /// The drivers are available at the [Pervasive Displays](https://github.com/PervasiveDisplays) GitHub repository.
+///
+/// @page Release8 Legacy release 8
+///
+/// Legacy release 8 supports the following screens, boards and kits.
+///
+/// Library | Supported screens, boards and kits
+/// ---- | ----
+/// [PDLS_EXT3_Basic_Global](https://github.com/rei-vilo/PDLS_EXT3_Basic_Global) | iTC monochrome screens [with normal update](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white) (film `C`)<br>iTC colour screens [black-white-red](https://www.pervasivedisplays.com/products/?_sft_product_colour=black-white-red) (film `J`);
+/// [PDLS_EXT3_Basic_Fast](https://github.com/rei-vilo/PDLS_EXT3_Basic_Fast) | iTC monochrome screens [with embedded fast update](https://www.pervasivedisplays.com/products/?_sft_etc_itc=pu&_sft_product_colour=black-white) (film `P`);
+/// [PDLS_EXT4_Basic_Matter](https://github.com/rei-vilo/PDLS_EXT4_Basic_Matter) | [EPDK-Matter](https://www.pervasivedisplays.com/product/epdk-matter/) and<br>[EXT4 Extension Board](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-4-ext4/) and<br>iTC monochrome screens [with wide temperature and embedded fast update](https://www.pervasivedisplays.com/products-e-ink-display/?_sft_etc_itc=pu&_sft_temperature_range=m15c-to-p60c&_sft_product_colour=black-white) (film `K`).
 ///
 /// @page Examples Examples
 ///

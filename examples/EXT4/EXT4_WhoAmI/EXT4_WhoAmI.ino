@@ -53,9 +53,14 @@
 // Define structures and classes
 
 // Define variables and constants
+// Board
 pins_t myBoard = boardArduinoNanoMatter;
 // pins_t myBoard = boardSiLabsBG24Explorer;
+
+// Driver
 Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
+
+// Screen
 Screen_EPD myScreen(&myDriver);
 
 uint8_t fontSmall, fontMedium, fontLarge, fontVery;

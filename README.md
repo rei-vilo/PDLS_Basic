@@ -1,12 +1,12 @@
 # Pervasive Displays Library Suite - Basic edition
 
-[![Release](https://img.shields.io/github/v/release/rei-vilo/PDLS_Basic)](https://github.com/rei-vilo/PDLS_Basic/releases) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9f09780839f7479285cb931ffe4954d7)](https://app.codacy.com/gh/rei-vilo/PDLS_Basic/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) ![Arduino lint](https://github.com/rei-vilo/PDLS_Basic/actions/workflows/main.yml/badge.svg) [![GitHub issues](https://img.shields.io/github/issues/rei-vilo/PDLS_Basic)](https://github.com/rei-vilo/PDLS_Basic/issues)
+[![Release](https://img.shields.io/github/v/release/rei-vilo/PDLS_Basic)](https://github.com/rei-vilo/PDLS_Basic/releases) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9f09780839f7479285cb931ffe4954d7)](https://app.codacy.com/gh/rei-vilo/PDLS_Basic/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) ![Arduino lint](https://github.com/rei-vilo/PDLS_Basic/actions/workflows/main.yml/badge.svg) [![GitHub issues](https://img.shields.io/github/issues/pervasivedisplays/PDLS_Basic)](https://github.com/rei-vilo/PDLS_Basic/issues)
 
-[![](https://img.shields.io/badge/-Technical_Wiki-blue)](https://docs.pervasivedisplays.com/) [![](https://img.shields.io/badge/-User_Guide-blue)](https://pdls.pervasivedisplays.com/userguide/index.html) [![](https://img.shields.io/badge/-Reference_Manual-blue)](https://pdls.pervasivedisplays.com/reference/html/index.html)
+[![](https://img.shields.io/badge/-Knowledge_Base-orange)](https://docs.pervasivedisplays.com/knowledge/)
 
 The Pervasive Displays Library Suite is specifically designed for the [Pervasive Displays](https://www.pervasivedisplays.com) e-paper screens, extension boards and evaluation kits.
 
-![](https://pdls.pervasivedisplays.com/userguide/img/Logo_PDI_text_320.png)
+![](img/Logo_PDI_text_320.png)
 
 Release 9 inaugurates a new structure based on drivers developed by Pervasive Displays.
 
@@ -45,13 +45,14 @@ The Pervasive Displays Library Suite provides a high-level interface to drive th
 
 ## Documentation
 
-* [Pervasive Displays Technical Wiki](https://docs.pervasivedisplays.com/) 
-* [User guide](https://pdls.pervasivedisplays.com/userguide/index.html) with commented examples
-* [Reference manual](https://pdls.pervasivedisplays.com/reference/html/index.html) 
+* [Knowledge Base](https://docs.pervasivedisplays.com/knwoledge/)
 
 ## Support
 
-* Please refer to the [PDLS_Basic](https://github.com/rei-vilo/PDLS_Basic/issues) repository for reporting issues and contributing pull requests.
+* Please refer to the [Support](https://docs.pervasivedisplays.com/knowledge/
+Volume5/) page with FAQ, technical notes and reference designs.
+
+* Report issues at the [PDLS_Basic](https://github.com/pervasivedisplays/PDLS_Basic/issues) repository.
 
 ## Installation
 

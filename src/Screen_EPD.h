@@ -7,7 +7,7 @@
 ///
 /// @author Rei Vilo
 /// @date 21 Aug 2025
-/// @version 912
+/// @version 920
 ///
 /// @copyright (c) Rei Vilo, 2010-2025
 /// @copyright All rights reserved
@@ -35,8 +35,8 @@
 // SDK and configuration
 #include "PDLS_Common.h"
 
-#if (PDLS_COMMON_RELEASE < 902)
-#error Required PDLS_COMMON_RELEASE 902
+#if (PDLS_COMMON_RELEASE < 920)
+#error Required PDLS_COMMON_RELEASE 920
 #endif // PDLS_COMMON_RELEASE
 
 // Other libraries

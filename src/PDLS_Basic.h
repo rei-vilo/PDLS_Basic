@@ -6,8 +6,8 @@
 /// @n Based on highView technology
 ///
 /// @author Rei Vilo
-/// @date 21 Jul 2025
-/// @version 911
+/// @date 21 Aug 2025
+/// @version 920
 ///
 /// @copyright (c) Rei Vilo, 2010-2025
 /// @copyright All rights reserved
@@ -35,15 +35,19 @@
 // SDK and configuration
 #include "PDLS_Common.h"
 
-#if (PDLS_COMMON_RELEASE < 902)
-#error Required PDLS_COMMON_RELEASE 902
+#if (PDLS_COMMON_RELEASE < 920)
+#error Required PDLS_COMMON_RELEASE 920
 #endif // PDLS_COMMON_RELEASE
+
+#ifndef EDITION_BASIC
+#error Required Basic edition of PDLS_Common
+#endif // EDITION_BASIC
 
 #ifndef PDLS_BASIC_RELEASE
 ///
 /// @brief Library release number
 ///
-#define PDLS_BASIC_RELEASE 911
+#define PDLS_BASIC_RELEASE 920
 
 #include "Screen_EPD.h"
 

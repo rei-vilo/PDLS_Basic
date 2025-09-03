@@ -42,6 +42,7 @@
 // Release 905: Added support for Wide large screens
 // Release 910: Added check on vector coordinates
 // Release 912: Added temperature functions to driver 
+// Release 920: Added check on edition
 //
 
 // Library header
@@ -220,7 +221,7 @@ void Screen_EPD::begin()
 
             hV_HAL_Serial_crlf();
             hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not supported", u_codeSize, u_codeFilm, u_codeDriver);
-            hV_HAL_exit(0x01);
+            hV_HAL_exit(RESULT_ERROR);
             break;
     } // u_codeSize
     v_screenDiagonal = u_codeSize;
@@ -232,7 +233,7 @@ void Screen_EPD::begin()
     if (((u_codeSize == SIZE_969) or (u_codeSize == SIZE_1198)) and (s_driver->b_pin.panelCSS == NOT_CONNECTED))
     {
         hV_HAL_log(LEVEL_CRITICAL, "Required pin panelCSS is NOT_CONNECTED");
-        hV_HAL_exit(0x01);
+        hV_HAL_exit(RESULT_ERROR);
     }
     //
     // === End of Large screen section
@@ -332,7 +333,7 @@ void Screen_EPD::begin()
     {
         hV_HAL_Serial_crlf();
         hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c does not have touch", u_codeSize, u_codeFilm, u_codeDriver);
-        hV_HAL_exit(0x01);
+        hV_HAL_exit(RESULT_ERROR);;
     }
 
     switch (SCREEN_SIZE(s_driver->u_eScreen_EPD))
