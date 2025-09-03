@@ -49,8 +49,7 @@ The Pervasive Displays Library Suite provides a high-level interface to drive th
 
 ## Support
 
-* Please refer to the [Support](https://docs.pervasivedisplays.com/knowledge/
-Volume5/) page with FAQ, technical notes and reference designs.
+* Please refer to the [Support](https://docs.pervasivedisplays.com/knowledge/Volume5/) page with FAQ, technical notes and reference designs.
 
 * Report issues at the [PDLS_Basic](https://github.com/pervasivedisplays/PDLS_Basic/issues) repository.
 
