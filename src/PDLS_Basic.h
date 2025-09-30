@@ -5,11 +5,10 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @author Rei Vilo
 /// @date 21 Aug 2025
 /// @version 920
 ///
-/// @copyright (c) Rei Vilo, 2010-2025
+/// @copyright (c) Etigues, 2010-2025
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 ///

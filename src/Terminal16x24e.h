@@ -5,13 +5,11 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @author Rei Vilo
 /// @date 21 Jan 2025
 /// @version 902
 ///
-/// @copyright (c) Rei Vilo, 2010-2025
+/// @copyright (c) Etigues, 2010-2025
 /// @copyright All rights reserved
-/// @copyright For exclusive use with Pervasive Displays screens
 ///
 /// * Basic edition: for hobbyists and for basic usage
 /// @n Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
@@ -36,13 +34,6 @@
 // Terminal16e.h
 // Font library
 // ----------------------------------
-//
-// Project Pervasive Displays Library Suite
-// Based on highView technology
-//  Created by Rei Vilo on 26 May 2012
-//  Copyright Rei Vilo
-//  Licence All rights reserved
-//
 
 #ifndef TERMINAL16E_FONT_RELEASE
 ///
@@ -52,8 +43,9 @@
 
 ///
 /// @brief Font Terminal16x24
-/// @details GLCD FontName : Terminal11x16
-/// @n GLCD FontSize : 16 x 24
+/// @details 
+/// * Name : Terminal11x16
+/// * Size : 16 x 24
 ///
 /// @copyright Font generated manually
 ///

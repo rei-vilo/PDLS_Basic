@@ -6,7 +6,7 @@
 
 The Pervasive Displays Library Suite is specifically designed for the [Pervasive Displays](https://www.pervasivedisplays.com) e-paper screens, extension boards and evaluation kits.
 
-![](img/Logo_PDI_text_320.png)
+![](img/Pervasive_Displays_logo_gray.png)
 
 Release 9 inaugurates a new structure based on drivers developed by Pervasive Displays.
 
@@ -84,13 +84,12 @@ Hardware
 
 ## Licence
 
-**Copyright** &copy; Pervasive Displays Inc., 2021-2025, under licence by Rei Vilo
+**Copyright** &copy; Etigues, 2010-2025
+**Copyright** &copy; Pervasive Displays Inc., 2021-2025,
 
 *For exclusive use with Pervasive Displays screens*
 
 **Licence** [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](./LICENCE.md)
 
 ![](img/by-sa.svg)
-
-**Copyright** &copy; Rei Vilo, 2010-2025
 

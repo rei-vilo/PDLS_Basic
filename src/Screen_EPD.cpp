@@ -8,7 +8,7 @@
 //
 // Created by Rei Vilo, 28 Jun 2016
 //
-// Copyright (c) Rei Vilo, 2010-2025
+// Copyright (c) Etigues, 2010-2025
 // Licence Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 // For exclusive use with Pervasive Displays screens
 //
@@ -41,8 +41,9 @@
 // Release 904: Added report on frame-buffer
 // Release 905: Added support for Wide large screens
 // Release 910: Added check on vector coordinates
-// Release 912: Added temperature functions to driver 
+// Release 912: Added temperature functions to driver
 // Release 920: Added check on edition
+// Release 921: Added support for BWRY medium and large screens
 //
 
 // Library header
@@ -93,7 +94,7 @@ void Screen_EPD::begin()
         case FILM_K: // Wide temperature and embedded fast update
 
             flagCOG = (checkCOG == u_codeFilm);
-            flagCOG |= (checkCOG == FILM_T); // Proxy for P or K with touch
+            flagCOG |= (checkCOG == FILM_T); // Proxy for `P` or `K` with touch
             break;
 
         default:
@@ -301,6 +302,15 @@ void Screen_EPD::begin()
     memset(s_newImage, 0x00, u_pageColourSize * u_bufferDepth);
 
     setTemperatureC(25); // 25 Celsius = 77 Fahrenheit
+
+    // // Report
+    // hV_HAL_log(LEVEL_DEBUG, "%24s = %6i", "u_pageColourSize * u_bufferDepth", u_pageColourSize * u_bufferDepth);
+    // hV_HAL_log(LEVEL_DEBUG, "%24s = %6i", "u_pageColourSize", u_pageColourSize);
+    // hV_HAL_log(LEVEL_DEBUG, "%24s = %6i", "v_screenSizeV", v_screenSizeV);
+    // hV_HAL_log(LEVEL_DEBUG, "%24s = %6i", "v_screenSizeH", v_screenSizeH);
+    // hV_HAL_log(LEVEL_DEBUG, "%24s = %6i", "u_bufferSizeV", u_bufferSizeV);
+    // hV_HAL_log(LEVEL_DEBUG, "%24s = %6i", "u_bufferSizeH", u_bufferSizeH);
+    // hV_HAL_log(LEVEL_DEBUG, "%24s = %6i", "u_bufferDepth", u_bufferDepth);
 
     // Fonts
     hV_Screen_Buffer::begin(); // Standard
@@ -561,16 +571,15 @@ void Screen_EPD::clear(uint16_t colour)
 void Screen_EPD::flush()
 {
     resume(); // GPIO
-    // flushMode(UPDATE_NORMAL);
 
-    // Update
-    if ((u_codeSize == SIZE_969) or (u_codeSize == SIZE_B98))
+    if ((u_codeSize == SIZE_969) or (u_codeSize == SIZE_B98)) // Large
     {
         // 9.69 and 11.98 combine two half-screens, hence two frames with adjusted (u_pageColourSize >> 1) size
         uint32_t u_subPageColourSize = (u_pageColourSize >> 1);
 
-        FRAMEBUFFER_TYPE nextBuffer = s_newImage;
-        FRAMEBUFFER_TYPE previousBuffer = s_newImage + u_pageColourSize;
+        FRAMEBUFFER_TYPE nextBuffer = s_newImage; // size = u_pageColourSize
+        FRAMEBUFFER_TYPE previousBuffer = s_newImage + u_pageColourSize; // size = u_pageColourSize
+
         // FRAMEBUFFER_TYPE frameM1 = nextBuffer;
         // FRAMEBUFFER_TYPE frameM2 = previousBuffer;
         // FRAMEBUFFER_TYPE frameS1 = nextBuffer + u_subPageColourSize;
@@ -587,7 +596,7 @@ void Screen_EPD::flush()
         {
             case FILM_Q: // BWRY, "Spectra 4"
 
-                // Not yet supported
+                s_driver->updateNormal(frameM1, frameS1, u_subPageColourSize);
                 break;
 
             case FILM_K: // Wide temperature and embedded fast update
@@ -603,7 +612,7 @@ void Screen_EPD::flush()
                 break;
         }
     }
-    else
+    else // Small and medium
     {
         FRAMEBUFFER_TYPE nextBuffer = s_newImage;
         FRAMEBUFFER_TYPE previousBuffer = s_newImage + u_pageColourSize;
@@ -933,11 +942,16 @@ uint32_t Screen_EPD::s_getZ(uint16_t x1, uint16_t y1)
     switch (s_driver->d_COG)
     {
         case COG_BWRY_LARGE:
-        case COG_BWRY_MEDIUM:
 
-            // Not yet defined
+            if (y1 >= (v_screenSizeH >> 1))
+            {
+                y1 -= (v_screenSizeH >> 1); // rebase y1
+                z1 += (u_pageColourSize >> 1); // buffer second half
+            }
+            z1 += (uint32_t)x1 * (u_bufferSizeH >> 1) + (y1 >> 2); // 4 pixels per byte
             break;
 
+        case COG_BWRY_MEDIUM:
         case COG_BWRY_SMALL:
 
             z1 = (uint32_t)x1 * u_bufferSizeH + (y1 >> 2); // 4 pixels per byte
@@ -958,7 +972,7 @@ uint32_t Screen_EPD::s_getZ(uint16_t x1, uint16_t y1)
 
         default:
 
-            z1 = (uint32_t)x1 * u_bufferSizeH + (y1 >> 3);
+            z1 = (uint32_t)x1 * u_bufferSizeH + (y1 >> 3); // 8 pixels per byte 
             break;
     }
 
