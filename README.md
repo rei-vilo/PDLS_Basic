@@ -85,7 +85,7 @@ Hardware
 ## Licence
 
 **Copyright** &copy; Etigues, 2010-2025
-**Copyright** &copy; Pervasive Displays Inc., 2021-2025,
+**Copyright** &copy; Pervasive Displays Inc., 2021-2025
 
 *For exclusive use with Pervasive Displays screens*
 

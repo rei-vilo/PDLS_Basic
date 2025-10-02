@@ -9,7 +9,9 @@
 /// @version 902
 ///
 /// @copyright (c) Etigues, 2010-2025
+/// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright All rights reserved
+/// @copyright For exclusive use with Pervasive Displays screens
 ///
 /// * Basic edition: for hobbyists and for basic usage
 /// @n Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
@@ -43,7 +45,7 @@
 
 ///
 /// @brief Font Terminal16x24
-/// @details 
+/// @details
 /// * Name : Terminal11x16
 /// * Size : 16 x 24
 ///

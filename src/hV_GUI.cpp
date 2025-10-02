@@ -10,7 +10,9 @@
 // Last updated by Rei Vilo, 25 Jan 2022
 //
 // Copyright (c) Etigues, 2010-2025
+// Copyright (c) Pervasive Displays Inc., 2021-2025
 // Licence All rights reserved
+// For exclusive use with Pervasive Displays screens
 //
 // See hV_GUI.h and ReadMe.txt for references
 //
