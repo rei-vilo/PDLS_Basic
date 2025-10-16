@@ -8,7 +8,6 @@
 // Created by Rei Vilo, 31 Dec 2013
 //
 // Copyright (c) Etigues, 2010-2025
-// Copyright (c) Pervasive Displays Inc., 2021-2025
 // Licence All rights reserved
 // For exclusive use with Pervasive Displays screens
 //

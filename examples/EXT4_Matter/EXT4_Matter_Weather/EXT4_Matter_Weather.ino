@@ -20,8 +20,8 @@
 /// @date 21 Jan 2025
 /// @version 902
 ///
-/// @copyright (c) Pervasive Displays, 2021-2025
-/// * 2024-06-06 Rei Vilo 
+/// @copyright (c) Pervasive Displays Inc., 2021-2025
+/// * 2024-06-06 Rei Vilo
 /// * Added support for EXT4
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens

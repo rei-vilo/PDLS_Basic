@@ -2,13 +2,13 @@
 /// @file BWRY_Contrasts.ino
 /// @brief Example for Pervasive Displays Library Suite - All editions
 ///
-/// @details Project Pervasive Displays Library Suite
+/// @details Example for Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
 /// @date 21 Jan 2025
 /// @version 902
 ///
-/// @copyright (c) Etigues, 2010-2025
+/// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 ///
