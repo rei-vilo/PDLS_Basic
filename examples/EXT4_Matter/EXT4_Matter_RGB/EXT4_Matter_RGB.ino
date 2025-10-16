@@ -19,12 +19,11 @@
 ///
 /// @author Tamas Jozsi (Silicon Labs)
 ///
-/// @author Rei Vilo
 /// @date 21 Jan 2025
 /// @version 902
 ///
-/// @copyright (c) Rei Vilo, 2010-2025
-/// * 2024-06-06 Rei Vilo (Pervasive Displays)
+/// @copyright (c) Pervasive Displays, 2021-2025
+/// * 2024-06-06 Rei Vilo 
 /// * Added support for EXT4
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens

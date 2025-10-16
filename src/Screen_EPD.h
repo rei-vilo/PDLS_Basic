@@ -5,11 +5,11 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @author Rei Vilo
-/// @date 21 Aug 2025
-/// @version 920
+/// @date 21 Sep 2025
+/// @version 921
 ///
-/// @copyright (c) Rei Vilo, 2010-2025
+/// @copyright (c) Etigues, 2010-2025
+/// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 ///
@@ -50,7 +50,7 @@
 ///
 /// @brief Library release number
 ///
-#define SCREEN_EPD_RELEASE 912
+#define SCREEN_EPD_RELEASE 921
 
 #include "Driver_EPD_Virtual.h"
 

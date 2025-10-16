@@ -5,11 +5,10 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @author Rei Vilo
 /// @date 21 Jan 2025
 /// @version 902
 ///
-/// @copyright (c) Rei Vilo, 2010-2025
+/// @copyright (c) Etigues, 2010-2025
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 ///
@@ -64,19 +63,7 @@ uint8_t fontVery, fontLarge, fontMedium, fontSmall;
 // Prototypes
 
 // Utilities
-///
-/// @brief Wait with countdown
-/// @param second duration, s
-///
-void wait(uint8_t second)
-{
-    for (uint8_t i = second; i > 0; i--)
-    {
-        hV_HAL_Serial.print(formatString(" > %i  \r", i));
-        hV_HAL_delayMilliseconds(1000);
-    }
-    hV_HAL_Serial.print("         \r");
-}
+
 
 // Functions
 #if (DISPLAY_TOUCH == 1)
@@ -184,7 +171,7 @@ void setup()
     hV_HAL_log(LEVEL_INFO, "DISPLAY_TOUCH");
     myScreen.clear();
     displayTouch();
-    wait(8);
+    hV_HAL_delayMilliseconds(8000);
 
 #endif // DISPLAY_TOUCH
 

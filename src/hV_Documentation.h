@@ -11,14 +11,15 @@
 ///
 /// They are specifically designed for the [Pervasive Displays](https://www.pervasivedisplays.com/) e-paper screens, extension boards and development kits.
 ///
-/// @image html Logo-PDI-text-320.jpeg
-/// @image latex Logo-PDI-text-320.pdf width=10cm
+/// <p><center><img src="Pervasive_Displays_logo_gray.png" alt="Pervasive Displays" style="align=middle;border:0px;padding:4px;background-color:transparent;" /></center></p>
 ///
 /// ## Drivers
 ///
 /// The driver library manages the panel and the board. It sends the content of a C-array image to the screen and refreshes the panel. It is based on the film and the size of the screen.
 ///
 /// * @ref Pervasive_BWRY_Small
+/// * @ref Pervasive_BWRY_Medium
+/// * @ref Pervasive_BWRY_Large
 /// * @ref Pervasive_Wide_Small
 /// * @ref Pervasive_Wide_Medium
 /// * @ref Pervasive_Wide_Large
@@ -59,16 +60,13 @@
 ///
 /// ## Copyright, licence and disclaimer
 ///
-/// @author Rei Vilo
-/// @date 21 Aug 2025
-/// @version 920
+/// @date 21 Sep 2025
+/// @version 921
 ///
-/// @copyright @n &copy; Pervasive Displays Inc., 2021-2025, under licence by Rei Vilo
+/// @copyright @n &copy; Etigues, 2010-2025
+/// @copyright @n &copy; Pervasive Displays Inc., 2021-2025
 /// @copyright All rights reserved
 /// @copyright *For exclusive use with Pervasive Displays screens*
-/// @n
-/// @copyright @n &copy; Rei Vilo, 2010-2025
-/// @copyright All rights reserved
 ///
 /// * **Basic edition**: for hobbyists and for basic usage
 /// @n Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)

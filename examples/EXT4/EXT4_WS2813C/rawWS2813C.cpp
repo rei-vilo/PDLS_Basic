@@ -5,8 +5,7 @@
 /// @version 103
 /// @date 16 Feb 2024
 ///
-/// @author Rei Vilo for Pervasive Displays https://www.pervasivedisplays.com
-/// @copyright Copyright (c) 2010-2025 Rei Vilo for Pervasive Displays
+/// @copyright Copyright (c) 2021-2025 Pervasive Displays
 /// @copyright License CC-BY-SA Creative Commons - Attribution - Share Alike
 /// https://creativecommons.org/licenses/by-sa/4.0/deed.en
 ///

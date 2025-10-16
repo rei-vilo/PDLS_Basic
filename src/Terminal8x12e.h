@@ -5,11 +5,11 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @author Rei Vilo
 /// @date 21 Jan 2025
 /// @version 902
 ///
-/// @copyright (c) Rei Vilo, 2010-2025
+/// @copyright (c) Etigues, 2010-2025
+/// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 ///
@@ -45,8 +45,9 @@
 
 ///
 /// @brief Font Terminal8x12e
-/// @details GLCD FontName : Terminal8x12e
-/// @n GLCD FontSize : 8 x 12
+/// @details
+/// * Name : Terminal8x12e
+/// * Size : 8 x 12
 ///
 /// @copyright Font generated manually
 ///
