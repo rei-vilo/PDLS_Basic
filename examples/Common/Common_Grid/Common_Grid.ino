@@ -5,8 +5,8 @@
 /// @details Example for Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 May 2025
-/// @version 909
+/// @date 21 Oct 2025
+/// @version 922
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright All rights reserved
@@ -95,7 +95,7 @@ void displayGrid(bool flagNew = true)
         }
         myScreen.dRectangle(x0 + dx * 0, y0 + dy * 1, dx * (ix - 0), dy * (jy - 1), myColours.black);
 
-        hV_HAL_log(LEVEL_INFO, formatString("%s xy0 %i %i dxy %i %i", "OLD", x0, y0, x0 + dx * ix, y0 + dy * jy));
+        hV_HAL_log(LEVEL_INFO, "%s xy0 %i %i dxy %i %i", "OLD", x0, y0, x0 + dx * ix, y0 + dy * jy);
     }
     else
     {
@@ -120,7 +120,7 @@ void displayGrid(bool flagNew = true)
             }
         }
         myScreen.dRectangle(myXY.x(0), myXY.y(1), myXY.dX(ix - 0), myXY.dY(jy - 1), myColours.black);
-        hV_HAL_log(LEVEL_INFO, formatString("%s xy0 %i %i dxy %i %i", "XY", myXY.x(0), myXY.y(0), myXY.dX(ix), myXY.dY(jy)));
+        hV_HAL_log(LEVEL_INFO, "%s xy0 %i %i dxy %i %i", "XY", myXY.x(0), myXY.y(0), myXY.dX(ix), myXY.dY(jy));
     }
 
     myScreen.flushFast();

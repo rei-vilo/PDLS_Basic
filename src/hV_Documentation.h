@@ -60,11 +60,11 @@
 ///
 /// ## Copyright, licence and disclaimer
 ///
-/// @date 21 Sep 2025
-/// @version 921
+/// @date 21 Oct 2025
+/// @version 922
 ///
-/// @copyright @n &copy; Etigues, 2010-2025
-/// @copyright @n &copy; Pervasive Displays Inc., 2021-2025
+/// @copyright &copy; Pervasive Displays Inc., 2021-2025
+/// @copyright &copy; Etigues, 2010-2025
 /// @copyright All rights reserved
 /// @copyright *For exclusive use with Pervasive Displays screens*
 ///
