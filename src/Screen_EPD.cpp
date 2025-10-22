@@ -972,7 +972,7 @@ uint32_t Screen_EPD::s_getZ(uint16_t x1, uint16_t y1)
 
         default:
 
-            z1 = (uint32_t)x1 * u_bufferSizeH + (y1 >> 3); // 8 pixels per byte 
+            z1 = (uint32_t)x1 * u_bufferSizeH + (y1 >> 3); // 8 pixels per byte
             break;
     }
 

@@ -44,7 +44,7 @@
 
 ///
 /// @brief Font Terminal12x16e
-/// @details 
+/// @details
 /// * Name : Terminal12x16e
 /// * Size : 12 x 26
 ///
