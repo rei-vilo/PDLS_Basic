@@ -110,8 +110,7 @@ void displayMultiplier()
 ///
 void setup()
 {
-    // hV_HAL_Serial = Serial by default, otherwise edit hV_HAL_Peripherals.h
-    hV_HAL_begin(); // with Serial at 115200
+    hV_HAL_begin();
 
     hV_HAL_Serial_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);

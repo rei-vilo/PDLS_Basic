@@ -42,6 +42,7 @@ The Pervasive Displays Library Suite provides a high-level interface to drive th
 * Graphics routines
 * Text routines
 * Four extended fonts with double-sized variants
+* GUI
 
 ## Documentation
 
@@ -84,8 +85,9 @@ Hardware
 
 ## Licence
 
+**Copyright** &copy; Pervasive Displays, Inc., 2021-2025
+
 **Copyright** &copy; Etigues, 2010-2025
-**Copyright** &copy; Pervasive Displays Inc., 2021-2025
 
 *For exclusive use with Pervasive Displays screens*
 

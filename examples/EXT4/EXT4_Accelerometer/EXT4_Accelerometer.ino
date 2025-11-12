@@ -80,8 +80,7 @@ xyz_i16_ui8_t myXYZ;
 ///
 void setup()
 {
-    // hV_HAL_Serial = Serial by default, otherwise edit hV_HAL_Peripherals.h
-    hV_HAL_begin(); // with Serial at 115200
+    hV_HAL_begin();
 
     hV_HAL_Serial_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
@@ -145,7 +144,7 @@ void setup()
         mySerial.print(".");
         hV_HAL_delayMilliseconds(8);
     }
-    mySerial.println();
+    hV_HAL_Serial_crlf();
 
     hV_HAL_GPIO_define(myBoard.button, INPUT_PULLUP);
 }
@@ -161,7 +160,6 @@ void loop()
 
     if ((bufferRead[0] & 0x0f) == 0x0f)
     {
-
         bufferWrite[0] = 0xa8;  // xyz, MSB
         bufferRead[0] = 0x00;
 
@@ -170,7 +168,7 @@ void loop()
         aY = myXYZ.i16[1] / 16;
         aZ = myXYZ.i16[2] / 16;
 
-        mySerial.println();
+        hV_HAL_Serial_crlf();
         hV_HAL_log(LEVEL_INFO, "x %5i, y %5i, z %5i", myXYZ.i16[0] / 16, myXYZ.i16[1] / 16, myXYZ.i16[2] / 16);
 
         oldOrientation = orientation;
