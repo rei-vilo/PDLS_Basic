@@ -20,13 +20,13 @@ the extension boards
 
 * [EPD Extension Kit Gen 3 (EXT3 or EXT3.1)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-3-EXT3/),
 * [Touch Expansion Board for EXT3 (EXT3-Touch)](https://www.pervasivedisplays.com/product/touch-expansion-board-ext3-touch/) for EXT3.1,
-* ![](https://img.shields.io/badge/-New-orange) Pervasive Displays [EPD Extension Kit Gen 4 (EXT4)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-4-EXT4/) and EXT4-to-Nano adapter boards;
+* ![](https://img.shields.io/badge/-NEW-orange) Pervasive Displays [EPD Extension Kit Gen 4 (EXT4)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-4-EXT4/) and EXT4-to-Nano adapter boards;
 
 and the development kits
 
 * [EPD Pico Kit (EPDK)](https://www.pervasivedisplays.com/product/epd-pico-kit-epdk/), which includes a Raspberry Pi Pico RP2040, an EXT3-1 extension board and a 2.66" monochrome panel,
 * [EPD Pico Kit Touch (EPDK-271-Touch)](https://www.pervasivedisplays.com/product/touch-expansion-board-ext3-touch/#tab-3), which includes an EXT3.1 extension board, an EXT3-Touch expansion board, and a 2.71"-Touch monochrome panel with embedded fast update and capacitive touch,
-* ![](https://img.shields.io/badge/-New-orange) [E-Paper Development Kit for Matter (EPDK-Matter)](https://www.pervasivedisplays.com), which includes a Pervasive Displays [EPD Extension Kit Gen 4 (EXT4)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-4-EXT4/) and a Pervasive Displays EXT4-to-Nano adapter boards, a Pervasive Displays [2.9″ 384x168 E-ink monochrome high-definition](https://www.pervasivedisplays.com/product/2-9-e-ink-displays/) with embedded fast update and wide temperature display, an [Arduino Nano Matter](https://store.arduino.cc/pages/nano-matter) board based on [Silicon Labs MGM240S](https://www.silabs.com/wireless/zigbee/efr32mg24-series-2-modules).
+* ![](https://img.shields.io/badge/-NEW-orange) [E-Paper Development Kit for Matter (EPDK-Matter)](https://www.pervasivedisplays.com), which includes a Pervasive Displays [EPD Extension Kit Gen 4 (EXT4)](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-4-EXT4/) and a Pervasive Displays EXT4-to-Nano adapter boards, a Pervasive Displays [2.9″ 384x168 E-ink monochrome high-definition](https://www.pervasivedisplays.com/product/2-9-e-ink-displays/) with embedded fast update and wide temperature display, an [Arduino Nano Matter](https://store.arduino.cc/pages/nano-matter) board based on [Silicon Labs MGM240S](https://www.silabs.com/wireless/zigbee/efr32mg24-series-2-modules).
 
 Legacy release 8 supports the screens
 
@@ -46,7 +46,7 @@ The Pervasive Displays Library Suite provides a high-level interface to drive th
 
 ## Documentation
 
-* [Knowledge Base](https://docs.pervasivedisplays.com/knwoledge/)
+* [Knowledge Base](https://docs.pervasivedisplays.com/knowledge/)
 
 ## Support
 
@@ -79,13 +79,13 @@ Software
 Hardware
 
 * Pervasive Displays EPD Extension Kit Gen 3 (EXT3 or EXT3.1)
-* ![](https://img.shields.io/badge/-New-orange) Pervasive Displays EPD Extension Kit Gen 4 (EXT4)
+* ![](https://img.shields.io/badge/-NEW-orange) Pervasive Displays EPD Extension Kit Gen 4 (EXT4)
 * Pervasive Displays iTC black-white-red-yellow colour screens (film `Q`)
 * Pervasive Displays iTC monochrome screens with wide temperature and embedded fast update (film `K`).
 
 ## Licence
 
-**Copyright** &copy; Pervasive Displays Inc., 2021-2025,
+**Copyright** &copy; Pervasive Displays Inc., 2021-2025
 
 **Copyright** &copy; Etigues, 2010-2025
 
