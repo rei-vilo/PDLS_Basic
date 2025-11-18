@@ -19,6 +19,7 @@
 // Release 531: Improved performance
 // Release 605: Improved elements link to GUI
 // Release 608: Shared common debouncing module
+// Release 1000: Added support for UTF-8 strings
 //
 
 // Library header
@@ -71,19 +72,35 @@ void Text::dDefine(uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy,
     _fontSize = size;
 }
 
-void Text::draw(STRING_CONST_TYPE text)
+void Text::draw(STRING_CONST_TYPE text8)
 {
     _pGUI->g_pScreen->selectFont(_fontSize);
-    uint8_t k = _pGUI->g_pScreen->stringLengthToFitX(text, _dx - 8);
 
-    String _text = text.substring(0, k);
+    uint16_t _buffer16[BUFFER_LENGTH] = {0};
+    uint16_t _size16 = 0;
 
-    uint16_t _xt = _x0 + (_dx - _pGUI->g_pScreen->stringSizeX(_text)) / 2;
+#if (STRING_MODE == USE_STRING_OBJECT)
+
+    _size16 = utf8to16(text8.c_str(), _buffer16);
+
+#elif (STRING_MODE == USE_CHAR_ARRAY)
+
+    _size16 = utf8to16(text8, _buffer16);
+
+#endif // STRING_MODE
+
+    uint16_t _sizeText = _size16;
+
+    uint8_t k = _pGUI->g_pScreen->stringLengthToFitX(_buffer16, _dx - 8);
+    _buffer16[k] = 0x0000;
+    // String _text = text.substring(0, k);
+
+    uint16_t _xt = _x0 + (_dx - _pGUI->g_pScreen->stringSizeX(_buffer16)) / 2;
     uint16_t _yt = _y0 + (_dy - _pGUI->g_pScreen->characterSizeY()) / 2;
 
     _pGUI->g_pScreen->setPenSolid(true);
     _pGUI->g_pScreen->dRectangle(_x0, _y0, _dx, _dy, _pGUI->g_colourBack);
-    _pGUI->g_pScreen->gText(_xt, _yt, _text, _pGUI->g_colourFront);
+    _pGUI->g_pScreen->gText(_xt, _yt, _buffer16, _pGUI->g_colourFront);
 
     if (_pGUI->g_delegate)
     {

@@ -5,9 +5,10 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Jan 2025
-/// @version 902
+/// @date 21 Nov 2025
+/// @version 1000
 ///
+/// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright (c) Etigues, 2010-2025
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
@@ -38,8 +39,8 @@
 #include "PDLS_Common.h"
 
 // Checks
-#if (PDLS_COMMON_RELEASE < 902)
-#error Required PDLS_COMMON_RELEASE 902
+#if (PDLS_COMMON_RELEASE < 1000)
+#error Required PDLS_COMMON_RELEASE 1000
 #endif // PDLS_COMMON_RELEASE
 
 // The Arduino IDE does not allow to select the libraries, hence this condition.
@@ -49,7 +50,7 @@
 ///
 /// @brief Release
 ///
-#define hV_FONT_TERMINAL_RELEASE 902
+#define hV_FONT16_HEADER_RELEASE 1000
 
 // Font structure
 #include "hV_Font.h"
@@ -149,7 +150,7 @@ class hV_Font_Terminal
     /// @note Previously fontSizeX()
     /// @n @b More: @ref Fonts
     ///
-    uint16_t f_characterSizeX(uint8_t character = 0x00);
+    uint16_t f_characterSizeX(uint16_t character = 0x0000);
 
     ///
     /// @brief Character size, y-axis
@@ -161,20 +162,41 @@ class hV_Font_Terminal
 
     ///
     /// @brief String size, x-axis
-    /// @param text string to evaluate
+    /// @param text8 string to evaluate, UTF-8 coded
     /// @return horizontal size of the string for current font, in pixels
+    /// @warning Required UTF-8 coded
     /// @n @b More: @ref Fonts
     ///
-    uint16_t f_stringSizeX(STRING_CONST_TYPE text);
+    uint16_t f_stringSizeX(STRING_CONST_TYPE text8);
+
+    ///
+    /// @brief String size, x-axis
+    /// @param text16 string to evaluate, UTF-16 coded
+    /// @return horizontal size of the string for current font, in pixels
+    /// @warning Required UTF-16 coded
+    /// @n @b More: @ref Fonts
+    ///
+    uint16_t f_stringSizeX(STRING16_CONST_TYPE text16);
 
     ///
     /// @brief Number of characters to fit a size, x-axis
-    /// @param text string to evaluate
+    /// @param text8 string to evaluate, UTF-8 coded
     /// @param pixels number of pixels to fit in
     /// @return number of characters to be displayed inside the pixels
+    /// @warning Required UTF-8 coded
     /// @n @b More: @ref Fonts
     ///
-    uint8_t f_stringLengthToFitX(STRING_CONST_TYPE text, uint16_t pixels);
+    uint8_t f_stringLengthToFitX(STRING_CONST_TYPE text8, uint16_t pixels);
+
+    ///
+    /// @brief Number of characters to fit a size, x-axis
+    /// @param text16 string to evaluate, UTF-16 coded
+    /// @param pixels number of pixels to fit in
+    /// @return number of characters to be displayed inside the pixels
+    /// @warning Required UTF-16 coded
+    /// @n @b More: @ref Fonts
+    ///
+    uint8_t f_stringLengthToFitX(STRING16_CONST_TYPE text16, uint16_t pixels);
 
     ///
     /// @brief Number of fonts

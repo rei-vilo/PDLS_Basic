@@ -5,8 +5,8 @@
 /// @details Example for Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Jan 2025
-/// @version 902
+/// @date 21 Nov 2025
+/// @version 1000
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright All rights reserved
@@ -22,44 +22,37 @@
 /// @n All rights reserved
 ///
 
-// SDK
-// #include <Arduino.h>
-#include "PDLS_Common.h"
-
-// Include application, user and local libraries
-// #include <SPI.h>
-
-// Driver
-#include "Pervasive_Wide_Small.h"
-
-// Screen
-#include "PDLS_Basic.h"
-
-#if (SCREEN_EPD_RELEASE < 902)
-#error Required SCREEN_EPD_RELEASE 902
-#endif // SCREEN_EPD_RELEASE
-
 // Set parameters
 #define DISPLAY_FORMS 1
 
-// Define structures and classes
+// SDK and configuration
+// #include <Arduino.h>
+#include "PDLS_Common.h"
 
-// Define variables and constants
+// Board
+pins_t myBoard = boardRaspberryPiPico_RP2040;
+
 // Driver
+#include "Pervasive_Wide_Small.h"
 Pervasive_Wide_Small myDriver(eScreen_EPD_271_KS_09, boardRaspberryPiPico_RP2040);
 
 // Screen
+#include "PDLS_Basic.h"
 Screen_EPD myScreen(&myDriver);
 
+// Checks
+#if (SCREEN_EPD_RELEASE < 1000)
+#error Required SCREEN_EPD_RELEASE 1000
+#endif // SCREEN_EPD_RELEASE
+
+// Fonts
 uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 
 // Prototypes
 
 // Utilities
 
-
 // Functions
-
 #if (DISPLAY_FORMS == 1)
 
 ///
@@ -97,14 +90,14 @@ void displayForms(bool flag = true)
 ///
 void setup()
 {
-    // hV_HAL_Serial = Serial by default, otherwise edit hV_HAL_Peripherals.h
-    hV_HAL_begin(); // with Serial at 115200
+    hV_HAL_begin();
 
     hV_HAL_Serial_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
     hV_HAL_Serial_crlf();
 
+    // Screen
     myScreen.begin();
 
     // Fonts
@@ -151,3 +144,4 @@ void loop()
 {
     hV_HAL_delayMilliseconds(1000);
 }
+

@@ -34,11 +34,7 @@
 /// * @ref Screen_EPD, derived from
 /// * @ref hV_Screen_Buffer
 ///
-/// Release 9 inaugurates a new structure based on drivers developed by Pervasive Displays.
-///
-/// PDLS Basic edition is available at the [Pervasive Displays GitHub page](https://github.com/PervasiveDisplays).
-///
-/// ## Scope
+/// Release 10 introduces direct support for text coded in UTF-8. The `utf2iso()` function is no longer required.
 ///
 /// The software supports the screens
 ///
@@ -60,8 +56,8 @@
 ///
 /// ## Copyright, licence and disclaimer
 ///
-/// @date 21 Oct 2025
-/// @version 922
+/// @date 21 Nov 2025
+/// @version 1000
 ///
 /// @copyright &copy; Pervasive Displays Inc., 2021-2025
 /// @copyright &copy; Etigues, 2010-2025
@@ -90,7 +86,21 @@
 ///
 /// The software, including the related documentation, is provided to you "as is," and we make no express or implied warranties whatsoever with respect to its functionality, operability, or use, including, without limitation, any implied warranties of merchantability, fitness for a particular purpose, or infringement. We expressly disclaim any liability whatsoever for any direct, indirect, consequential, incidental or special damages, including, without limitation, lost revenues, lost profits, losses resulting from business interruption or loss of data, regardless of the form of action or legal theory under which the liability may be asserted, even if advised of the possibility or likelihood of such damages.
 ///
-/// @page Release9 New release 9
+/// @page Release10 New release 10
+///
+/// Release 10 of the  Basic edition supports UTF-8 text and keeps the 8-bit Terminal font with 255 characters, based on ISO-8859-1 or Latin 1.
+///
+/// `hV_Screen_Buffer::gText()` now accepts text with characters coded in UTF-8 and UTF-16. The `utf2iso()` function is no longer required.
+///
+/// @warning The following libraries are legacy and remain available.
+/// * `PDLS_EXT4_Basic_Matter`
+///
+/// @deprecated The following features are deprecated.
+/// * The `utf2iso()` function is deprecated.
+///
+/// @note The technical note [Migrate from release 9 to release 10](https://pdls.pervasivedisplays.com/userguide/Volume5/Chapter1/Part6/Section23/) provides more information.
+///
+/// @page Release9 Legacy release 9
 ///
 /// Release 9 inaugurates a new structure based on drivers developed by Pervasive Displays.
 ///

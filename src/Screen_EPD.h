@@ -5,8 +5,8 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Sep 2025
-/// @version 921
+/// @date 21 Nov 2025
+/// @version 1000
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright (c) Etigues, 2010-2025
@@ -35,22 +35,22 @@
 // SDK and configuration
 #include "PDLS_Common.h"
 
-#if (PDLS_COMMON_RELEASE < 920)
-#error Required PDLS_COMMON_RELEASE 920
+#if (PDLS_COMMON_RELEASE < 1000)
+#error Required PDLS_COMMON_RELEASE 1000
 #endif // PDLS_COMMON_RELEASE
 
 // Other libraries
 #include "hV_Screen_Buffer.h"
 
-#if (hV_SCREEN_BUFFER_RELEASE < 902)
-#error Required hV_SCREEN_BUFFER_RELEASE 902
+#if (hV_SCREEN_BUFFER_RELEASE < 1000)
+#error Required hV_SCREEN_BUFFER_RELEASE 1000
 #endif // hV_SCREEN_BUFFER_RELEASE
 
 #ifndef SCREEN_EPD_RELEASE
 ///
 /// @brief Library release number
 ///
-#define SCREEN_EPD_RELEASE 921
+#define SCREEN_EPD_RELEASE 1000
 
 #include "Driver_EPD_Virtual.h"
 
@@ -186,7 +186,7 @@ class Screen_EPD final : public hV_Screen_Buffer
     ///
     /// @param updateMode expected update mode
     /// @return uint8_t recommended mode
-    /// @note If required, defaulting to UPDATE_NORMAL or UPDATE_NONE
+    /// @note If required, defaulting to `UPDATE_NORMAL` or `UPDATE_NONE`
     /// @warning Default temperature is 25 °C, otherwise set by setTemperatureC() or setTemperatureF()
     ///
     uint8_t checkTemperatureMode(uint8_t updateMode);
@@ -215,9 +215,9 @@ class Screen_EPD final : public hV_Screen_Buffer
     /// @brief Get number of colours
     ///
     /// @return uint8_t number of colours
-    /// * 2 = monochrome
-    /// * 3 = black-white-red or black-white-yellow
-    /// * 4 = black-white-red-yellow
+    /// * `2` = monochrome
+    /// * `3` = black-white-red or black-white-yellow
+    /// * `4` = black-white-red-yellow
     ///
     uint8_t screenColours();
 
@@ -253,7 +253,7 @@ class Screen_EPD final : public hV_Screen_Buffer
     /// @brief Check and orient coordinates, logical coordinates
     /// @param x x-axis coordinate, modified
     /// @param y y-axis coordinate, modified
-    /// @return RESULT_SUCCESS = false = success, RESULT_ERROR = true = error
+    /// @return `RESULT_SUCCESS` =  false = success, `RESULT_ERROR` =  true = error
     ///
     bool s_orientCoordinates(uint16_t & x, uint16_t & y); // compulsory
 
@@ -276,7 +276,7 @@ class Screen_EPD final : public hV_Screen_Buffer
 
     ///
     /// @brief Update the screen
-    /// @param updateMode update mode, default = UPDATE_NORMAL, otherwise UPDATE_FAST
+    /// @param updateMode update mode, default = `UPDATE_NORMAL`, otherwise `UPDATE_FAST`
     ///
     void s_flush(uint8_t updateMode = UPDATE_NORMAL);
 

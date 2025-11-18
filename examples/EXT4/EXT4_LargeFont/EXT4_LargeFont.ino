@@ -5,8 +5,8 @@
 /// @details Example for Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Jan 2025
-/// @version 902
+/// @date 21 Nov 2025
+/// @version 1000
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright All rights reserved
@@ -111,7 +111,6 @@ void displayMultiplier()
 void setup()
 {
     hV_HAL_begin();
-
     hV_HAL_Serial_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);

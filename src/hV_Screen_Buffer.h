@@ -5,8 +5,8 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Jun 2025
-/// @version 910
+/// @date 21 Nov 2025
+/// @version 1000
 ///
 /// @copyright (c) Etigues, 2010-2025
 /// @copyright All rights reserved
@@ -34,35 +34,35 @@
 // SDK and configuration
 #include "PDLS_Common.h"
 
-#if (PDLS_COMMON_RELEASE < 902)
-#error Required PDLS_COMMON_RELEASE 902
+#if (PDLS_COMMON_RELEASE < 1000)
+#error Required PDLS_COMMON_RELEASE 1000
 #endif // PDLS_COMMON_RELEASE
 
 #ifndef hV_SCREEN_BUFFER_RELEASE
 ///
 /// @brief Library release number
 ///
-#define hV_SCREEN_BUFFER_RELEASE 910
+#define hV_SCREEN_BUFFER_RELEASE 1000
 
 // Colours
 #include "hV_Colours565.h"
 
-#if (hV_COLOURS_RELEASE < 902)
-#error Required hV_COLOURS_RELEASE 902
+#if (hV_COLOURS_RELEASE < 1000)
+#error Required hV_COLOURS_RELEASE 1000
 #endif // hV_COLOURS_RELEASE
 
 // Utilities
 #include "hV_Utilities.h"
 
-#if (hV_UTILITIES_RELEASE < 902)
-#error Required hV_UTILITIES_RELEASE 902
+#if (hV_UTILITIES_RELEASE < 1000)
+#error Required hV_UTILITIES_RELEASE 1000
 #endif // hV_UTILITIES_RELEASE
 
 #if (FONT_MODE == USE_FONT_TERMINAL)
 #include "hV_Font_Terminal.h"
 
 #else
-#error FONT_MODE not defined
+#error Required FONT_MODE == USE_FONT_TERMINAL
 #endif // FONT_MODE
 
 ///
@@ -109,12 +109,12 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
     ///
     /// @brief Set orientation
     /// @param orientation orientation,
-    /// * 0 = default
-    /// * 1 = right rotated
-    /// * 2 = reverse default
-    /// * 3 = left rotated
-    /// * ORIENTATION_PORTRAIT = 6 = check portrait
-    /// * ORIENTATION_LANDSCAPE = 7 = check landscape
+    /// * `0` = default
+    /// * `1` = right rotated
+    /// * `2` = reverse default
+    /// * `3` = left rotated
+    /// * ORIENTATION_PORTRAIT = `6` = check portrait
+    /// * ORIENTATION_LANDSCAPE = `7` = check landscape
     ///
     /// @note Run the Common_Orientation.ino example to identify the options
     ///
@@ -123,10 +123,10 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
     ///
     /// @brief Get orientation
     /// @return orientation orientation:
-    /// * 0 = portrait
-    /// * 1 = right rotated landscape
-    /// * 2 = reverse portrait
-    /// * 3 = left rotated landscape
+    /// * `0` = portrait
+    /// * `1` = right rotated landscape
+    /// * `2` = reverse portrait
+    /// * `3` = left rotated landscape
     ///
     /// @note Run the Common_Orientation.ino example to identify the options
     ///
@@ -206,7 +206,7 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
 
     ///
     /// @brief Set pen opaque
-    /// @param flag default = true = opaque = solid, false = wire frame
+    /// @param flag default = `true` = opaque = solid, `false` = wire frame
     ///
     virtual void setPenSolid(bool flag = true);
 
@@ -265,21 +265,22 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
     /// @{
 
     ///
-    /// @brief Select font number
+    /// @brief Select font
     /// @param font default = 0, 0..fontMax()-1
     ///
-    virtual void selectFont(uint8_t font);
+    virtual void selectFont(uint8_t fontIndex);
 
     ///
-    /// @brief Get font number
-    /// @return Number of the font, 0..fontMax()-1
+    /// @brief Get font index
+    /// @return Index of the font, 0..fontMax()-1
     ///
     virtual uint8_t getFont();
 
     ///
     /// @brief Add a font
     /// @param fontName name of the font
-    /// @return number of the font, 0 otherwise
+    /// @return number of fonts, 0 otherwise
+    /// @note The index of the font added is `number - 1`
     /// @note Previously selectFont()
     /// @n @b More: @ref Fonts
     ///
@@ -287,7 +288,7 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
 
     ///
     /// @brief Set transparent or opaque text
-    /// @param flag default = 1 = opaque = solid, false = transparent
+    /// @param flag default = `true` = opaque = solid, `false` = transparent
     ///
     virtual void setFontSolid(bool flag = true);
 
@@ -305,15 +306,29 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
 
     ///
     /// @brief Character size, x-axis
-    /// @param character character to evaluate, default = 0 = font general size
+    /// @param character character to evaluate, UTF-8 coded, default = `0` = font general size
     /// @return horizontal size of the font for the specified character, in pixels
+    /// @warning Required UTF-8 coded
+    /// @note Up to 3 bytes to code a character in UTF-8. Only the first UTF-16 is returned.
     /// @note With setSpaceX included
     /// @note In variable font, each character has a specific size.
     /// The general size is indicative.
     /// @note Previously fontSizeX()
     /// @n @b More: @ref Fonts
     ///
-    virtual uint16_t characterSizeX(uint8_t character = 0x00);
+    virtual uint16_t characterSizeX(STRING_CONST_TYPE character);
+
+    ///
+    /// @brief Character size, x-axis
+    /// @param character character to evaluate, UTF-16 coded, default = `0` = font general size
+    /// @return horizontal size of the font for the specified character, in pixels
+    /// @warning Required UTF-16 coded
+    /// @note With setSpaceX included
+    /// @note In variable font, each character has a specific size.
+    ///
+    /// @n @b More: @ref Fonts
+    ///
+    uint16_t characterSizeX(uint16_t character = 0x00);
 
     ///
     /// @brief Character size, y-axis
@@ -325,20 +340,41 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
 
     ///
     /// @brief String size, x-axis
-    /// @param text string to evaluate
+    /// @param text8 string to evaluate, UTF-8 coded
     /// @return horizontal size of the string for current font, in pixels
+    /// @warning Required UTF-8 coded text
     /// @n @b More: @ref Fonts
     ///
-    virtual uint16_t stringSizeX(STRING_CONST_TYPE text);
+    virtual uint16_t stringSizeX(STRING_CONST_TYPE text8);
+
+    ///
+    /// @brief String size, x-axis
+    /// @param text16 string to evaluate, UTF-16 coded
+    /// @return horizontal size of the string for current font, in pixels
+    /// @warning Required UTF-16 coded text
+    /// @n @b More: @ref Fonts
+    ///
+    virtual uint16_t stringSizeX(STRING16_CONST_TYPE text16);
 
     ///
     /// @brief Number of characters to fit a size, x-axis
-    /// @param text string to evaluate
-    /// @param pixels number of pixels to fit in
+    /// @param[in] text8 string to evaluate, UTF-8 coded
+    /// @param[in] pixels number of pixels to fit in
     /// @return number of characters to be displayed inside the pixels
+    /// @warning Required UTF-8 coded text
     /// @n @b More: @ref Fonts
     ///
-    virtual uint8_t stringLengthToFitX(STRING_CONST_TYPE text, uint16_t pixels);
+    virtual uint8_t stringLengthToFitX(STRING_CONST_TYPE text8, uint16_t pixels);
+
+    ///
+    /// @brief Number of characters to fit a size, x-axis
+    /// @param[in] text16 string to evaluate, UTF-16 coded
+    /// @param[in] pixels number of pixels to fit in
+    /// @return number of characters to be displayed inside the pixels
+    /// @warning Required UTF-16 coded text
+    /// @n @b More: @ref Fonts
+    ///
+    virtual uint8_t stringLengthToFitX(STRING16_CONST_TYPE text16, uint16_t pixels);
 
     ///
     /// @brief Number of fonts
@@ -349,12 +385,15 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
     virtual uint8_t fontMax();
 
     ///
-    /// @brief Draw ASCII Text (pixel coordinates)
+    /// @brief Draw UTF-8 coded text (pixel coordinates)
     /// @param x0 point coordinate, x-axis
     /// @param y0 point coordinate, y-axis
-    /// @param text text string
+    /// @param text UTF-8 coded text (uint8_t)
     /// @param textColour 16-bit colour, default = white
     /// @param backColour 16-bit colour, default = black
+    /// @note Text converted into UTF-16 before display
+    /// @warning Required UTF-8 coded text
+    /// @deprecated ISO-8859-1 or Latin 1 coded text is deprecated, use UTF-8 coded text instead (10.0.0)
     ///
     /// @n @b More: @ref Colour, @ref Fonts, @ref Coordinate
     ///
@@ -363,18 +402,30 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
                        uint16_t textColour = myColours.black,
                        uint16_t backColour = myColours.white);
 
+    virtual void gText(uint16_t x0, uint16_t y0,
+                       STRING16_CONST_TYPE text,
+                       uint16_t textColour = myColours.black,
+                       uint16_t backColour = myColours.white);
+
     ///
-    /// @brief Draw ASCII Text (pixel coordinates)
+    /// @brief Draw UTF-16 coded text (pixel coordinates)
     /// @param x0 point coordinate, x-axis
     /// @param y0 point coordinate, y-axis
-    /// @param text text string
+    /// @param text UTF-8 coded text (uint8_t)
     /// @param textColour 16-bit colour, default = white
     /// @param backColour 16-bit colour, default = black
+    /// @warning UTF-8 coded text is required
+    /// @deprecated ISO-8859-1 or Latin 1 coded text is deprecated, use UTF-8 coded text instead (10.0.0)
     ///
     /// @n @b More: @ref Colour, @ref Fonts, @ref Coordinate
     ///
     virtual void gTextLarge(uint16_t x0, uint16_t y0,
                             STRING_CONST_TYPE text,
+                            uint16_t textColour = myColours.black,
+                            uint16_t backColour = myColours.white);
+
+    virtual void gTextLarge(uint16_t x0, uint16_t y0,
+                            STRING16_CONST_TYPE text,
                             uint16_t textColour = myColours.black,
                             uint16_t backColour = myColours.white);
     /// @}
@@ -445,7 +496,7 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
     /// @brief Orient coordinates and check within screen
     /// @param[out] x1 x coordinate
     /// @param[out] y1 y coordinate
-    /// @return RESULT_SUCCESS = false = success, RESULT_ERROR = true = error
+    /// @return `RESULT_SUCCESS` = false = success, `RESULT_ERROR` = true = error
     ///
     virtual bool s_orientCoordinates(uint16_t & x1, uint16_t & y1) = 0; // compulsory
 

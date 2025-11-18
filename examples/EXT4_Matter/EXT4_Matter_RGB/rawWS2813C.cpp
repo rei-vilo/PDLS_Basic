@@ -5,7 +5,7 @@
 /// @version 103
 /// @date 16 Feb 2024
 ///
-/// @copyright Copyright (c) 2021-2025 Pervasive Displays
+/// @copyright (c) Pervasive Displays Inc., 2024
 /// @copyright License CC-BY-SA Creative Commons - Attribution - Share Alike
 /// https://creativecommons.org/licenses/by-sa/4.0/deed.en
 ///
@@ -118,7 +118,6 @@ void wsWrite(uint8_t red, uint8_t green, uint8_t blue)
         valueB07R07G07 >>= 1;
     }
 }
-
 
 rawWS2813C::rawWS2813C(uint32_t num_leds, pin_size_t pin)
 {

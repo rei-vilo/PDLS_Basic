@@ -8,7 +8,7 @@ The Pervasive Displays Library Suite is specifically designed for the [Pervasive
 
 ![](img/Pervasive_Displays_logo_gray.png)
 
-Release 9 inaugurates a new structure based on drivers developed by Pervasive Displays.
+Release 10 introduces direct support for text coded in UTF-8. The `utf2iso()` function is no longer required.
 
 The **PDLS_Basic** edition supports the screens
 
@@ -85,7 +85,7 @@ Hardware
 
 ## Licence
 
-**Copyright** &copy; Pervasive Displays, Inc., 2021-2025
+**Copyright** &copy; Pervasive Displays Inc., 2021-2025,
 
 **Copyright** &copy; Etigues, 2010-2025
 

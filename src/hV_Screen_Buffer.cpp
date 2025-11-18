@@ -22,6 +22,7 @@
 // Release 801: Improved functions names consistency
 // Release 805: Added large variant for gText()
 // Release 910: Added check on vector coordinates
+// Release 1000: Added support for UTF-8 strings
 //
 
 // Library header
@@ -635,9 +636,9 @@ uint8_t hV_Screen_Buffer::addFont(font_s fontName)
     return f_addFont(fontName);
 }
 
-void hV_Screen_Buffer::selectFont(uint8_t font)
+void hV_Screen_Buffer::selectFont(uint8_t fontIndex)
 {
-    f_selectFont(font);
+    f_selectFont(fontIndex);
 }
 
 uint8_t hV_Screen_Buffer::getFont()
@@ -650,9 +651,38 @@ uint8_t hV_Screen_Buffer::fontMax()
     return f_fontMax();
 }
 
-uint16_t hV_Screen_Buffer::characterSizeX(uint8_t character)
+uint16_t hV_Screen_Buffer::characterSizeX(STRING_CONST_TYPE character)
 {
     uint16_t result = 0;
+    if ((f_font.kind & 0x40) == 0x40) // Monospaced font
+    {
+        result = f_font.maxWidth + f_fontSpaceX;
+    }
+    else
+    {
+        uint16_t buffer2[2] = {0};
+        uint16_t _size16 = 0;
+
+#if (STRING_MODE == USE_STRING_OBJECT)
+
+        _size16 = utf8to16(character.c_str(), buffer2, 2);
+
+#elif (STRING_MODE == USE_CHAR_ARRAY)
+
+        _size16 = utf8to16(character, buffer2, 2);
+
+#endif // STRING_MODE
+
+        result = characterSizeX(buffer2[0]);
+    }
+
+    return result;
+}
+
+uint16_t hV_Screen_Buffer::characterSizeX(uint16_t character)
+{
+    uint16_t result = 0;
+
     if ((f_font.kind & 0x40) == 0x40) // Monospaced font
     {
         result = f_font.maxWidth + f_fontSpaceX;
@@ -670,14 +700,24 @@ uint16_t hV_Screen_Buffer::characterSizeY()
     return f_characterSizeY();
 }
 
-uint16_t hV_Screen_Buffer::stringSizeX(STRING_CONST_TYPE text)
+uint16_t hV_Screen_Buffer::stringSizeX(STRING16_CONST_TYPE text16)
 {
-    return f_stringSizeX(text);
+    return f_stringSizeX(text16);
 }
 
-uint8_t hV_Screen_Buffer::stringLengthToFitX(STRING_CONST_TYPE text, uint16_t pixels)
+uint16_t hV_Screen_Buffer::stringSizeX(STRING_CONST_TYPE text8)
 {
-    return f_stringLengthToFitX(text, pixels);
+    return f_stringSizeX(text8);
+}
+
+uint8_t hV_Screen_Buffer::stringLengthToFitX(STRING_CONST_TYPE text8, uint16_t pixels)
+{
+    return f_stringLengthToFitX(text8, pixels);
+}
+
+uint8_t hV_Screen_Buffer::stringLengthToFitX(STRING16_CONST_TYPE text16, uint16_t pixels)
+{
+    return f_stringLengthToFitX(text16, pixels);
 }
 
 void hV_Screen_Buffer::setFontSpaceX(uint8_t number)
@@ -696,13 +736,39 @@ uint8_t hV_Screen_Buffer::s_getCharacter(uint8_t character, uint8_t index)
 }
 
 void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
-                             STRING_CONST_TYPE text,
+                             STRING_CONST_TYPE text8,
                              uint16_t textColour,
                              uint16_t backColour)
 {
+    uint16_t _buffer16[BUFFER_LENGTH] = {0};
+    uint16_t _size16 = 0;
+
+    _size16 = utf8to16(text8.c_str(), _buffer16);
+
+    if (_size16 == 0)
+    {
+        return;
+    }
+
+    gText(x0, y0, _buffer16, textColour, backColour);
+}
+
+void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
+                             STRING16_CONST_TYPE text16,
+                             uint16_t textColour,
+                             uint16_t backColour)
+{
+    uint16_t _size16 = 0;
+    while (text16[++_size16] != 0x0000);
+    _size16 = (text16[0] == 0x000) ? 0 : _size16;
+    if (_size16 == 0)
+    {
+        return;
+    }
+
 #if (FONT_MODE == USE_FONT_TERMINAL)
 
-    uint8_t c;
+    uint8_t character8;
     uint8_t line, line1, line2, line3;
     uint16_t x, y;
     uint8_t i, j, k;
@@ -711,15 +777,15 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
 
     if (f_fontSize == 0)
     {
-        for (k = 0; k < text.length(); k++)
+        for (k = 0; k < _size16; k++)
         {
             x = x0 + (6 + f_fontSpaceX) * k;
             y = y0;
-            c = text.charAt(k) - ' ';
+            character8 = (text16[k] == 0x20ac) ? 0x80 - ' ' : (text16[k] & 0xff) - ' ';
 
             for (i = 0; i < 6; i++)
             {
-                line = f_getCharacter(c, i);
+                line = f_getCharacter(character8, i);
 
                 for (j = 0; j < 8; j++)
                 {
@@ -740,16 +806,16 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
 
     else if (f_fontSize == 1)
     {
-        for (k = 0; k < text.length(); k++)
+        for (k = 0; k < _size16; k++)
         {
             x = x0 + (8 + f_fontSpaceX) * k;
             y = y0;
-            c = text.charAt(k) - ' ';
+            character8 = (text16[k] == 0x20ac) ? 0x80 - ' ' : (text16[k] & 0xff) - ' ';
 
             for (i = 0; i < 8; i++)
             {
-                line = f_getCharacter(c, 2 * i);
-                line1 = f_getCharacter(c, 2 * i + 1);
+                line = f_getCharacter(character8, 2 * i);
+                line1 = f_getCharacter(character8, 2 * i + 1);
 
                 for (j = 0; j < 8; j++)
                 {
@@ -778,17 +844,16 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
 
     else if (f_fontSize == 2)
     {
-
-        for (k = 0; k < text.length(); k++)
+        for (k = 0; k < _size16; k++)
         {
             x = x0 + (12 + f_fontSpaceX) * k;
             y = y0;
-            c = text.charAt(k) - ' ';
+            character8 = (text16[k] == 0x20ac) ? 0x80 - ' ' : (text16[k] & 0xff) - ' ';
 
             for (i = 0; i < 12; i++)
             {
-                line = f_getCharacter(c, 2 * i);
-                line1 = f_getCharacter(c, 2 * i + 1);
+                line = f_getCharacter(character8, 2 * i);
+                line1 = f_getCharacter(character8, 2 * i + 1);
 
                 for (j = 0; j < 8; j++)
                 {
@@ -817,17 +882,17 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
 
     else if (f_fontSize == 3)
     {
-        for (k = 0; k < text.length(); k++)
+        for (k = 0; k < _size16; k++)
         {
             x = x0 + (16 + f_fontSpaceX) * k;
             y = y0;
-            c = text.charAt(k) - ' ';
+            character8 = (text16[k] == 0x20ac) ? 0x80 - ' ' : (text16[k] & 0xff) - ' ';
 
             for (i = 0; i < 16; i++)
             {
-                line = f_getCharacter(c, 3 * i);
-                line1 = f_getCharacter(c, 3 * i + 1);
-                line2 = f_getCharacter(c, 3 * i + 2);
+                line = f_getCharacter(character8, 3 * i);
+                line1 = f_getCharacter(character8, 3 * i + 1);
+                line2 = f_getCharacter(character8, 3 * i + 2);
                 for (j = 0; j < 8; j++)
                 {
                     if (bitRead(line, j))
@@ -867,13 +932,38 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
 }
 
 void hV_Screen_Buffer::gTextLarge(uint16_t x0, uint16_t y0,
-                                  STRING_CONST_TYPE text,
+                                  STRING_CONST_TYPE text8,
                                   uint16_t textColour,
                                   uint16_t backColour)
 {
+    uint16_t _buffer16[BUFFER_LENGTH] = {0};
+    uint16_t _size16 = 0;
+
+    _size16 = utf8to16(text8.c_str(), _buffer16);
+
+    if (_size16 == 0)
+    {
+        return;
+    }
+
+    gTextLarge(x0, y0, _buffer16, textColour, backColour);
+}
+
+void hV_Screen_Buffer::gTextLarge(uint16_t x0, uint16_t y0,
+                                  STRING16_CONST_TYPE text16,
+                                  uint16_t textColour,
+                                  uint16_t backColour)
+{
+    uint16_t _size16 = 0;
+    while (text16[++_size16] != 0x0000);
+    if (_size16 == 0)
+    {
+        return;
+    }
+
 #if (FONT_MODE == USE_FONT_TERMINAL)
 
-    uint8_t c;
+    uint8_t character8;
     uint8_t line, line1, line2, line3;
     uint16_t x, y;
     uint8_t i, j, k;
@@ -888,15 +978,15 @@ void hV_Screen_Buffer::gTextLarge(uint16_t x0, uint16_t y0,
 
     if (f_fontSize == 0)
     {
-        for (k = 0; k < text.length(); k++)
+        for (k = 0; k < _size16; k++)
         {
             x = x0 + (6 + f_fontSpaceX) * k * ix;
             y = y0;
-            c = text.charAt(k) - ' ';
+            character8 = (text16[k] == 0x20ac) ? 0x80 - ' ' : (text16[k] & 0xff) - ' ';
 
             for (i = 0; i < 6; i++)
             {
-                line = f_getCharacter(c, i);
+                line = f_getCharacter(character8, i);
 
                 for (j = 0; j < 8; j++)
                 {
@@ -914,18 +1004,19 @@ void hV_Screen_Buffer::gTextLarge(uint16_t x0, uint16_t y0,
     }
 
 #if (MAX_FONT_SIZE > 1)
+
     else if (f_fontSize == 1)
     {
-        for (k = 0; k < text.length(); k++)
+        for (k = 0; k < _size16; k++)
         {
             x = x0 + (8 + f_fontSpaceX) * k * ix;
             y = y0;
-            c = text.charAt(k) - ' ';
+            character8 = (text16[k] == 0x20ac) ? 0x80 - ' ' : (text16[k] & 0xff) - ' ';
 
             for (i = 0; i < 8; i++)
             {
-                line = f_getCharacter(c, 2 * i);
-                line1 = f_getCharacter(c, 2 * i + 1);
+                line = f_getCharacter(character8, 2 * i);
+                line1 = f_getCharacter(character8, 2 * i + 1);
 
                 for (j = 0; j < 8; j++)
                 {
@@ -954,17 +1045,16 @@ void hV_Screen_Buffer::gTextLarge(uint16_t x0, uint16_t y0,
 
     else if (f_fontSize == 2)
     {
-
-        for (k = 0; k < text.length(); k++)
+        for (k = 0; k < _size16; k++)
         {
             x = x0 + (12 + f_fontSpaceX) * k * ix;
             y = y0;
-            c = text.charAt(k) - ' ';
+            character8 = (text16[k] == 0x20ac) ? 0x80 - ' ' : (text16[k] & 0xff) - ' ';
 
             for (i = 0; i < 12; i++)
             {
-                line = f_getCharacter(c, 2 * i);
-                line1 = f_getCharacter(c, 2 * i + 1);
+                line = f_getCharacter(character8, 2 * i);
+                line1 = f_getCharacter(character8, 2 * i + 1);
 
                 for (j = 0; j < 8; j++)
                 {
@@ -993,17 +1083,17 @@ void hV_Screen_Buffer::gTextLarge(uint16_t x0, uint16_t y0,
 
     else if (f_fontSize == 3)
     {
-        for (k = 0; k < text.length(); k++)
+        for (k = 0; k < _size16; k++)
         {
             x = x0 + (16 + f_fontSpaceX) * k * ix;
             y = y0;
-            c = text.charAt(k) - ' ';
+            character8 = (text16[k] == 0x20ac) ? 0x80 - ' ' : (text16[k] & 0xff) - ' ';
 
             for (i = 0; i < 16; i++)
             {
-                line = f_getCharacter(c, 3 * i);
-                line1 = f_getCharacter(c, 3 * i + 1);
-                line2 = f_getCharacter(c, 3 * i + 2);
+                line = f_getCharacter(character8, 3 * i);
+                line1 = f_getCharacter(character8, 3 * i + 1);
+                line2 = f_getCharacter(character8, 3 * i + 2);
                 for (j = 0; j < 8; j++)
                 {
                     if (bitRead(line, j))

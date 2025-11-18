@@ -4,7 +4,7 @@
 /// @version 103
 /// @date 16 Feb 2024
 ///
-/// @copyright Copyright (c) 2021-2025 Pervasive Displays
+/// @copyright (c) Pervasive Displays Inc., 2024
 /// @copyright License CC-BY-SA Creative Commons - Attribution - Share Alike
 /// https://creativecommons.org/licenses/by-sa/4.0/deed.en
 ///

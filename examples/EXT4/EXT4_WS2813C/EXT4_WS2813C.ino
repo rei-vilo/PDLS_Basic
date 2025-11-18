@@ -5,8 +5,8 @@
 /// @details Example for Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Aug 2025
-/// @version 912
+/// @date 21 Nov 2025
+/// @version 1000
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright All rights reserved
@@ -22,40 +22,40 @@
 /// @n All rights reserved
 ///
 
+// Set parameters
+
 // SDK and configuration
 // #include <Arduino.h>
 #include "PDLS_Common.h"
 
+// Board
+pins_t myBoard = boardArduinoNanoMatter_EXT4;
+// pins_t myBoard = boardSiLabsBG24Explorer_EXT4;
+
 // Driver
 #include "Pervasive_Wide_Small.h"
+Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
 
 // Screen
 #include "PDLS_Basic.h"
+Screen_EPD myScreen(&myDriver);
 
-#if (SCREEN_EPD_RELEASE < 902)
-#error Required SCREEN_EPD_RELEASE 902
+// Checks
+#if (SCREEN_EPD_RELEASE < 1000)
+#error Required SCREEN_EPD_RELEASE 1000
 #endif // SCREEN_EPD_RELEASE
 
+// Fonts
+
 // Include application, user and local libraries
-// #include <SPI.h>
-
-// Checks: Pervasive Displays EXT4 only
-#if (USE_EXT_BOARD != BOARD_EXT4)
-#error Required USE_EXT_BOARD = BOARD_EXT4
-#endif // USE_EXT_BOARD
-
 // WS2813C
 /// @warning ezWS2812gpio hangs. Back to previous rawWS2813C
 // #include "ezWS2812gpio.h"
 #include "rawWS2813C.h"
 
-// Set parameters
-
 // Define structures and classes
 
 // Define variables and constants
-const pins_t myBoard = boardArduinoNanoMatter;
-
 // WS2813
 /// @warning ezWS2812gpio hangs. Back to previous rawWS2813C
 // ezWS2812gpio myRGB(1, myBoard.ledData);
@@ -68,7 +68,6 @@ void wsFromTo(uint8_t fromRed, uint8_t fromGreen, uint8_t fromBlue,
               uint8_t toRed, uint8_t toGreen, uint8_t toBlue,
               uint8_t steps, uint16_t ms)
 {
-
     hV_HAL_log(LEVEL_INFO, "From %3i.%3i.%3i to %3i.%3i.%3i in %4i steps and %6i ms\n", fromRed, fromGreen, fromBlue,
                toRed, toGreen, toBlue,
                steps, ms);
@@ -98,14 +97,21 @@ void wsFromTo(uint8_t fromRed, uint8_t fromGreen, uint8_t fromBlue,
 ///
 void setup()
 {
-    // hV_HAL_Serial = Serial by default, otherwise edit hV_HAL_Peripherals.h
-    hV_HAL_begin(); // with Serial at 115200
+    hV_HAL_begin();
 
     hV_HAL_Serial_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
     hV_HAL_Serial_crlf();
 
+    // Check EXT4
+    if (myBoard.scope != BOARD_EXT4)
+    {
+        hV_HAL_log(LEVEL_CRITICAL, "EXT4 board required");
+        hV_HAL_exit(RESULT_ERROR);
+    }
+
+    // RGB
     myRGB.begin();
     hV_HAL_log(LEVEL_INFO, "Black");
     myRGB.set_all(0, 0, 0);

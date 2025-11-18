@@ -5,8 +5,8 @@
 /// @details Example for Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Jan 2025
-/// @version 902
+/// @date 21 Nov 2025
+/// @version 1000
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright All rights reserved
@@ -22,44 +22,38 @@
 /// @n All rights reserved
 ///
 
-// SDK
-// #include <Arduino.h>
-#include "PDLS_Common.h"
-
-// Include application, user and local libraries
-// #include <SPI.h>
-
-// Driver
-#include "Pervasive_Wide_Small.h"
-
-// Screen
-#include "PDLS_Basic.h"
-
-#if (SCREEN_EPD_RELEASE < 902)
-#error Required SCREEN_EPD_RELEASE 902
-#endif // SCREEN_EPD_RELEASE
-
 // Set parameters
 #define DISPLAY_FAST_ORIENTATION 0
 #define DISPLAY_FAST_LINE 1
 #define DISPLAY_FAST_TEMPERATURE 0
 #define DISPLAY_FAST_SPEED 0
 
-// Define structures and classes
+// SDK and configuration
+// #include <Arduino.h>
+#include "PDLS_Common.h"
 
-// Define variables and constants
+// Board
+pins_t myBoard = boardRaspberryPiPico_RP2040;
+
 // Driver
-Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, boardRaspberryPiPico_RP2040);
+#include "Pervasive_Wide_Small.h"
+Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
 
 // Screen
+#include "PDLS_Basic.h"
 Screen_EPD myScreen(&myDriver);
 
+// Checks
+#if (SCREEN_EPD_RELEASE < 1000)
+#error Required SCREEN_EPD_RELEASE 1000
+#endif // SCREEN_EPD_RELEASE
+
+// Fonts
 uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 
 // Prototypes
 
 // Utilities
-
 
 // Functions
 #if (DISPLAY_FAST_LINE == 1)
@@ -71,8 +65,7 @@ void flush_ms()
 {
     uint32_t chrono = (uint32_t)hV_HAL_getMilliseconds();
     myScreen.flush();
-    hV_HAL_log(LEVEL_INFO, "%i", hV_HAL_getMilliseconds() - chrono);
-    mySerial.println(" ms");
+    hV_HAL_log(LEVEL_INFO, "%i ms", hV_HAL_getMilliseconds() - chrono);
 }
 
 void displayFastLine()
@@ -114,8 +107,7 @@ void displayFastLine()
 ///
 void setup()
 {
-    // hV_HAL_Serial = Serial by default, otherwise edit hV_HAL_Peripherals.h
-    hV_HAL_begin(); // with Serial at 115200
+    hV_HAL_begin();
 
     hV_HAL_Serial_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
@@ -135,13 +127,13 @@ void setup()
 
 #else // FONT_MODE
 
-    fontSmall = myScreen.addFont(Font_DejaVuSans12);
+    fontSmall = myScreen.addFont(Font_Latin_DejaVuSans12);
     fontSmall -= ((fontSmall > 0) ? 1 : 0);
-    fontMedium = myScreen.addFont(Font_DejaVuSans16);
+    fontMedium = myScreen.addFont(Font_Latin_DejaVuSans16);
     fontMedium -= ((fontMedium > 0) ? 1 : 0);
-    fontLarge = myScreen.addFont(Font_DejaVuSans24);
+    fontLarge = myScreen.addFont(Font_Latin_DejaVuSans24);
     fontLarge -= ((fontLarge > 0) ? 1 : 0);
-    fontVery = myScreen.addFont(Font_DejaVuMono48);
+    fontVery = myScreen.addFont(Font_Latin_DejaVuMono48);
     fontVery -= ((fontVery > 0) ? 1 : 0);
 
 #endif // FONT_MODE

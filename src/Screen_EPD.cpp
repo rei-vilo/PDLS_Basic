@@ -44,6 +44,9 @@
 // Release 912: Added temperature functions to driver
 // Release 920: Added check on edition
 // Release 921: Added support for BWRY medium and large screens
+// Release 1000: Added support for UTF-8 strings
+// Release 1000: Added support for UTF-16 strings
+// Release 1000: Added support for 16-bit fonts
 //
 
 // Library header
@@ -1238,6 +1241,8 @@ STRING_TYPE Screen_EPD::WhoAmI()
 #endif // SRAM_MODE
 
 #if (FONT_MODE == USE_FONT_HEADER)
+    strcat(work, "H");
+#elif (FONT_MODE == USE_FONT16_HEADER)
     strcat(work, "H");
 #elif (FONT_MODE == USE_FONT_FLASH)
     strcat(work, "F");

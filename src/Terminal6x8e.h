@@ -5,8 +5,8 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Jan 2025
-/// @version 902
+/// @date 21 Nov 2025
+/// @version 1000
 ///
 /// @copyright (c) Etigues, 2010-2025
 /// @copyright All rights reserved
@@ -40,7 +40,7 @@
 ///
 /// @brief Release
 ///
-#define TERMINAL6E_FONT_RELEASE 902
+#define TERMINAL6E_FONT_RELEASE 1000
 
 ///
 /// @brief Font Terminal6x8e

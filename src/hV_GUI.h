@@ -5,8 +5,8 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Jan 2025
-/// @version 902
+/// @date 21 Nov 2025
+/// @version 1000
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright (c) Etigues, 2010-2025
@@ -39,20 +39,20 @@
 ///
 /// @brief Library release number
 ///
-#define hV_GUI_RELEASE 902
+#define hV_GUI_RELEASE 1000
 
 // SDK and configuration
 #include "PDLS_Common.h"
 
-#if (PDLS_COMMON_RELEASE < 902)
-#error Required PDLS_COMMON_RELEASE 902
+#if (PDLS_COMMON_RELEASE < 1000)
+#error Required PDLS_COMMON_RELEASE 1000
 #endif // PDLS_COMMON_RELEASE
 
 // Other libraries
 #include "Screen_EPD.h"
 
-#if (SCREEN_EPD_RELEASE < 902)
-#error Required SCREEN_EPD_RELEASE 902
+#if (SCREEN_EPD_RELEASE < 1000)
+#error Required SCREEN_EPD_RELEASE 1000
 #endif // SCREEN_EPD_RELEASE
 
 #ifndef WITH_TOUCH
@@ -155,7 +155,8 @@ class Text
 
     ///
     /// @brief Display the text
-    /// @param text text to be displayed
+    /// @param text text to be displayed, UTF-8 coded
+    /// @warning Required UTF-8 coded
     ///
     void draw(STRING_CONST_TYPE text);
 
@@ -187,8 +188,9 @@ class Button : public Text
     /// @param y0 point coordinate, y-axis
     /// @param dx length, x-axis
     /// @param dy height, y-axis
-    /// @param text0 text
+    /// @param text0 text, UTF-8 coded
     /// @param size0 size for text, default = 0
+    /// @warning Required UTF-8 coded
     ///
     /// @n @b More: @ref Coordinate, @ref Colour
     ///

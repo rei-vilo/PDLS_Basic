@@ -21,6 +21,7 @@
 // All rights reserved
 //
 // Release 803: Added types for string and frame-buffer
+// Release 1000: Added support for UTF-8 strings
 //
 
 // The Arduino IDE does not allow to select the libraries, hence this condition.
@@ -136,7 +137,7 @@ uint8_t hV_Font_Terminal::f_getCharacter(uint8_t character, uint16_t index)
 #endif // end MAX_FONT_SIZE > 0
 }
 
-uint16_t hV_Font_Terminal::f_characterSizeX(uint8_t character)
+uint16_t hV_Font_Terminal::f_characterSizeX(uint16_t character)
 {
     return f_font.maxWidth;
 }
@@ -146,32 +147,49 @@ uint16_t hV_Font_Terminal::f_characterSizeY()
     return f_font.height;
 }
 
-uint16_t hV_Font_Terminal::f_stringSizeX(STRING_CONST_TYPE text)
+uint16_t hV_Font_Terminal::f_stringSizeX(STRING_CONST_TYPE text8)
 {
-    uint16_t textWidth = 0;
-    uint8_t textLength = 0;
+    uint16_t _buffer16[BUFFER_LENGTH] = {0};
+    uint16_t _size16 = 0;
 
-    textLength = text.length();
+    _size16 = utf8to16(text8.c_str(), _buffer16);
 
-    textWidth = (f_font.maxWidth + f_fontSpaceX) * textLength;
-
-    return textWidth;
+    return f_stringSizeX(_buffer16);
 }
 
-uint8_t hV_Font_Terminal::f_stringLengthToFitX(STRING_CONST_TYPE text, uint16_t pixels)
+uint16_t hV_Font_Terminal::f_stringSizeX(STRING16_CONST_TYPE text16)
+{
+    uint16_t _size16 = 0;
+    while (text16[++_size16] != 0x0000);
+    _size16 = (text16[0] == 0x0000) ? 0 : _size16;
+
+    return (f_font.maxWidth + f_fontSpaceX) * _size16;
+}
+
+uint8_t hV_Font_Terminal::f_stringLengthToFitX(STRING_CONST_TYPE text8, uint16_t pixels)
 {
     uint8_t index = 0;
     uint16_t textWidth = 0;
-    uint8_t textLength = 0;
+    uint8_t _size16 = 0;
 
-    textLength = text.length();
+    uint16_t _buffer16[BUFFER_LENGTH] = {0};
+
+    _size16 = utf8to16(text8.c_str(), _buffer16);
+
+    return f_stringLengthToFitX(_buffer16, pixels);
+}
+
+uint8_t hV_Font_Terminal::f_stringLengthToFitX(STRING16_CONST_TYPE text16, uint16_t pixels)
+{
+    uint8_t index = 0;
+    uint16_t textWidth = 0;
+
+    uint8_t _size16 = 0;
+    while (text16[++_size16] != 0x0000);
 
     // Monospaced font
     index = pixels / f_font.maxWidth - 1;
-    if (index > textLength)
-    {
-        index = textLength;
-    }
+    index = hV_HAL_min(index, _size16);
 
     return index;
 }

@@ -17,14 +17,14 @@
 ///
 /// @author Tamas Jozsi (Silicon Labs)
 ///
-/// @date 21 Jan 2025
-/// @version 902
+/// @date 21 Nov 2025
+/// @version 1000
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2025
-/// * 2024-06-06 Rei Vilo
-/// * Added support for EXT4
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
+/// * 2024-06-06 Rei Vilo
+/// * Added support for EXT4
 ///
 /// * Basic edition: for hobbyists and for basic usage
 /// @n Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
@@ -36,28 +36,33 @@
 /// @n All rights reserved
 ///
 
-// SDK
+// Set parameters
+#define MATTER_EXAMPLE_NAME "Matter Weather"
+#define MATTER_EXAMPLE_RELEASE 109
+
+// SDK and configuration
 // #include <Arduino.h>
 #include "PDLS_Common.h"
 
+// Board
+pins_t myBoard = boardArduinoNanoMatter_EXT4;
+// pins_t myBoard = boardSiLabsBG24Explorer_EXT4;
+
 // Driver
 #include "Pervasive_Wide_Small.h"
+Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
 
 // Screen
 #include "PDLS_Basic.h"
+Screen_EPD myScreen(&myDriver);
 
-#if (SCREEN_EPD_RELEASE < 902)
-#error Required SCREEN_EPD_RELEASE 902
+// Checks
+#if (SCREEN_EPD_RELEASE < 1000)
+#error Required SCREEN_EPD_RELEASE 1000
 #endif // SCREEN_EPD_RELEASE
 
-// Include application, user and local libraries
-// #include <SPI.h>
-#include "Wire.h"
-
-// Checks: Pervasive Displays EXT4 only
-#if (USE_EXT_BOARD != BOARD_EXT4)
-#error Required USE_EXT_BOARD = BOARD_EXT4
-#endif // USE_EXT_BOARD
+// Fonts
+uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 
 // Checks: Silicon Labs Matter only
 #ifndef ARDUINO_ARCH_SILABS
@@ -69,6 +74,9 @@
 #error Matter library required
 #endif
 
+// Include application, user and local libraries
+#include "Wire.h"
+
 #include <Matter.h>
 #include <MatterTemperature.h>
 #include <MatterHumidity.h>
@@ -76,28 +84,9 @@
 MatterTemperature myMatterTemperature;
 MatterHumidity myMatterHumidity;
 
-// Set parameters
-#define MATTER_EXAMPLE_NAME "Matter Weather"
-#define MATTER_EXAMPLE_RELEASE 109
-
-// Define structures and classes
-
-// Define variables and constants
-
-// Board
-pins_t myBoard = boardArduinoNanoMatter;
-
-// Driver
-// pins_t myBoard = boardSiLabsBG24Explorer;
-Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
-
-// Screen
-Screen_EPD myScreen(&myDriver);
-
-// Fonts
-uint8_t fontSmall, fontMedium, fontLarge, fontVery;
-
-// HDC2080
+//
+// --- HDC2080 section
+//
 #define HDC_I2C 0x40
 
 uint8_t bufferWrite[8] = { 0 };
@@ -161,12 +150,12 @@ bool displayValue(uint8_t slot, STRING_CONST_TYPE name, measure_s * value, STRIN
 /// @param option2 text for option 2, optional
 /// @param option3 text for option 3, optional
 /// @param option4 text for option 4, optional
-/// @return number of the selected option, 0 = none
+/// @return number of the selected option, `0` = none
 /// @note Procedure
 /// * Press and hold the button to choose the option
 /// * A progress bar shows the selected option
 /// * Release the button to select the option
-/// @warning button should be initialised before calling menuOneButton()
+/// @warning button should be initialised before calling `menuOneButton()`
 ///
 uint8_t menuOneButton(uint8_t button, const char * title, const char * option1, const char * option2 = 0, const char * option3 = 0, const char * option4 = 0);
 
@@ -258,7 +247,7 @@ bool displayValue(uint8_t slot, STRING_CONST_TYPE name, measure_s * value, STRIN
 
     myScreen.selectFont(fontLarge);
     char unit_c[4] = {0};
-    strcpy(unit_c, utf2iso(unit).c_str());
+    strcpy(unit_c, unit.c_str());
     myScreen.gText(x0 + 3 * dx - myScreen.characterSizeX() * 0, y0 + 1 * dy - myScreen.characterSizeY(), formatString("%s", unit_c));
 
     myScreen.selectFont(fontMedium);
@@ -336,7 +325,9 @@ void displayAbout()
     hV_HAL_delayMilliseconds(10000);
     myScreen.clear();
 }
+//
 // --- End of Screen
+//
 
 void displayIdenfication()
 {
@@ -554,17 +545,31 @@ void displayDecommissioning()
 ///
 void setup()
 {
-    // hV_HAL_Serial = Serial by default, otherwise edit hV_HAL_Peripherals.h
-    hV_HAL_begin(); // with Serial at 115200
+    hV_HAL_begin();
 
     hV_HAL_Serial_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
     hV_HAL_Serial_crlf();
 
-    // Start
+    // Check EXT4
+    if (myBoard.scope != BOARD_EXT4)
+    {
+        hV_HAL_log(LEVEL_CRITICAL, "EXT4 board required");
+        hV_HAL_exit(RESULT_ERROR);
+    }
+
+    // Check panelPower
+    if (myBoard.panelPower == NOT_CONNECTED)
+    {
+        hV_HAL_log(LEVEL_INFO, "panelPower not connected");
+        hV_HAL_exit(RESULT_ERROR);
+    }
+
+    // Screen
     myScreen.begin();
 
+    // Fonts
 #if (FONT_MODE == USE_FONT_TERMINAL)
 
     fontSmall = Font_Terminal6x8;
@@ -574,17 +579,18 @@ void setup()
 
 #else // FONT_MODE
 
-    fontSmall = myScreen.addFont(Font_DejaVuSans12);
+    fontSmall = myScreen.addFont(Font_Latin_DejaVuSans12);
     fontSmall -= ((fontSmall > 0) ? 1 : 0);
-    fontMedium = myScreen.addFont(Font_DejaVuSans16);
+    fontMedium = myScreen.addFont(Font_Latin_DejaVuSans14b);
     fontMedium -= ((fontMedium > 0) ? 1 : 0);
-    fontLarge = myScreen.addFont(Font_DejaVuSans24);
+    fontLarge = myScreen.addFont(Font_Latin_DejaVuSans24);
     fontLarge -= ((fontLarge > 0) ? 1 : 0);
-    fontVery = myScreen.addFont(Font_DejaVuMono48);
+    fontVery = myScreen.addFont(Font_Latin_DejaVuMono48);
     fontVery -= ((fontVery > 0) ? 1 : 0);
 
 #endif // FONT_MODE
 
+    // Example
     myScreen.setOrientation(ORIENTATION_LANDSCAPE);
     myScreen.regenerate(); // Clear buffer and screen
 

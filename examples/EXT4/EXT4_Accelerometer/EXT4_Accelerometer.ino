@@ -5,8 +5,8 @@
 /// @details Example for Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Jan 2025
-/// @version 902
+/// @date 21 Nov 2025
+/// @version 1000
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2025
 /// @copyright All rights reserved
@@ -22,37 +22,35 @@
 /// @n All rights reserved
 ///
 
+// Set parameters
+#define DISPLAY_ACCELEROMETER 1
+
 // SDK and configuration
 // #include <Arduino.h>
 #include "PDLS_Common.h"
 
+// Board
+pins_t myBoard = boardArduinoNanoMatter_EXT4;
+// pins_t myBoard = boardSiLabsBG24Explorer_EXT4;
+
 // Driver
 #include "Pervasive_Wide_Small.h"
+Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
 
 // Screen
 #include "PDLS_Basic.h"
+Screen_EPD myScreen(&myDriver);
 
-#if (SCREEN_EPD_RELEASE < 902)
-#error Required SCREEN_EPD_RELEASE 902
+// Fonts
+
+// Checks
+#if (SCREEN_EPD_RELEASE < 1000)
+#error Required SCREEN_EPD_RELEASE 1000
 #endif // SCREEN_EPD_RELEASE
-
-// Include application, user and local libraries
-// #include <SPI.h>
-
-#if (USE_EXT_BOARD != BOARD_EXT4)
-#error Required USE_EXT_BOARD = BOARD_EXT4
-#endif // USE_EXT_BOARD
-
-// Set parameters
-#define DISPLAY_ACCELEROMETER 1
 
 // Define structures and classes
 
 // Define variables and constants
-pins_t myBoard = boardArduinoNanoMatter;
-// pins_t myBoard = boardSiLabsBG24Explorer;
-Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
-Screen_EPD myScreen(&myDriver);
 
 uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 
