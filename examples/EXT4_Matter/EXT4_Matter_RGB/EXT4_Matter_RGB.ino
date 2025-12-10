@@ -47,8 +47,8 @@
 #include "PDLS_Common.h"
 
 // Board
-pins_t myBoard = boardArduinoNanoMatter_EXT4;
-// pins_t myBoard = boardSiLabsBG24Explorer_EXT4;
+Board_EXT myBoard = boardArduinoNanoMatter_EXT4;
+// Board_EXT myBoard = boardSiLabsBG24Explorer_EXT4;
 
 // Driver
 #include "Pervasive_Wide_Small.h"

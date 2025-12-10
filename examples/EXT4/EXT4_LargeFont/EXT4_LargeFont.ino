@@ -26,17 +26,7 @@
 // #include <Arduino.h>
 #include "PDLS_Common.h"
 
-// Driver
-#include "Pervasive_Wide_Small.h"
-
-// Screen
-#include "PDLS_Basic.h"
-
 #warning PDLS_Basic only
-
-#if (SCREEN_EPD_RELEASE < 902)
-#error Required SCREEN_EPD_RELEASE 902
-#endif // SCREEN_EPD_RELEASE
 
 // Include application, user and local libraries
 // #include <SPI.h>
@@ -47,11 +37,24 @@
 // Define structures and classes
 
 // Define variables and constants
-pins_t myBoard = boardArduinoNanoMatter;
-// pins_t myBoard = boardSiLabsBG24Explorer;
+// Board
+Board_EXT myBoard = boardArduinoNanoMatter_EXT4;
+// Board_EXT myBoard = boardSiLabsBG24Explorer_EXT4;
+
+// Driver
+#include "Pervasive_Wide_Small.h"
 Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
+
+// Screen
+#include "PDLS_Basic.h"
 Screen_EPD myScreen(&myDriver);
 
+// Check
+#if (SCREEN_EPD_RELEASE < 902)
+#error Required SCREEN_EPD_RELEASE 902
+#endif // SCREEN_EPD_RELEASE
+
+// Fonts
 uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 
 // Prototypes

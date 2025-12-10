@@ -30,7 +30,7 @@
 #include "PDLS_Common.h"
 
 // Board
-pins_t myBoard = boardRaspberryPiPico_RP2040;
+Board_EXT myBoard = boardRaspberryPiPico_RP2040_EXT3;
 
 // Driver
 #include "Pervasive_Wide_Small.h"

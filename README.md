@@ -1,8 +1,6 @@
 # Pervasive Displays Library Suite - Basic edition
 
-[![Release](https://img.shields.io/github/v/release/rei-vilo/PDLS_Basic)](https://github.com/rei-vilo/PDLS_Basic/releases) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9f09780839f7479285cb931ffe4954d7)](https://app.codacy.com/gh/rei-vilo/PDLS_Basic/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) ![Arduino lint](https://github.com/rei-vilo/PDLS_Basic/actions/workflows/main.yml/badge.svg) [![GitHub issues](https://img.shields.io/github/issues/pervasivedisplays/PDLS_Basic)](https://github.com/rei-vilo/PDLS_Basic/issues)
-
-[![](https://img.shields.io/badge/-Knowledge_Base-orange)](https://docs.pervasivedisplays.com/knowledge/)
+[![Release](https://img.shields.io/github/v/release/rei-vilo/PDLS_Basic)](https://github.com/rei-vilo/PDLS_Basic/releases) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9f09780839f7479285cb931ffe4954d7)](https://app.codacy.com/gh/rei-vilo/PDLS_Basic/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) ![Arduino lint](https://github.com/rei-vilo/PDLS_Basic/actions/workflows/main.yml/badge.svg) [![GitHub issues](https://img.shields.io/github/issues/pervasivedisplays/PDLS_Basic)](https://github.com/rei-vilo/PDLS_Basic/issues) [![](https://img.shields.io/badge/-Knowledge_Base-orange)](https://docs.pervasivedisplays.com/knowledge/)
 
 The Pervasive Displays Library Suite is specifically designed for the [Pervasive Displays](https://www.pervasivedisplays.com) e-paper screens, extension boards and evaluation kits.
 
