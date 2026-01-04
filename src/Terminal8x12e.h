@@ -8,7 +8,7 @@
 /// @date 21 Nov 2025
 /// @version 1000
 ///
-/// @copyright (c) Etigues, 2010-2025
+/// @copyright (c) Etigues, 2010-2026
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 ///

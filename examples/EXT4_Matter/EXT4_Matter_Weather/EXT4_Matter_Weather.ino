@@ -20,7 +20,7 @@
 /// @date 21 Nov 2025
 /// @version 1000
 ///
-/// @copyright (c) Pervasive Displays Inc., 2021-2025
+/// @copyright (c) Pervasive Displays Inc., 2021-2026
 /// @copyright All rights reserved
 /// @copyright For exclusive use with Pervasive Displays screens
 /// * 2024-06-06 Rei Vilo
