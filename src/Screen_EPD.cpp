@@ -48,7 +48,6 @@
 // Release 1000: Added support for UTF-8 strings
 // Release 1000: Added support for UTF-16 strings
 // Release 1000: Added support for 16-bit fonts
-// Release 1001: Improved 16-bit fonts generation
 //
 
 // Library header
@@ -104,6 +103,9 @@ void Screen_EPD::begin()
 
         default:
 
+            hV_HAL_Serial_crlf();
+            hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not supported", u_codeSize, u_codeFilm, u_codeDriver); // u_codeFilm
+            hV_HAL_exit(RESULT_ERROR);
             break;
     }
 
@@ -226,7 +228,7 @@ void Screen_EPD::begin()
         default:
 
             hV_HAL_Serial_crlf();
-            hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not supported", u_codeSize, u_codeFilm, u_codeDriver);
+            hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not supported", u_codeSize, u_codeFilm, u_codeDriver); // u_codeSize
             hV_HAL_exit(RESULT_ERROR);
             break;
     } // u_codeSize
@@ -631,7 +633,7 @@ void Screen_EPD::flush()
                 s_driver->updateNormal(s_newImage, u_pageColourSize);
                 break;
 
-            case FILM_K: // Wide temperature and rmbedded fast update
+            case FILM_K: // Wide temperature and embedded fast update
             case FILM_P: // Embedded fast update
 
                 s_driver->updateFast(s_newImage, s_newImage + u_pageColourSize, u_pageColourSize);
@@ -972,7 +974,7 @@ uint32_t Screen_EPD::s_getZ(uint16_t x1, uint16_t y1)
                 y1 -= (v_screenSizeH >> 1); // rebase y1
                 z1 += (u_pageColourSize >> 1); // buffer second half
             }
-            z1 += (uint32_t)x1 * (u_bufferSizeH >> 1) + (y1 >> 3);
+            z1 += (uint32_t)x1 * (u_bufferSizeH >> 1) + (y1 >> 3); // 8 pixels per byte
             break;
 
         default:
@@ -999,7 +1001,7 @@ uint16_t Screen_EPD::s_getB(uint16_t x1, uint16_t y1)
 
         default:
 
-            b1 = 7 - (y1 % 8);
+            b1 = 7 - (y1 % 8); // 8 pixels per byte
             break;
     }
     return b1;
@@ -1392,7 +1394,7 @@ void Screen_EPD::s_getRawTouch(touch_t & touch)
 bool Screen_EPD::s_getInterruptTouch()
 {
     return s_driver->d_getInterruptTouch();
-};
+}
 //
 // === End of Touch section
 //

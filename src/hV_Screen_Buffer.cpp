@@ -31,7 +31,7 @@
 // Code
 hV_Screen_Buffer::hV_Screen_Buffer()
 {
-    f_fontSize = 0;
+    f_fontIndex = 0;
     f_fontNumber = 0;
     f_fontSolid = true; // default
     f_fontSpaceX = 0; // Basic edition, font Terminal
@@ -643,7 +643,7 @@ void hV_Screen_Buffer::selectFont(uint8_t fontIndex)
 
 uint8_t hV_Screen_Buffer::getFont()
 {
-    return f_fontSize;
+    return f_fontIndex;
 }
 
 uint8_t hV_Screen_Buffer::fontMax()
@@ -741,9 +741,7 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
                              uint16_t backColour)
 {
     uint16_t _buffer16[BUFFER_LENGTH] = {0};
-    uint16_t _size16 = 0;
-
-    _size16 = utf8to16(text8.c_str(), _buffer16);
+    uint16_t _size16 = utf8to16(text8.c_str(), _buffer16);
 
     if (_size16 == 0)
     {
@@ -761,6 +759,7 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
     uint16_t _size16 = 0;
     while (text16[++_size16] != 0x0000);
     _size16 = (text16[0] == 0x000) ? 0 : _size16;
+
     if (_size16 == 0)
     {
         return;
@@ -775,7 +774,7 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
 
 #if (MAX_FONT_SIZE > 0)
 
-    if (f_fontSize == 0)
+    if (f_fontIndex == 0)
     {
         for (k = 0; k < _size16; k++)
         {
@@ -804,7 +803,7 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
 
 #if (MAX_FONT_SIZE > 1)
 
-    else if (f_fontSize == 1)
+    else if (f_fontIndex == 1)
     {
         for (k = 0; k < _size16; k++)
         {
@@ -842,7 +841,7 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
 
 #if (MAX_FONT_SIZE > 2)
 
-    else if (f_fontSize == 2)
+    else if (f_fontIndex == 2)
     {
         for (k = 0; k < _size16; k++)
         {
@@ -880,7 +879,7 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
 
 #if (MAX_FONT_SIZE > 3)
 
-    else if (f_fontSize == 3)
+    else if (f_fontIndex == 3)
     {
         for (k = 0; k < _size16; k++)
         {
@@ -976,7 +975,7 @@ void hV_Screen_Buffer::gTextLarge(uint16_t x0, uint16_t y0,
 
 #if (MAX_FONT_SIZE > 0)
 
-    if (f_fontSize == 0)
+    if (f_fontIndex == 0)
     {
         for (k = 0; k < _size16; k++)
         {
@@ -1005,7 +1004,7 @@ void hV_Screen_Buffer::gTextLarge(uint16_t x0, uint16_t y0,
 
 #if (MAX_FONT_SIZE > 1)
 
-    else if (f_fontSize == 1)
+    else if (f_fontIndex == 1)
     {
         for (k = 0; k < _size16; k++)
         {
@@ -1043,7 +1042,7 @@ void hV_Screen_Buffer::gTextLarge(uint16_t x0, uint16_t y0,
 
 #if (MAX_FONT_SIZE > 2)
 
-    else if (f_fontSize == 2)
+    else if (f_fontIndex == 2)
     {
         for (k = 0; k < _size16; k++)
         {
@@ -1081,7 +1080,7 @@ void hV_Screen_Buffer::gTextLarge(uint16_t x0, uint16_t y0,
 
 #if (MAX_FONT_SIZE > 3)
 
-    else if (f_fontSize == 3)
+    else if (f_fontIndex == 3)
     {
         for (k = 0; k < _size16; k++)
         {

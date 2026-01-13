@@ -35,7 +35,7 @@
 // hV_Font_Terminal::hV_Font_Terminal()
 void hV_Font_Terminal::f_begin()
 {
-    f_fontSize = 0;
+    f_fontIndex = 0;
     f_fontNumber = MAX_FONT_SIZE;
     f_fontSolid = true;
     f_fontSpaceX = 0;
@@ -59,14 +59,14 @@ void hV_Font_Terminal::f_selectFont(uint8_t size)
 {
     if (size < MAX_FONT_SIZE)
     {
-        f_fontSize = size;
+        f_fontIndex = size;
     }
     else
     {
-        f_fontSize = MAX_FONT_SIZE - 1;
+        f_fontIndex = MAX_FONT_SIZE - 1;
     }
 
-    switch (f_fontSize)
+    switch (f_fontIndex)
     {
         case 0:
             // kind, height, maxWidth, first, number
@@ -108,22 +108,22 @@ void hV_Font_Terminal::f_setFontSpaceY(uint8_t number)
 uint8_t hV_Font_Terminal::f_getCharacter(uint8_t character, uint16_t index)
 {
 #if (MAX_FONT_SIZE > 0)
-    if (f_fontSize == 0)
+    if (f_fontIndex == 0)
     {
         return Terminal6x8e[character][index];
     }
 #if (MAX_FONT_SIZE > 1)
-    else if (f_fontSize == 1)
+    else if (f_fontIndex == 1)
     {
         return Terminal8x12e[character][index];
     }
 #if (MAX_FONT_SIZE > 2)
-    else if (f_fontSize == 2)
+    else if (f_fontIndex == 2)
     {
         return Terminal12x16e[character][index];
     }
 #if (MAX_FONT_SIZE > 3)
-    else if (f_fontSize == 3)
+    else if (f_fontIndex == 3)
     {
         return Terminal16x24e[character][index];
     }

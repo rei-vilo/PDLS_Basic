@@ -232,7 +232,7 @@ class hV_Font_Terminal
     ///
     font_s f_font; ///< font
     uint8_t f_fontNumber; ///< number of fonts available, 0.._fontNumber-1
-    uint8_t f_fontSize; ///< actual font selected
+    uint8_t f_fontIndex; ///< actual font selected
     uint8_t f_fontSpaceX; ///< pixels between two characters, horizontal axis
     uint8_t f_fontSpaceY; ///< pixels between two characters, vertical axis
     bool f_fontSolid; ///< opaque print
