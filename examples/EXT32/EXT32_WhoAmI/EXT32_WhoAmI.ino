@@ -81,7 +81,10 @@ void displayLine(uint16_t x, uint16_t y, const char * name, const char * value)
 
     myScreen.selectFont(fontSmall);
     uint16_t dy = myScreen.characterSizeY();
-if (dx > dy) { dy = (dx - dy) / 2;}
+    if (dx > dy)
+    {
+        dy = (dx - dy) / 2;
+    }
     myScreen.gText(x + tx + dx, y + dy, value);
 }
 
