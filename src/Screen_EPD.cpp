@@ -52,6 +52,7 @@
 // Release 1003: Improved stability
 // Release 1003: Added screens table
 // Release 1005: Added support for EXT3.2
+// Release 1007: Improved stability
 //
 
 // Library header
@@ -499,17 +500,10 @@ void Screen_EPD::flush()
         FRAMEBUFFER_TYPE nextBuffer = s_newImage; // size = u_pageColourSize
         FRAMEBUFFER_TYPE previousBuffer = s_newImage + u_pageColourSize; // size = u_pageColourSize
 
-        // FRAMEBUFFER_TYPE frameM1 = nextBuffer;
-        // FRAMEBUFFER_TYPE frameM2 = previousBuffer;
-        // FRAMEBUFFER_TYPE frameS1 = nextBuffer + u_subPageColourSize;
-        // FRAMEBUFFER_TYPE frameS2 = previousBuffer + u_subPageColourSize;
-
-        FRAMEBUFFER_TYPE blackBuffer = s_newImage;
-        FRAMEBUFFER_TYPE redBuffer = s_newImage + u_pageColourSize;
-        FRAMEBUFFER_TYPE frameM1 = blackBuffer;
-        FRAMEBUFFER_TYPE frameM2 = redBuffer;
-        FRAMEBUFFER_TYPE frameS1 = blackBuffer + u_subPageColourSize;
-        FRAMEBUFFER_TYPE frameS2 = redBuffer + u_subPageColourSize;
+        FRAMEBUFFER_TYPE frameM1 = nextBuffer; // size = u_pageColourSize
+        FRAMEBUFFER_TYPE frameM2 = previousBuffer; // size = u_pageColourSize
+        FRAMEBUFFER_TYPE frameS1 = nextBuffer + u_subPageColourSize; // size = u_subPageColourSize
+        FRAMEBUFFER_TYPE frameS2 = previousBuffer + u_subPageColourSize; // size = u_subPageColourSize
 
         switch (u_codeFilm)
         {
@@ -533,28 +527,26 @@ void Screen_EPD::flush()
     }
     else // Small and medium
     {
-        FRAMEBUFFER_TYPE nextBuffer = s_newImage;
-        FRAMEBUFFER_TYPE previousBuffer = s_newImage + u_pageColourSize;
-        FRAMEBUFFER_TYPE blackBuffer = s_newImage;
-        FRAMEBUFFER_TYPE redBuffer = s_newImage + u_pageColourSize;
+        FRAMEBUFFER_TYPE nextBuffer = s_newImage; // size = u_pageColourSize
+        FRAMEBUFFER_TYPE previousBuffer = s_newImage + u_pageColourSize; // size = u_pageColourSize
 
         switch (u_codeFilm)
         {
             case FILM_Q:
 
-                s_driver->updateNormal(s_newImage, u_pageColourSize);
+                s_driver->updateNormal(nextBuffer, u_pageColourSize);
                 break;
 
             case FILM_K: // Wide temperature and embedded fast update
             case FILM_P: // Embedded fast update
 
-                s_driver->updateFast(s_newImage, s_newImage + u_pageColourSize, u_pageColourSize);
+                s_driver->updateFast(nextBuffer, previousBuffer, u_pageColourSize);
                 memcpy(previousBuffer, nextBuffer, u_pageColourSize); // Copy displayed next to previous
                 break;
 
             default:
 
-                s_driver->updateNormal(s_newImage, s_newImage + u_pageColourSize, u_pageColourSize); // black, red
+                s_driver->updateNormal(nextBuffer, previousBuffer, u_pageColourSize);
                 break;
         }
     }
@@ -954,17 +946,15 @@ void Screen_EPD::setPowerProfile(uint8_t mode, uint8_t scope)
 void Screen_EPD::suspend(uint8_t suspendScope)
 {
     // s_driver->b_suspend(); // GPIO
-    if (s_driver->b_pin.panelPower == NOT_CONNECTED)
+    if (s_driver->b_pin.panelPower != NOT_CONNECTED)
     {
-        suspendScope &= ~FSM_GPIO_MASK;
-    }
-
-    if ((suspendScope & FSM_GPIO_MASK) == FSM_GPIO_MASK)
-    {
-        if ((s_driver->b_fsmPowerScreen & FSM_GPIO_MASK) == FSM_GPIO_MASK)
+        if ((suspendScope & FSM_GPIO_MASK) == FSM_GPIO_MASK)
         {
-            s_driver->b_suspend(); // GPIO
-            s_driver->b_fsmPowerScreen &= ~FSM_GPIO_MASK;
+            if ((s_driver->b_fsmPowerScreen & FSM_GPIO_MASK) == FSM_GPIO_MASK)
+            {
+                s_driver->b_suspend(); // GPIO
+                s_driver->b_fsmPowerScreen &= ~FSM_GPIO_MASK;
+            }
         }
     }
 }

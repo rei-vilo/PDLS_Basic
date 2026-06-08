@@ -22,6 +22,9 @@
 /// @n All rights reserved
 ///
 
+// Set parameters
+#define DISPLAY_MULTIPLIER 1
+
 // SDK and configuration
 // #include <Arduino.h>
 #include "PDLS_Common.h"
@@ -30,9 +33,6 @@
 
 // Include application, user and local libraries
 // #include <SPI.h>
-
-// Set parameters
-#define DISPLAY_MULTIPLIER 1
 
 // Define structures and classes
 
@@ -49,7 +49,7 @@ Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
 #include "PDLS_Basic.h"
 Screen_EPD myScreen(&myDriver);
 
-// Check
+// Checks
 #if (SCREEN_EPD_RELEASE < 902)
 #error Required SCREEN_EPD_RELEASE 902
 #endif // SCREEN_EPD_RELEASE
@@ -119,7 +119,7 @@ void setup()
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
     hV_HAL_Serial_crlf();
 
-    // Start
+    // Screen
     myScreen.begin();
 
     // Fonts

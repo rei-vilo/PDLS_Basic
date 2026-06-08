@@ -85,7 +85,7 @@ void setup()
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
     hV_HAL_Serial_crlf();
 
-    // Start
+    // Screen
     myScreen.begin();
 
     // Fonts

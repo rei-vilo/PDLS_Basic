@@ -5,8 +5,8 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Apr 2025
-/// @version 1005
+/// @date 21 Jun 2025
+/// @version 1007
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2026
 /// @copyright (c) Etigues, 2010-2026
@@ -50,7 +50,7 @@
 ///
 /// @brief Library release number
 ///
-#define SCREEN_EPD_RELEASE 1005
+#define SCREEN_EPD_RELEASE 1007
 
 #include "Driver_EPD_Virtual.h"
 

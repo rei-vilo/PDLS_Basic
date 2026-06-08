@@ -16,6 +16,7 @@
 //
 // Release 611: Added support for red and yellow colour screens
 // Release 700: Refactored screen and board functions
+// Release 1000: Updated to PDLS release 1000
 //
 
 // Library header

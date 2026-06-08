@@ -768,7 +768,7 @@ void hV_Screen_Buffer::gText(uint16_t x0, uint16_t y0,
 #if (FONT_MODE == USE_FONT_TERMINAL)
 
     uint8_t character8;
-    uint8_t line, line1, line2, line3;
+    uint8_t line, line1, line2; // , line3;
     uint16_t x, y;
     uint8_t i, j, k;
 
@@ -963,7 +963,7 @@ void hV_Screen_Buffer::gTextLarge(uint16_t x0, uint16_t y0,
 #if (FONT_MODE == USE_FONT_TERMINAL)
 
     uint8_t character8;
-    uint8_t line, line1, line2, line3;
+    uint8_t line, line1, line2; //, line3;
     uint16_t x, y;
     uint8_t i, j, k;
 

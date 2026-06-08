@@ -60,6 +60,9 @@ uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 // Functions
 #if (DISPLAY_PALETTE_BWRY == 1)
 
+///
+/// @brief Palette test screen
+///
 void displayPaletteBWRY()
 {
     // Grid = 5

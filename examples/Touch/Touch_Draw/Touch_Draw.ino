@@ -172,7 +172,7 @@ void setup()
     // Against possible ghosting
     myScreen.regenerate();
 
-    hV_HAL_exit(0);
+    hV_HAL_exit();
 }
 
 ///

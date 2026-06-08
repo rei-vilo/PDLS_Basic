@@ -168,8 +168,8 @@ uint16_t hV_Font_Terminal::f_stringSizeX(STRING16_CONST_TYPE text16)
 
 uint8_t hV_Font_Terminal::f_stringLengthToFitX(STRING_CONST_TYPE text8, uint16_t pixels)
 {
-    uint8_t index = 0;
-    uint16_t textWidth = 0;
+    // uint8_t index = 0;
+    // uint16_t textWidth = 0;
     uint8_t _size16 = 0;
 
     uint16_t _buffer16[BUFFER_LENGTH] = {0};
@@ -182,7 +182,7 @@ uint8_t hV_Font_Terminal::f_stringLengthToFitX(STRING_CONST_TYPE text8, uint16_t
 uint8_t hV_Font_Terminal::f_stringLengthToFitX(STRING16_CONST_TYPE text16, uint16_t pixels)
 {
     uint8_t index = 0;
-    uint16_t textWidth = 0;
+    // uint16_t textWidth = 0;
 
     uint8_t _size16 = 0;
     while (text16[++_size16] != 0x0000);

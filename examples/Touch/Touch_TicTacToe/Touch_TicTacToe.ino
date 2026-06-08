@@ -190,7 +190,6 @@ uint8_t board[NUMBER][NUMBER]; // holds position data 0 is blank, 1 human, 2 is 
 
 uint16_t minX, maxX, minY, maxY, sizeTable, sizeCell;
 
-// Utilities
 bool setBoard(coordinates_s coordinates, uint8_t player)
 {
     if (board[coordinates.i][coordinates.j] == PLAYER_NONE)

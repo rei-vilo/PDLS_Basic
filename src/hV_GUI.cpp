@@ -89,7 +89,7 @@ void Text::draw(STRING_CONST_TYPE text8)
 
 #endif // STRING_MODE
 
-    uint16_t _sizeText = _size16;
+    // uint16_t _sizeText = _size16;
 
     uint8_t k = _pGUI->g_pScreen->stringLengthToFitX(_buffer16, _dx - 8);
     _buffer16[k] = 0x0000;

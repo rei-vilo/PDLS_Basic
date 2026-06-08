@@ -170,7 +170,7 @@ void setup()
     myScreen.regenerate();
 
     hV_HAL_GPIO_set(LED_BUILTIN);
-    hV_HAL_exit(RESULT_SUCCESS);
+    hV_HAL_exit();
 }
 
 ///

@@ -56,7 +56,7 @@ uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 #if (DISPLAY_PERSISTENT == 1)
 
 ///
-/// @brief Who am I? test screen
+/// @brief Persistent display test screen
 ///
 void displayPersistent()
 {

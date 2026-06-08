@@ -246,7 +246,7 @@ void setup()
     hV_HAL_log(LEVEL_INFO, "Regenerate");
     myScreen.regenerate();
 
-    hV_HAL_exit(RESULT_SUCCESS);
+    hV_HAL_exit();
 }
 
 ///

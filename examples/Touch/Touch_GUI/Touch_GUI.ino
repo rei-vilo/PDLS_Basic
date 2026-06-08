@@ -46,16 +46,15 @@ Screen_EPD myScreen(&myDriver);
 #error Required SCREEN_EPD_RELEASE 1000
 #endif // SCREEN_EPD_RELEASE
 
+#ifndef WITH_TOUCH
+#error Required WITH_TOUCH
+#endif // WITH_TOUCH
+
 // Fonts
 uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 
 // GUI
 #include "hV_GUI.h"
-
-// Checks
-#ifndef WITH_TOUCH
-#error Required WITH_TOUCH
-#endif // WITH_TOUCH
 
 // Prototypes
 
@@ -182,7 +181,7 @@ void setup()
     hV_HAL_log(LEVEL_INFO, "Regenerate");
     myScreen.regenerate();
 
-    hV_HAL_exit(0);
+    hV_HAL_exit();
 }
 
 ///
