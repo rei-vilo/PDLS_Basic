@@ -1,0 +1,111 @@
+name: Compile Examples
+
+# Build all examples before publishing a release.
+# See: https://docs.github.com/en/actions/reference/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+  release:
+    types: [created]
+
+permissions:
+  contents: write
+
+jobs:
+  compile:
+    name: ${{ matrix.config.fqbn }}
+    runs-on: ubuntu-latest
+
+    env:
+      SKETCHES_REPORTS_PATH: sketches-reports
+      LIBRARIES: |
+        - source-path: ./
+        - name: PDLS_Common
+        - name: Pervasive_Wide_Small
+        - name: Pervasive_Wide_Medium
+        - name: Pervasive_Wide_Large
+        - name: Pervasive_BWRY_Small
+        - name: Pervasive_BWRY_Medium
+        - name: Pervasive_BWRY_Large
+        - name: Pervasive_Touch_Small
+        - name: qrcode
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - fqbn: rp2040:rp2040:rpipico
+            artifact-suffix: rpipico
+            platforms: |
+              - name: rp2040:rp2040
+                source-url: https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+            sketch-paths: |
+              - examples/BWRY
+              - examples/Common
+              - examples/EXT32
+              - examples/Touch
+              - examples/Wide
+          - fqbn: SiliconLabs:silabs:nano_matter
+            artifact-suffix: nano-matter
+            platforms: |
+              - name: SiliconLabs:silabs
+                source-url: https://siliconlabs.github.io/arduino/package_arduinosilabs_index.json
+            sketch-paths: |
+              - examples/EXT4
+              - examples/EXT4_Matter
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile examples
+        uses: arduino/compile-sketches@v1
+        with:
+          fqbn: ${{ matrix.config.fqbn }}
+          platforms: ${{ matrix.config.platforms }}
+          libraries: ${{ env.LIBRARIES }}
+          sketch-paths: ${{ matrix.config.sketch-paths }}
+          sketches-report-path: ${{ env.SKETCHES_REPORTS_PATH }}
+
+      - name: Save sketches report as workflow artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          if-no-files-found: error
+          path: ${{ env.SKETCHES_REPORTS_PATH }}
+          name: sketches-report-${{ matrix.config.artifact-suffix }}
+
+  report:
+    name: Generate coverage report
+    needs: compile
+    runs-on: ubuntu-latest
+    if: ${{ !cancelled() && needs.compile.result == 'success' }}
+
+    env:
+      SKETCHES_REPORTS_PATH: sketches-reports
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Download sketches reports
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ env.SKETCHES_REPORTS_PATH }}
+          pattern: sketches-report-*
+          merge-multiple: true
+
+      - name: Generate Coverage.md
+        run: python3 .github/scripts/generate_coverage_report.py
+
+      - name: Commit coverage report
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update Coverage.md
+          file_pattern: Coverage.md
+          branch: main
