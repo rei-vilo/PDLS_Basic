@@ -27,6 +27,7 @@ jobs:
         - name: Pervasive_BWRY_Medium
         - name: Pervasive_BWRY_Large
         - name: Pervasive_Touch_Small
+        - name: qrcode
 
     strategy:
       fail-fast: false
