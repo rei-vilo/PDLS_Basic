@@ -47,7 +47,7 @@ jobs:
             artifact-suffix: nano-matter
             platforms: |
               - name: SiliconLabs:silabs
-                source-url: https://github.com/SiliconLabs/arduino/releases/download/global/package_silabs_index.json
+                source-url: https://siliconlabs.github.io/arduino/package_arduinosilabs_index.json
             sketch-paths: |
               - examples/EXT4
               - examples/EXT4_Matter
