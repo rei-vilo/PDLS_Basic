@@ -5,8 +5,8 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Jun 2025
-/// @version 1007
+/// @date 21 Jul 2026
+/// @version 1008
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2026
 /// @copyright (c) Etigues, 2010-2026
@@ -50,7 +50,7 @@
 ///
 /// @brief Library release number
 ///
-#define SCREEN_EPD_RELEASE 1007
+#define SCREEN_EPD_RELEASE 1008
 
 #include "Driver_EPD_Virtual.h"
 
@@ -127,10 +127,10 @@ class Screen_EPD final : public hV_Screen_Buffer
     //
     ///
     /// @brief Set panelPower pin
-    /// @param panelPowerPin panelPower pin
-    /// @note EXT4 requires panelPower
-    /// @note If flashCS defined with panelPowerPin, then flashCS set to NOT_CONNECTED
-    /// @warning setPanelPowerPin() should be called before begin()
+    /// @param panelPowerPin panel power pin
+    /// @note EXT4 and EXT3.2 require panelPower
+    /// @note If pin number used as `flashCS`, then `flashCS` set to `NOT_CONNECTED` and pin number used for `panelPower`
+    /// @warning `setPanelPowerPin()` should be called before `begin()`
     ///
     void setPanelPowerPin(uint8_t panelPowerPin = NOT_CONNECTED);
 
@@ -228,12 +228,13 @@ class Screen_EPD final : public hV_Screen_Buffer
     ///
     virtual STRING_TYPE screenNumber();
 
-    ///
-    /// @brief Recommend variant for film
-    /// @param uint8_t Context film
-    /// @note exit() called after
-    ///
-    void debugVariant(uint8_t contextFilm);
+    // ///
+    // /// @brief Recommend variant for film
+    // /// @param uint8_t Context film
+    // /// @note exit() called after
+    // ///
+    // void debugVariant(uint8_t contextFilm);
+
     //
     // === End of Miscellaneous section
     //

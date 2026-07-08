@@ -20,6 +20,7 @@
 // Release 605: Improved elements link to GUI
 // Release 608: Shared common debouncing module
 // Release 1000: Added support for UTF-8 strings
+// Release 1008: Added clear text area
 //
 
 // Library header
@@ -103,6 +104,18 @@ void Text::draw(STRING_CONST_TYPE text8)
     _pGUI->g_pScreen->gText(_xt, _yt, _buffer16, _pGUI->g_colourFront);
 
     if (_pGUI->g_delegate)
+    {
+        _pGUI->g_pScreen->flush();
+    }
+}
+
+void Text::clear(bool flag)
+{
+    _pGUI->g_pScreen->setPenSolid(true);
+    _pGUI->g_pScreen->dRectangle(_x0, _y0, _dx, _dy, _pGUI->g_colourBack);
+    _pGUI->g_pScreen->setPenSolid(false);
+
+    if ((flag == true) and (_pGUI->g_delegate == true))
     {
         _pGUI->g_pScreen->flush();
     }

@@ -8,6 +8,7 @@
 //
 // Created by Rei Vilo, 31 Dec 2013
 //
+// Copyright (c) Pervasive Displays Inc., 2021-2026
 // Copyright (c) Etigues, 2010-2026
 // Licence Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 // For exclusive use with Pervasive Displays screens
@@ -16,7 +17,7 @@
 //
 // Release 611: Added support for red and yellow colour screens
 // Release 700: Refactored screen and board functions
-// Release 1000: Updated to PDLS release 1000
+// Release 1000: Updated to general PDLS version
 //
 
 // Library header

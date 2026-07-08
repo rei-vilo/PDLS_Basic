@@ -5,8 +5,8 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Nov 2025
-/// @version 1000
+/// @date 21 Jul 2026
+/// @version 1008
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2026
 /// @copyright (c) Etigues, 2010-2026
@@ -39,7 +39,7 @@
 ///
 /// @brief Library release number
 ///
-#define hV_GUI_RELEASE 1000
+#define hV_GUI_RELEASE 1008
 
 // SDK and configuration
 #include "PDLS_Common.h"
@@ -160,7 +160,12 @@ class Text
     ///
     void draw(STRING_CONST_TYPE text);
 
-  protected:
+    /// @brief Clear the text area
+    /// @param deafult = `true` = follow GUI delegate option
+    /// 
+    void clear(bool flag = true);
+
+protected:
     /// @cond
     GUI * _pGUI;
     uint16_t _x0, _y0, _dx, _dy;

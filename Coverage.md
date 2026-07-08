@@ -11,42 +11,45 @@ Test of the examples
 
 *Font16 examples target rp2040:rp2040:rpipico2*
 
-Report generated 2026-07-03 14:34:04
+Report generated 2026-06-29 14:43:00
 
-Version: 10.0.7
+Version: 10.0.8
 
-Example |Board | Result
+Example | Board | Result
 --- | --- | ---
-BWRY_Colours | rp2040:rp2040:rpipico | OK
-BWRY_Contrasts | rp2040:rp2040:rpipico | OK
-BWRY_Palette | rp2040:rp2040:rpipico | OK
-BWRY_WhoAmI | rp2040:rp2040:rpipico | OK
-Common_Colours | rp2040:rp2040:rpipico | OK
-Common_Fonts | rp2040:rp2040:rpipico | OK
-Common_Forms | rp2040:rp2040:rpipico | OK
-Common_Grid | rp2040:rp2040:rpipico | OK
-Common_Orientation | rp2040:rp2040:rpipico | OK
-Common_Persistent | rp2040:rp2040:rpipico | OK
-Common_Text | rp2040:rp2040:rpipico | OK
-Common_WhoAmI | rp2040:rp2040:rpipico | OK
-EXT32_LowPower | rp2040:rp2040:rpipico | OK
-EXT32_WhoAmI | rp2040:rp2040:rpipico | OK
-Touch_Draw | rp2040:rp2040:rpipico | OK
-Touch_GUI | rp2040:rp2040:rpipico | OK
-Touch_TicTacToe | rp2040:rp2040:rpipico | OK
-Fast_Line | rp2040:rp2040:rpipico | OK
-Fast_Orientation | rp2040:rp2040:rpipico | OK
-Fast_Speed | rp2040:rp2040:rpipico | OK
-Fast_Temperature | rp2040:rp2040:rpipico | OK
-EXT4_Accelerometer | SiliconLabs:silabs:nano_matter | OK
-EXT4_LargeFont | SiliconLabs:silabs:nano_matter | OK
-EXT4_ScreenSizes | SiliconLabs:silabs:nano_matter | OK
-EXT4_WS2813C | SiliconLabs:silabs:nano_matter | OK
-EXT4_Weather | SiliconLabs:silabs:nano_matter | OK
-EXT4_WhoAmI | SiliconLabs:silabs:nano_matter | OK
-EXT4_Matter_RGB | SiliconLabs:silabs:nano_matter | OK
-EXT4_Matter_Weather | SiliconLabs:silabs:nano_matter | OK
+BWRY_Palette.ino | rp2040:rp2040:rpipico | OK
+BWRY_WhoAmI.ino | rp2040:rp2040:rpipico | OK
+BWRY_Contrasts.ino | rp2040:rp2040:rpipico | OK
+BWRY_Colours.ino | rp2040:rp2040:rpipico | OK
+EXT32_WhoAmI.ino | rp2040:rp2040:rpipico | OK
+EXT32_LowPower.ino | rp2040:rp2040:rpipico | OK
+Fast_Temperature.ino | rp2040:rp2040:rpipico | OK
+Fast_Line.ino | rp2040:rp2040:rpipico | OK
+Fast_Speed.ino | rp2040:rp2040:rpipico | OK
+Fast_Orientation.ino | rp2040:rp2040:rpipico | OK
+Common_Orientation.ino | rp2040:rp2040:rpipico | OK
+Common_Fonts.ino | rp2040:rp2040:rpipico | OK
+Common_Grid.ino | rp2040:rp2040:rpipico | OK
+Common_Colours.ino | rp2040:rp2040:rpipico | OK
+Common_WhoAmI.ino | rp2040:rp2040:rpipico | OK
+Common_Text.ino | rp2040:rp2040:rpipico | OK
+Common_Forms.ino | rp2040:rp2040:rpipico | OK
+Common_Persistent.ino | rp2040:rp2040:rpipico | OK
+EXT4_Matter_Weather.ino | SiliconLabs:silabs:nano_matter | OK
+EXT4_Matter_RGB.ino | SiliconLabs:silabs:nano_matter | OK
+EXT4_WS2813C.ino | SiliconLabs:silabs:nano_matter | OK
+EXT4_LargeFont.ino | SiliconLabs:silabs:nano_matter | OK
+EXT4_ScreenSizes.ino | SiliconLabs:silabs:nano_matter | OK
+EXT4_NFC.ino | SiliconLabs:silabs:nano_matter | OK
+EXT4_Weather.ino | SiliconLabs:silabs:nano_matter | OK
+EXT4_WhoAmI.ino | SiliconLabs:silabs:nano_matter | OK
+EXT4_Accelerometer.ino | SiliconLabs:silabs:nano_matter | OK
+Touch_Draw.ino | rp2040:rp2040:rpipico | OK
+Touch_GUI.ino | rp2040:rp2040:rpipico | OK
+Touch_TicTacToe.ino | rp2040:rp2040:rpipico | OK
 
 ---
 
-Report completed 2026-07-03 14:34:04
+Report completed 2026-06-29 14:48:18
+
+. Elapsed time 318 seconds

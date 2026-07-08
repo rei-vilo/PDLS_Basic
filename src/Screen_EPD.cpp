@@ -53,6 +53,7 @@
 // Release 1003: Added screens table
 // Release 1005: Added support for EXT3.2
 // Release 1007: Improved stability
+// Release 1008: Added support for 290-QS-0F
 //
 
 // Library header
@@ -109,22 +110,29 @@ void Screen_EPD::begin()
             flagCOG |= (checkCOG == FILM_T); // Proxy for `P` or `K` with touch
             break;
 
-        default:
+        // default:
 
-            hV_HAL_Serial_crlf();
-            hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not supported", u_codeSize, u_codeFilm, u_codeDriver); // u_codeFilm
-            hV_HAL_exit(RESULT_ERROR);
-            break;
+        //     hV_HAL_Serial_crlf();
+        //     hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not supported", u_codeSize, u_codeFilm, u_codeDriver); // u_codeFilm
+        //     hV_HAL_exit(RESULT_ERROR);
+        //     break;
     }
 
     if (flagCOG == false)
     {
-        debugVariant(FILM_Q);
+        hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c requires another driver", u_codeSize, u_codeFilm, u_codeDriver); // u_codeFilm
+        hV_HAL_exit(RESULT_ERROR);
     }
 
     // Configure board
     s_driver->begin();
+    //
+    // === Basic section
+    //
     setPowerProfile(POWER_MODE_MANUAL, POWER_SCOPE_NONE);
+    //
+    // === End of Basic section
+    //
 
     // Sizes from table
     bool _found = RESULT_ERROR;
@@ -259,7 +267,7 @@ void Screen_EPD::begin()
     v_touchXmin = 0;
     v_touchYmin = 0;
 
-    if (SCREEN_EXTRA(s_driver->u_eScreen_EPD) & EXTRA_TOUCH != EXTRA_TOUCH)
+    if ((SCREEN_EXTRA(s_driver->u_eScreen_EPD) & EXTRA_TOUCH) != EXTRA_TOUCH)
     {
         hV_HAL_Serial_crlf();
         hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c does not have touch", u_codeSize, u_codeFilm, u_codeDriver);
@@ -397,7 +405,7 @@ void Screen_EPD::clear(uint16_t colour)
             }
             break;
 
-        case FILM_K: // Wide temperature and rmbedded fast update
+        case FILM_K: // Wide temperature and embedded fast update
         case FILM_P: // Embedded fast update
 
             if (colour == myColours.grey)
@@ -532,7 +540,7 @@ void Screen_EPD::flush()
 
         switch (u_codeFilm)
         {
-            case FILM_Q:
+            case FILM_Q: // BWRY, "Spectra 4"
 
                 s_driver->updateNormal(nextBuffer, u_pageColourSize);
                 break;
@@ -704,7 +712,7 @@ void Screen_EPD::s_setPoint(uint16_t x1, uint16_t y1, uint16_t colour)
             }
             break;
 
-        case FILM_K: // Wide temperature and rmbedded fast update
+        case FILM_K: // Wide temperature and embedded fast update
         case FILM_P: // Embedded fast update
 
             // Combined colours
@@ -1230,59 +1238,59 @@ STRING_TYPE Screen_EPD::screenNumber()
     return formatString("%s", work);
 }
 
-void Screen_EPD::debugVariant(uint8_t contextFilm)
-{
-    hV_HAL_Serial_crlf();
-
-    switch (contextFilm)
-    {
-        case FILM_P: // BW, Embedded fast update
-
-            hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c with no fast update", u_codeSize, u_codeFilm, u_codeDriver);
-            break;
-
-        case FILM_K: // BW, wide temperature and embedded fast update
-
-            hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c with no wide temperature and embedded fast update", u_codeSize, u_codeFilm, u_codeDriver);
-            break;
-
-        case FILM_Q: // BWRY, "Spectra 4"
-
-            hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not black-white-red-yellow", u_codeSize, u_codeFilm, u_codeDriver);
-            break;
-
-        default:
-
-            hV_HAL_log(LEVEL_CRITICAL, ", Screen %i-%cS-0%c is not supported", u_codeSize, u_codeFilm, u_codeDriver);
-            break;
-    } // u_codeFilm
-
-    switch (u_codeFilm)
-    {
-        case FILM_P: // BW, Embedded fast update
-
-            hV_HAL_log(LEVEL_CRITICAL, "Use PDLS_EXT3_%s_%s instead", "Basic", "Fast");
-            break;
-
-        case FILM_K: // BW, Wide temperature and embedded fast update
-
-            hV_HAL_log(LEVEL_CRITICAL, "Use PDLS_EXT3_%s_%s instead", "Basic", "Wide");
-            break;
-
-        case FILM_Q: // BWRY, "Spectra 4"
-
-            hV_HAL_log(LEVEL_CRITICAL, "Use PDLS_EXT3_%s_%s instead", "Basic", "BWRY");
-            break;
-
-        default: // Normal update and deprecated
-
-            hV_HAL_log(LEVEL_CRITICAL, "Use PDLS_EXT3_%s_%s instead", "Basic", "Normal");
-            break;
-    } // u_codeFilm
-
-    hV_HAL_Serial_crlf();
-    while (0x01);
-}
+// void Screen_EPD::debugVariant(uint8_t contextFilm)
+// {
+//     hV_HAL_Serial_crlf();
+//
+//     switch (contextFilm)
+//     {
+//         case FILM_P: // BW, Embedded fast update
+//
+//             hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c with no fast update", u_codeSize, u_codeFilm, u_codeDriver);
+//             break;
+//
+//         case FILM_K: // BW, wide temperature and embedded fast update
+//
+//             hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c with no wide temperature and embedded fast update", u_codeSize, u_codeFilm, u_codeDriver);
+//             break;
+//
+//         case FILM_Q: // BWRY, "Spectra 4"
+//
+//             hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not black-white-red-yellow", u_codeSize, u_codeFilm, u_codeDriver);
+//             break;
+//
+//         default:
+//
+//             hV_HAL_log(LEVEL_CRITICAL, ", Screen %i-%cS-0%c is not supported", u_codeSize, u_codeFilm, u_codeDriver);
+//             break;
+//     } // u_codeFilm
+//
+//     switch (u_codeFilm)
+//     {
+//         case FILM_P: // BW, Embedded fast update
+//
+//             hV_HAL_log(LEVEL_CRITICAL, "Use PDLS_EXT3_%s_%s instead", "Basic", "Fast");
+//             break;
+//
+//         case FILM_K: // BW, Wide temperature and embedded fast update
+//
+//             hV_HAL_log(LEVEL_CRITICAL, "Use PDLS_EXT3_%s_%s instead", "Basic", "Wide");
+//             break;
+//
+//         case FILM_Q: // BWRY, "Spectra 4"
+//
+//             hV_HAL_log(LEVEL_CRITICAL, "Use PDLS_EXT3_%s_%s instead", "Basic", "BWRY");
+//             break;
+//
+//         default: // Normal update and deprecated
+//
+//             hV_HAL_log(LEVEL_CRITICAL, "Use PDLS_EXT3_%s_%s instead", "Basic", "Normal");
+//             break;
+//     } // u_codeFilm
+//
+//     hV_HAL_Serial_crlf();
+//     while (0x01);
+// }
 //
 // === End of Miscellaneous section
 //

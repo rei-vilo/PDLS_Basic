@@ -1,12 +1,12 @@
 ///
 /// @file PDLS_Basic.h
-/// @brief Driver for Pervasive Displays iTC screens and EXT3 extension board
+/// @brief Driver for Pervasive Displays screens, extension boards and development kits
 ///
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Jun 2026
-/// @version 1007
+/// @date 21 Jul 2026
+/// @version 1008
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2026
 /// @copyright (c) Etigues, 2010-2026
@@ -47,9 +47,9 @@
 ///
 /// @brief Library release number
 ///
-#define PDLS_BASIC_RELEASE 1007
+#define PDLS_BASIC_RELEASE 1008
 
 #include "Screen_EPD.h"
 
-#endif // PDLS_EXT3_BASIC_RELEASE
+#endif // PDLS_BASIC_RELEASE
 

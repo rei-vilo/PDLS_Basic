@@ -5,8 +5,8 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Nov 2025
-/// @version 1000
+/// @date 21 Dec 2025
+/// @version 1001
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2026
 /// @copyright (c) Etigues, 2010-2026
@@ -43,7 +43,7 @@
 ///
 /// @brief Library release number
 ///
-#define hV_SCREEN_BUFFER_RELEASE 1000
+#define hV_SCREEN_BUFFER_RELEASE 1001
 
 // Colours
 #include "hV_Colours565.h"
