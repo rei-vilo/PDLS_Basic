@@ -62,7 +62,7 @@ Software
     + Using the Library Manager (recommended)
     + Importing a `.zip` Library
 
-PDLS_Basic requires [PDLS_Common](https://github.com/rei-vilo/PDLS_Common) and at least one [Pervasive Displays driver](https://github.com/PervasiveDisplays#epd-hardware-drivers). The recommended procedure with the Arduino IDE Library Manager installs all the dependencies automatically. 
+PDLS_Basic requires [PDLS_Common](https://github.com/rei-vilo/PDLS_Common) and at least one [Pervasive Displays driver](https://github.com/PervasiveDisplays#epd-hardware-drivers). The recommended procedure with the Arduino IDE Library Manager installs all the dependencies automatically.
 
 Hardware
 
