@@ -162,10 +162,10 @@ class Text
 
     /// @brief Clear the text area
     /// @param deafult = `true` = follow GUI delegate option
-    /// 
+    ///
     void clear(bool flag = true);
 
-protected:
+  protected:
     /// @cond
     GUI * _pGUI;
     uint16_t _x0, _y0, _dx, _dy;
