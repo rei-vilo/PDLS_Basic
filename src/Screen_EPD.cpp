@@ -111,7 +111,7 @@ void Screen_EPD::begin()
             break;
 
         // default:
-
+        //
         //     hV_HAL_Serial_crlf();
         //     hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not supported", u_codeSize, u_codeFilm, u_codeDriver); // u_codeFilm
         //     hV_HAL_exit(RESULT_ERROR);

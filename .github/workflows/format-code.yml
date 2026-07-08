@@ -37,6 +37,14 @@ jobs:
       
       - name: Run astyle formatter
         run: |
+          # Enable recursive globbing and make non-matching globs expand to empty
+          shopt -s globstar nullglob
+          files=(**/*.h **/*.hpp **/*.cpp **/*.c **/*.ino)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No source files found, skipping astyle"
+            exit 0
+          fi
+
           astyle \
             --style=allman \
             --attach-namespaces \
@@ -58,9 +66,8 @@ jobs:
             --mode=c \
             --align-method-colon \
             --suffix=none \
-            --recursive \
             --lineend=linux \
-            '*.h' '*.hpp' '*.cpp' '*.c' '*.ino'
+            "${files[@]}"
       
       - name: Check for changes
         id: verify-changed-files
