@@ -1,0 +1,97 @@
+name: Format Code
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - '**.h'
+      - '**.hpp'
+      - '**.cpp'
+      - '**.c'
+      - '**.ino'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - '**.h'
+      - '**.hpp'
+      - '**.cpp'
+      - '**.c'
+      - '**.ino'
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Install astyle
+        run: sudo apt-get update && sudo apt-get install -y astyle
+      
+      - name: Run astyle formatter
+        run: |
+          astyle \
+            --style=allman \
+            --attach-namespaces \
+            --attach-inlines \
+            --attach-extern-c \
+            --indent-modifiers \
+            --indent-switches \
+            --indent-cases \
+            --indent-namespaces \
+            --indent-labels \
+            --indent-col1-comments \
+            --pad-oper \
+            --pad-comma \
+            --pad-header \
+            --unpad-paren \
+            --align-pointer=middle \
+            --align-reference=middle \
+            --add-brackets \
+            --mode=c \
+            --align-method-colon \
+            --suffix=none \
+            --recursive \
+            --lineend=linux \
+            '*.h' '*.hpp' '*.cpp' '*.c' '*.ino'
+      
+      - name: Check for changes
+        id: verify-changed-files
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit formatted code
+        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name == 'push'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "style: format code with astyle [skip ci]"
+          git push
+      
+      - name: Create PR comment on formatting needed
+        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ Code formatting issues detected. Please run `astyle` locally with the provided configuration and push the formatted code.'
+            })
+      
+      - name: Fail if formatting needed on PR
+        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name == 'pull_request'
+        run: exit 1
