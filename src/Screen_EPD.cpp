@@ -267,12 +267,12 @@ void Screen_EPD::begin()
     v_touchXmin = 0;
     v_touchYmin = 0;
 
-    if ((SCREEN_EXTRA(s_driver->u_eScreen_EPD) & EXTRA_TOUCH) != EXTRA_TOUCH)
-    {
-        hV_HAL_Serial_crlf();
-        hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c does not have touch", u_codeSize, u_codeFilm, u_codeDriver);
-        hV_HAL_exit(RESULT_ERROR);;
-    }
+    // if ((SCREEN_EXTRA(s_driver->u_eScreen_EPD) & EXTRA_TOUCH) != EXTRA_TOUCH)
+    // {
+    //     hV_HAL_Serial_crlf();
+    //     hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c does not have touch", u_codeSize, u_codeFilm, u_codeDriver);
+    //     hV_HAL_exit(RESULT_ERROR);
+    // }
 
     switch (SCREEN_SIZE(s_driver->u_eScreen_EPD))
     {
