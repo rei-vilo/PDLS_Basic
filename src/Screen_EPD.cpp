@@ -53,6 +53,7 @@
 // Release 1003: Added screens table
 // Release 1005: Added support for EXT3.2
 // Release 1007: Improved stability
+// Release 1008: Improved stability
 // Release 1008: Added support for 290-QS-0F
 // Release 1009: Added support for 097-KS-06
 //

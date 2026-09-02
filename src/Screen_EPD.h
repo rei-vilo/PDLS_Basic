@@ -35,13 +35,13 @@
 // SDK and configuration
 #include "PDLS_Common.h"
 
-#if (PDLS_COMMON_RELEASE < 1000)
-#error Required PDLS_COMMON_RELEASE 1000
-#endif // PDLS_COMMON_RELEASE
-
 #ifndef EDITION_BASIC
 #error Required Basic edition of PDLS_Common
 #endif // EDITION_BASIC
+
+#if (PDLS_COMMON_RELEASE < 1000)
+#error Required PDLS_COMMON_RELEASE 1000
+#endif // PDLS_COMMON_RELEASE
 
 // Other libraries
 #include "hV_Screen_Buffer.h"

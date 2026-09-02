@@ -5,8 +5,8 @@
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Dec 2025
-/// @version 1001
+/// @date 21 Sep 2026
+/// @version 1010
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2026
 /// @copyright (c) Etigues, 2010-2026
@@ -43,7 +43,7 @@
 ///
 /// @brief Library release number
 ///
-#define hV_SCREEN_BUFFER_RELEASE 1001
+#define hV_SCREEN_BUFFER_RELEASE 1010
 
 // Colours
 #include "hV_Colours565.h"
@@ -267,7 +267,7 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
 
     ///
     /// @brief Select font
-    /// @param font default = 0, 0..fontMax()-1
+    /// @param fontIndex index, 0..fontMax()-1
     ///
     virtual void selectFont(uint8_t fontIndex);
 
@@ -280,7 +280,7 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
     ///
     /// @brief Add a font
     /// @param fontName name of the font
-    /// @return number of fonts, 0 otherwise
+    /// @return number of fonts, otherwise `0` for error
     /// @note The index of the font added is `number - 1`
     /// @note Previously selectFont()
     /// @n @b More: @ref Fonts
@@ -403,13 +403,24 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
                        uint16_t textColour = myColours.black,
                        uint16_t backColour = myColours.white);
 
+    ///
+    /// @brief Draw UTF-16 coded text (pixel coordinates)
+    /// @param x0 point coordinate, x-axis
+    /// @param y0 point coordinate, y-axis
+    /// @param text UTF-16 coded text (uint16_t)
+    /// @param textColour 16-bit colour, default = white
+    /// @param backColour 16-bit colour, default = black
+    /// @note Required UTF-16 coded text (uint16_t)
+    ///
+    /// @n @b More: @ref Colour, @ref Fonts, @ref Coordinate
+    ///
     virtual void gText(uint16_t x0, uint16_t y0,
                        STRING16_CONST_TYPE text,
                        uint16_t textColour = myColours.black,
                        uint16_t backColour = myColours.white);
 
     ///
-    /// @brief Draw UTF-16 coded text (pixel coordinates)
+    /// @brief Draw UTF-8 coded text (pixel coordinates)
     /// @param x0 point coordinate, x-axis
     /// @param y0 point coordinate, y-axis
     /// @param text UTF-8 coded text (uint8_t)
@@ -425,6 +436,17 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
                             uint16_t textColour = myColours.black,
                             uint16_t backColour = myColours.white);
 
+    ///
+    /// @brief Draw UTF-16 coded text (pixel coordinates)
+    /// @param x0 point coordinate, x-axis
+    /// @param y0 point coordinate, y-axis
+    /// @param text UTF-16 coded text (uint16_t)
+    /// @param textColour 16-bit colour, default = white
+    /// @param backColour 16-bit colour, default = black
+    /// @note Required UTF-16 coded text (uint16_t)
+    ///
+    /// @n @b More: @ref Colour, @ref Fonts, @ref Coordinate
+    ///
     virtual void gTextLarge(uint16_t x0, uint16_t y0,
                             STRING16_CONST_TYPE text,
                             uint16_t textColour = myColours.black,
@@ -516,18 +538,25 @@ class hV_Screen_Buffer : protected hV_Font_Terminal
     virtual bool s_getInterruptTouch(); // compulsory
 
     // Other functions
-    // required by triangle()
+    // required by triangle(), arc(), level() and ring()
     ///
-    /// @brief Triangle utility
+    ///
+    /// @brief Draw point, signed coordinates, clipped to the screen
+    /// @param x1 point coordinate, x-axis
+    /// @param y1 point coordinate, y-axis
+    /// @param colour 16-bit colour
+    ///
+    void s_pointClipped(int32_t x1, int32_t y1, uint16_t colour);
+
+    ///
+    /// @brief Draw line, signed coordinates, clipped to the screen
     /// @param x1 first point coordinate, x-axis
     /// @param y1 first point coordinate, y-axis
     /// @param x2 second point coordinate, x-axis
     /// @param y2 second point coordinate, y-axis
-    /// @param x3 third point coordinate, x-axis
-    /// @param y3 third point coordinate, y-axis
     /// @param colour 16-bit colour
     ///
-    void s_triangleArea(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, uint16_t colour);
+    void s_lineClipped(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint16_t colour);
 
     // required by gText()
     ///

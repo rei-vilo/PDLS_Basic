@@ -208,8 +208,11 @@ void setup()
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
     hV_HAL_Serial_crlf();
 
+    // Pin 8 = panelPower on EXT3.2 = flashCS on EXT3.1
+    // setPanelPowerPin() sets flashCS = NOT_CONNECTED if already set to panelCS
+    myScreen.setPanelPowerPin(myBoard.panelCS); // before myScreen.begin();
+
     // Screen
-    myScreen.setPanelPowerPin(myBoard.panelPower);
     myScreen.begin();
 
     // Fonts

@@ -123,10 +123,11 @@ void setup()
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
     hV_HAL_Serial_crlf();
 
+    // Pin 8 = panelPower on EXT3.2 = flashCS on EXT3.1
+    // setPanelPowerPin() sets flashCS = NOT_CONNECTED if already set to panelCS
+    myScreen.setPanelPowerPin(myBoard.panelCS); // before myScreen.begin();
+
     // Screen
-    // Pin 8 = panelPower on EXT3.2 = panelCS on EXT3.1
-    // setPanelPowerPin() sets panelCS = NOT_CONNECTED if already set to panelCS
-    myScreen.setPanelPowerPin(myBoard.panelCS);
     myScreen.begin();
     myScreen.setPowerProfile(POWER_MODE_MANUAL, POWER_SCOPE_BUS_GPIO);
     myScreen.suspend(POWER_SCOPE_BUS_GPIO);

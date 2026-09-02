@@ -24,6 +24,7 @@
 // Release 805: Added large variant for gText()
 // Release 910: Added check on vector coordinates
 // Release 1000: Added support for UTF-8 strings
+// Release 1010: Improved circular graphic primitives
 //
 
 // Library header
@@ -147,21 +148,36 @@ uint8_t hV_Screen_Buffer::screenColourBits()
 
 void hV_Screen_Buffer::circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t colour)
 {
-    int16_t f = 1 - radius;
-    int16_t ddF_x = 1;
-    int16_t ddF_y = -2 * radius;
-    int16_t x = 0;
-    int16_t y = radius;
+    if (radius == 0)
+    {
+        s_pointClipped((int32_t)x0, (int32_t)y0, colour);
+        return;
+    }
 
     if (v_penSolid == false)
     {
-        point(x0, y0 + radius, colour);
-        point(x0, y0 - radius, colour);
-        point(x0 + radius, y0, colour);
-        point(x0 - radius, y0, colour);
+        // Rim only, single Bresenham circle
+        int16_t f = 1 - radius;
+        int16_t ddF_x = 1;
+        int16_t ddF_y = -2 * radius;
+        int16_t x = 0;
+        int16_t y = radius;
 
-        while (x < y)
+        while (true)
         {
+            int32_t dx8[8] = { +x, +y, +y, +x, -x, -y, -y, -x };
+            int32_t dy8[8] = { -y, -x, +x, +y, +y, +x, -x, -y };
+
+            for (uint8_t i = 0; i < 8; i++)
+            {
+                s_pointClipped((int32_t)x0 + dx8[i], (int32_t)y0 + dy8[i], colour);
+            }
+
+            if (x >= y)
+            {
+                break;
+            }
+
             if (f >= 0)
             {
                 y--;
@@ -172,40 +188,30 @@ void hV_Screen_Buffer::circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_
             x++;
             ddF_x += 2;
             f += ddF_x;
-
-            point(x0 + x, y0 + y, colour);
-            point(x0 - x, y0 + y, colour);
-            point(x0 + x, y0 - y, colour);
-            point(x0 - x, y0 - y, colour);
-            point(x0 + y, y0 + x, colour);
-            point(x0 - y, y0 + x, colour);
-            point(x0 + y, y0 - x, colour);
-            point(x0 - y, y0 - x, colour);
         }
+
+        return;
     }
-    else
+
+    // Solid disc, scan-line by scan-line, as concentric chords from Bresenham would leave gaps
+    int32_t squareRadius = (int32_t)radius * radius;
+    int16_t limitY = (int16_t)radius;
+    int16_t halfWidth = 0;
+
+    for (int16_t dy = -limitY; dy <= limitY; dy++)
     {
-        while (x < y)
+        int32_t limit = squareRadius - (int32_t)dy * dy;
+
+        while ((int32_t)(halfWidth + 1) * (halfWidth + 1) <= limit)
         {
-            if (f >= 0)
-            {
-                y--;
-                ddF_y += 2;
-                f += ddF_y;
-            }
-
-            x++;
-            ddF_x += 2;
-            f += ddF_x;
-
-            line(x0 + x, y0 + y, x0 - x, y0 + y, colour); // bottom
-            line(x0 + x, y0 - y, x0 - x, y0 - y, colour); // top
-            line(x0 + y, y0 - x, x0 + y, y0 + x, colour); // right
-            line(x0 - y, y0 - x, x0 - y, y0 + x, colour); // left
+            halfWidth++;
+        }
+        while ((halfWidth > 0) and ((int32_t)halfWidth * halfWidth > limit))
+        {
+            halfWidth--;
         }
 
-        setPenSolid(true);
-        rectangle(x0 - x, y0 - y, x0 + x, y0 + y, colour);
+        s_lineClipped((int32_t)x0 - halfWidth, (int32_t)y0 + dy, (int32_t)x0 + halfWidth, (int32_t)y0 + dy, colour);
     }
 }
 
@@ -351,179 +357,142 @@ void hV_Screen_Buffer::dRectangle(uint16_t x0, uint16_t y0, uint16_t dx, uint16_
     rectangle(x0, y0, x0 + dx - 1, y0 + dy - 1, colour);
 }
 
-void hV_Screen_Buffer::s_triangleArea(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, uint16_t colour)
+void hV_Screen_Buffer::triangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, uint16_t colour)
 {
-    int16_t wx1 = (int16_t)x1;
-    int16_t wy1 = (int16_t)y1;
-    int16_t wx2 = (int16_t)x2;
-    int16_t wy2 = (int16_t)y2;
-    int16_t wx3 = (int16_t)x3;
-    int16_t wy3 = (int16_t)y3;
-    int16_t wx4 = wx1;
-    int16_t wy4 = wy1;
-    int16_t wx5 = wx1;
-    int16_t wy5 = wy1;
+    int32_t ax = (int32_t)x1;
+    int32_t ay = (int32_t)y1;
+    int32_t bx = (int32_t)x2;
+    int32_t by = (int32_t)y2;
+    int32_t cx = (int32_t)x3;
+    int32_t cy = (int32_t)y3;
 
-    bool changed1 = false;
-    bool changed2 = false;
+    // Twice signed area; positive if ABC is counter-clockwise
+    int32_t area = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax);
 
-    int16_t dx1 = abs(wx2 - wx1);
-    int16_t dy1 = abs(wy2 - wy1);
-
-    int16_t dx2 = abs(wx3 - wx1);
-    int16_t dy2 = abs(wy3 - wy1);
-
-    int16_t signx1 = (wx2 >= wx1) ? +1 : -1;
-    int16_t signx2 = (wx3 >= wx1) ? +1 : -1;
-
-    int16_t signy1 = (wy2 >= wy1) ? +1 : -1;
-    int16_t signy2 = (wy3 >= wy1) ? +1 : -1;
-
-    if (dy1 > dx1)
+    if (v_penSolid and (area != 0))
     {
-        hV_HAL_swap(dx1, dy1); // swap values
-        changed1 = true;
+        // Clockwise vertices would reverse all three half-planes; swap to make area > 0
+        if (area < 0)
+        {
+            hV_HAL_swap(bx, cx);
+            hV_HAL_swap(by, cy);
+            area = -area;
+        }
+
+        int32_t xMin = ax;
+        int32_t xMax = ax;
+        int32_t yMin = ay;
+        int32_t yMax = ay;
+
+        if (bx < xMin) { xMin = bx; }
+        if (bx > xMax) { xMax = bx; }
+        if (by < yMin) { yMin = by; }
+        if (by > yMax) { yMax = by; }
+        if (cx < xMin) { xMin = cx; }
+        if (cx > xMax) { xMax = cx; }
+        if (cy < yMin) { yMin = cy; }
+        if (cy > yMax) { yMax = cy; }
+
+        int32_t xLeft = 0;
+        int32_t yTop = 0;
+        int32_t xRight = (int32_t)screenSizeX() - 1;
+        int32_t yBottom = (int32_t)screenSizeY() - 1;
+
+        if (xMin < xLeft) { xMin = xLeft; }
+        if (yMin < yTop) { yMin = yTop; }
+        if (xMax > xRight) { xMax = xRight; }
+        if (yMax > yBottom) { yMax = yBottom; }
+
+        if ((xMin <= xMax) and (yMin <= yMax))
+        {
+            // e(A,B,P) = (B-A) x (P-A); de/dx = Ay-By, de/dy = Bx-Ax
+            int32_t dAB_dx = ay - by;
+            int32_t dBC_dx = by - cy;
+            int32_t dCA_dx = cy - ay;
+
+            auto edge = [](int32_t xA, int32_t yA, int32_t xB, int32_t yB, int32_t x, int32_t y) -> int32_t
+            {
+                return ((xB - xA) * (y - yA) - (yB - yA) * (x - xA));
+            };
+
+            for (int32_t y = yMin; y <= yMax; y++)
+            {
+                int32_t wAB = edge(ax, ay, bx, by, xMin, y);
+                int32_t wBC = edge(bx, by, cx, cy, xMin, y);
+                int32_t wCA = edge(cx, cy, ax, ay, xMin, y);
+
+                bool flagRun = false;
+                int32_t runStart = xMin;
+
+                for (int32_t x = xMin; x <= xMax; x++)
+                {
+                    bool flagInside = ((wAB >= 0) and (wBC >= 0) and (wCA >= 0));
+
+                    if (flagInside and (flagRun == false))
+                    {
+                        runStart = x;
+                        flagRun = true;
+                    }
+
+                    if (flagRun and ((flagInside == false) or (x == xMax)))
+                    {
+                        int32_t runEnd = flagInside ? x : (x - 1);
+                        s_lineClipped(runStart, y, runEnd, y, colour);
+                        flagRun = false;
+                    }
+
+                    wAB += dAB_dx;
+                    wBC += dBC_dx;
+                    wCA += dCA_dx;
+                }
+            }
+        }
     }
 
-    if (dy2 > dx2)
+    // Outline, and the only drawing for a transparent pen or a degenerate triangle
+    s_lineClipped(ax, ay, bx, by, colour);
+    s_lineClipped(bx, by, cx, cy, colour);
+    s_lineClipped(cx, cy, ax, ay, colour);
+}
+
+void hV_Screen_Buffer::s_pointClipped(int32_t x1, int32_t y1, uint16_t colour)
+{
+    if ((x1 >= 0) and (y1 >= 0) and (x1 < (int32_t)screenSizeX()) and (y1 < (int32_t)screenSizeY()))
     {
-        hV_HAL_swap(dx2, dy2); // swap values
-        changed2 = true;
-    }
-
-    int16_t e1 = 2 * dy1 - dx1;
-    int16_t e2 = 2 * dy2 - dx2;
-
-    for (int i = 0; i <= dx1; i++)
-    {
-        line(wx4, wy4, wx5, wy5, colour);
-
-        while (e1 >= 0)
-        {
-            if (changed1)
-            {
-                wx4 += signx1;
-            }
-            else
-            {
-                wy4 += signy1;
-            }
-            e1 = e1 - 2 * dx1;
-        }
-
-        if (changed1)
-        {
-            wy4 += signy1;
-        }
-        else
-        {
-            wx4 += signx1;
-        }
-
-        e1 = e1 + 2 * dy1;
-
-        while (wy5 != wy4)
-        {
-            while (e2 >= 0)
-            {
-                if (changed2)
-                {
-                    wx5 += signx2;
-                }
-                else
-                {
-                    wy5 += signy2;
-                }
-                e2 = e2 - 2 * dx2;
-            }
-
-            if (changed2)
-            {
-                wy5 += signy2;
-            }
-            else
-            {
-                wx5 += signx2;
-            }
-
-            e2 = e2 + 2 * dy2;
-        }
+        point((uint16_t)x1, (uint16_t)y1, colour);
     }
 }
 
-void hV_Screen_Buffer::triangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, uint16_t colour)
+void hV_Screen_Buffer::s_lineClipped(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint16_t colour)
 {
-    if ((x1 == x2) and (y1 == y2))
-    {
-        line(x3, y3, x1, y1, colour);
-    }
-    else if ((x1 == x3) and (y1 == y3))
-    {
-        line(x2, y2, x3, y3, colour);
-    }
-    else if ((x2 == x3) and (y2 == y3))
-    {
-        line(x1, y1, x2, y2, colour);
-    }
-    else if (v_penSolid)
-    {
-        bool b = true;
+    // Signed coordinates, as line() would wrap negative values to huge unsigned ones
+    int32_t dx = abs(x2 - x1);
+    int32_t dy = -abs(y2 - y1);
+    int32_t signx = (x1 < x2) ? 1 : -1;
+    int32_t signy = (y1 < y2) ? 1 : -1;
+    int32_t error = dx + dy;
 
-        // Graham Scan + Andrew's Monotone Chain Algorithm
-        // Sort by ascending y
-        while (b)
+    while (true)
+    {
+        s_pointClipped(x1, y1, colour);
+
+        if ((x1 == x2) and (y1 == y2))
         {
-            b = false;
-            if ((b == false) and (y1 > y2))
-            {
-                hV_HAL_swap(x1, x2);
-                hV_HAL_swap(y1, y2);
-                b = true;
-            }
-            if ((b == false) and (y2 > y3))
-            {
-                hV_HAL_swap(x3, x2);
-                hV_HAL_swap(y3, y2);
-                b = true;
-            }
+            break;
         }
 
-        if (y2 == y3)
+        int32_t error2 = 2 * error;
+
+        if (error2 >= dy)
         {
-            s_triangleArea(x1, y1, x2, y2, x3, y3, colour);
+            error += dy;
+            x1 += signx;
         }
-        else if (y1 == y2)
+        if (error2 <= dx)
         {
-            s_triangleArea(x3, y3, x1, y1, x2, y2, colour);
+            error += dx;
+            y1 += signy;
         }
-        else
-        {
-            uint16_t x4 = (uint16_t)((int32_t)x1 + (y2 - y1) * (x3 - x1) / (y3 - y1));
-            uint16_t y4 = y2;
-
-            s_triangleArea(x1, y1, x2, y2, x4, y4, colour);
-
-#if defined(ESP8266)
-            hV_HAL_delayMilliseconds(1);
-#else
-            hV_HAL_delayMicroseconds(1000); // delay(1);
-#endif // ESP8266
-
-            hV_HAL_delayMicroseconds(1000); // delay(1);
-            s_triangleArea(x3, y3, x2, y2, x4, y4, colour);
-
-#if defined(ESP8266)
-            hV_HAL_delayMilliseconds(1);
-#else
-            hV_HAL_delayMicroseconds(1000); // delay(1);
-#endif // ESP8266
-        }
-    }
-    else
-    {
-        line(x1, y1, x2, y2, colour);
-        line(x2, y2, x3, y3, colour);
-        line(x3, y3, x1, y1, colour);
     }
 }
 
