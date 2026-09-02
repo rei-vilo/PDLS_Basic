@@ -384,24 +384,60 @@ void hV_Screen_Buffer::triangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t 
         int32_t yMin = ay;
         int32_t yMax = ay;
 
-        if (bx < xMin) { xMin = bx; }
-        if (bx > xMax) { xMax = bx; }
-        if (by < yMin) { yMin = by; }
-        if (by > yMax) { yMax = by; }
-        if (cx < xMin) { xMin = cx; }
-        if (cx > xMax) { xMax = cx; }
-        if (cy < yMin) { yMin = cy; }
-        if (cy > yMax) { yMax = cy; }
+        if (bx < xMin)
+        {
+            xMin = bx;
+        }
+        if (bx > xMax)
+        {
+            xMax = bx;
+        }
+        if (by < yMin)
+        {
+            yMin = by;
+        }
+        if (by > yMax)
+        {
+            yMax = by;
+        }
+        if (cx < xMin)
+        {
+            xMin = cx;
+        }
+        if (cx > xMax)
+        {
+            xMax = cx;
+        }
+        if (cy < yMin)
+        {
+            yMin = cy;
+        }
+        if (cy > yMax)
+        {
+            yMax = cy;
+        }
 
         int32_t xLeft = 0;
         int32_t yTop = 0;
         int32_t xRight = (int32_t)screenSizeX() - 1;
         int32_t yBottom = (int32_t)screenSizeY() - 1;
 
-        if (xMin < xLeft) { xMin = xLeft; }
-        if (yMin < yTop) { yMin = yTop; }
-        if (xMax > xRight) { xMax = xRight; }
-        if (yMax > yBottom) { yMax = yBottom; }
+        if (xMin < xLeft)
+        {
+            xMin = xLeft;
+        }
+        if (yMin < yTop)
+        {
+            yMin = yTop;
+        }
+        if (xMax > xRight)
+        {
+            xMax = xRight;
+        }
+        if (yMax > yBottom)
+        {
+            yMax = yBottom;
+        }
 
         if ((xMin <= xMax) and (yMin <= yMax))
         {
