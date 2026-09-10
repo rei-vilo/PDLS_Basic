@@ -261,44 +261,39 @@ void Screen_EPD::begin()
     //
     v_touchTrim = 0x00; // no touch
     v_touchEvent = false; // no touch event
-
-    v_touchTrim = 0x10; // standard threshold
-    v_touchEvent = true;
-
-    // v_touchXmax and v_touchYmax hard-coded
     v_touchXmin = 0;
     v_touchYmin = 0;
 
-    // if ((SCREEN_EXTRA(s_driver->u_eScreen_EPD) & EXTRA_TOUCH) != EXTRA_TOUCH)
-    // {
-    //     hV_HAL_Serial_crlf();
-    //     hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c does not have touch", u_codeSize, u_codeFilm, u_codeDriver);
-    //     hV_HAL_exit(RESULT_ERROR);
-    // }
-
-    switch (SCREEN_SIZE(s_driver->u_eScreen_EPD))
+    if ((u_codeExtra & EXTRA_TOUCH) == EXTRA_TOUCH)
     {
-        case SIZE_271:
+        v_touchTrim = 0x10; // standard threshold
+        v_touchEvent = true;
 
-            v_touchXmax = 176; // Xmax
-            v_touchYmax = 264; // Ymax
-            break;
+        switch (SCREEN_SIZE(s_driver->u_eScreen_EPD))
+        {
+            case SIZE_271:
 
-        case SIZE_343:
+                v_touchXmax = 176; // Xmax
+                v_touchYmax = 264; // Ymax
+                break;
 
-            v_touchXmax = 455; // Xmax, hardware hard-coded in controller
-            v_touchYmax = 391; // Ymax, hardware hard-coded in controller
-            break;
+            case SIZE_343:
 
-        case SIZE_370:
+                v_touchXmax = 455; // Xmax, hardware hard-coded in controller
+                v_touchYmax = 391; // Ymax, hardware hard-coded in controller
+                break;
 
-            v_touchXmax = 239; // Xmax, hardware hard-coded in controller
-            v_touchYmax = 415; // Ymax, hardware hard-coded in controller
-            break;
+            case SIZE_370:
 
-        default:
+                v_touchXmax = 239; // Xmax, hardware hard-coded in controller
+                v_touchYmax = 415; // Ymax, hardware hard-coded in controller
+                break;
 
-            break;
+            default:
+
+                hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c touch size is not supported", u_codeSize, u_codeFilm, u_codeDriver);
+                break;
+        }
     }
     //
     // === End of Touch section
