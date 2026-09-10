@@ -3,17 +3,17 @@
 
 Test of the examples
 
-*General examples target rp2040:rp2040:rpipico*
+* General examples target rp2040:rp2040:rpipico
 
-*EXT4 examples target SiliconLabs:silabs:nano_matter*
+* EXT4 examples target SiliconLabs:silabs:nano_matter
 
-*File examples target teensy:avr:teensy36*
+* File examples target teensy:avr:teensy36
 
-*Font16 examples target rp2040:rp2040:rpipico2*
+* Font16 examples target rp2040:rp2040:rpipico2
 
-Report generated 2026-08-04 20:05:19
+Report generated 2026-09-10 18:22:15
 
-Version: 10.0.9
+Version: 10.1.0
 
 Example |Board | Result
 --- | --- | ---
@@ -40,7 +40,6 @@ EXT4_Matter_RGB.ino | SiliconLabs:silabs:nano_matter | OK
 EXT4_WS2813C.ino | SiliconLabs:silabs:nano_matter | OK
 EXT4_LargeFont.ino | SiliconLabs:silabs:nano_matter | OK
 EXT4_ScreenSizes.ino | SiliconLabs:silabs:nano_matter | OK
-EXT4_NFC.ino | SiliconLabs:silabs:nano_matter | OK
 EXT4_Weather.ino | SiliconLabs:silabs:nano_matter | OK
 EXT4_WhoAmI.ino | SiliconLabs:silabs:nano_matter | OK
 EXT4_Accelerometer.ino | SiliconLabs:silabs:nano_matter | OK
@@ -50,6 +49,6 @@ Touch_TicTacToe.ino | rp2040:rp2040:rpipico | OK
 
 ---
 
-Report completed 2026-08-04 20:09:17
+Report completed 2026-09-10 18:24:48
 
-. Elapsed time 238 seconds
+. Elapsed time 153 seconds

@@ -1,12 +1,12 @@
 ///
 /// @file PDLS_Basic.h
-/// @brief Driver for Pervasive Displays screens, extension boards and development kits
+/// @brief Text and graphics primitives for Pervasive Displays screens, extension boards and development kits
 ///
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
 ///
-/// @date 21 Aug 2026
-/// @version 1009
+/// @date 21 Sep 2026
+/// @version 1010
 ///
 /// @copyright (c) Pervasive Displays Inc., 2021-2026
 /// @copyright (c) Etigues, 2010-2026
@@ -35,8 +35,8 @@
 // SDK and configuration
 #include "PDLS_Common.h"
 
-#if (PDLS_COMMON_RELEASE < 1004)
-#error Required PDLS_COMMON_RELEASE 1004
+#if (PDLS_COMMON_RELEASE < 1009)
+#error Required PDLS_COMMON_RELEASE 1009
 #endif // PDLS_COMMON_RELEASE
 
 #ifndef EDITION_BASIC
@@ -47,7 +47,7 @@
 ///
 /// @brief Library release number
 ///
-#define PDLS_BASIC_RELEASE 1009
+#define PDLS_BASIC_RELEASE 1010
 
 #include "Screen_EPD.h"
 
