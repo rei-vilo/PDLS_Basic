@@ -36,7 +36,7 @@
 #include "PDLS_Common.h"
 
 #if (PDLS_COMMON_RELEASE < 1009)
-#error Required PDLS_COMMON_RELEASE 1004
+#error Required PDLS_COMMON_RELEASE 1009
 #endif // PDLS_COMMON_RELEASE
 
 #ifndef EDITION_BASIC
