@@ -1,6 +1,6 @@
 ///
 /// @file PDLS_Basic.h
-/// @brief Driver for Pervasive Displays screens, extension boards and development kits
+/// @brief Text and graphics primitives for Pervasive Displays screens, extension boards and development kits
 ///
 /// @details Project Pervasive Displays Library Suite
 /// @n Based on highView technology
@@ -35,7 +35,7 @@
 // SDK and configuration
 #include "PDLS_Common.h"
 
-#if (PDLS_COMMON_RELEASE < 1004)
+#if (PDLS_COMMON_RELEASE < 1009)
 #error Required PDLS_COMMON_RELEASE 1004
 #endif // PDLS_COMMON_RELEASE
 
