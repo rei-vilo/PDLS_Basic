@@ -56,6 +56,7 @@
 // Release 1008: Improved stability
 // Release 1008: Added support for 290-QS-0F
 // Release 1009: Added support for 097-KS-06
+// Release 1010: Synchronised release number
 //
 
 // Library header
