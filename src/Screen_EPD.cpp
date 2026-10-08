@@ -57,6 +57,7 @@
 // Release 1008: Added support for 290-QS-0F
 // Release 1009: Added support for 097-KS-06
 // Release 1010: Synchronised release number
+// Release 1011: Release synchronisation
 //
 
 // Library header
@@ -115,7 +116,7 @@ void Screen_EPD::begin()
 
             // default:
             //
-            //     hV_HAL_Serial_crlf();
+            //     hV_HAL_log_crlf();
             //     hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not supported", u_codeSize, u_codeFilm, u_codeDriver); // u_codeFilm
             //     hV_HAL_exit(RESULT_ERROR);
             //     break;
@@ -152,7 +153,7 @@ void Screen_EPD::begin()
 
     if (_found == RESULT_ERROR)
     {
-        hV_HAL_Serial_crlf();
+        hV_HAL_log_crlf();
         hV_HAL_log(LEVEL_CRITICAL, "Screen %i-%cS-0%c is not supported", u_codeSize, u_codeFilm, u_codeDriver);
         hV_HAL_exit(RESULT_ERROR);
     }
@@ -177,7 +178,7 @@ void Screen_EPD::begin()
     hV_HAL_log(LEVEL_DEBUG, "Number %i-%cS-0%c", u_codeSize, u_codeFilm, u_codeDriver);
     hV_HAL_log(LEVEL_DEBUG, "Driver %s", s_driver->reference().c_str());
     hV_HAL_log(LEVEL_DEBUG, "PDLS %s", reference().c_str());
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
 
     switch (s_driver->d_COG)
     {
@@ -1238,7 +1239,7 @@ STRING_TYPE Screen_EPD::screenNumber()
 
 // void Screen_EPD::debugVariant(uint8_t contextFilm)
 // {
-//     hV_HAL_Serial_crlf();
+//     hV_HAL_log_crlf();
 //
 //     switch (contextFilm)
 //     {
@@ -1286,7 +1287,7 @@ STRING_TYPE Screen_EPD::screenNumber()
 //             break;
 //     } // u_codeFilm
 //
-//     hV_HAL_Serial_crlf();
+//     hV_HAL_log_crlf();
 //     while (0x01);
 // }
 //

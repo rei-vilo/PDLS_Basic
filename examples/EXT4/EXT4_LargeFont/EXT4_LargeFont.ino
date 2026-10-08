@@ -114,10 +114,10 @@ void displayMultiplier()
 void setup()
 {
     hV_HAL_begin();
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
 
     // Screen
     myScreen.begin();

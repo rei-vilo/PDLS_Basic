@@ -44,8 +44,8 @@ Screen_EPD myScreen(&myDriver);
 // Fonts
 
 // Checks
-#if (SCREEN_EPD_RELEASE < 1000)
-#error Required SCREEN_EPD_RELEASE 1000
+#if (SCREEN_EPD_RELEASE < 1011)
+#error Required SCREEN_EPD_RELEASE 1011
 #endif // SCREEN_EPD_RELEASE
 
 // Define structures and classes
@@ -80,10 +80,10 @@ void setup()
 {
     hV_HAL_begin();
 
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
 
     // Screen
     myScreen.begin();
@@ -142,7 +142,7 @@ void setup()
         mySerial.print(".");
         hV_HAL_delayMilliseconds(8);
     }
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
 
     hV_HAL_GPIO_define(myBoard.button, INPUT_PULLUP);
 }
@@ -166,7 +166,7 @@ void loop()
         aY = myXYZ.i16[1] / 16;
         aZ = myXYZ.i16[2] / 16;
 
-        hV_HAL_Serial_crlf();
+        hV_HAL_log_crlf();
         hV_HAL_log(LEVEL_INFO, "x %5i, y %5i, z %5i", myXYZ.i16[0] / 16, myXYZ.i16[1] / 16, myXYZ.i16[2] / 16);
 
         oldOrientation = orientation;

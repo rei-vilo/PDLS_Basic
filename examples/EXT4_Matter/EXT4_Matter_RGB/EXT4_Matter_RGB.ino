@@ -59,8 +59,8 @@ Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
 Screen_EPD myScreen(&myDriver);
 
 // Checks
-#if (SCREEN_EPD_RELEASE < 1000)
-#error Required SCREEN_EPD_RELEASE 1000
+#if (SCREEN_EPD_RELEASE < 1011)
+#error Required SCREEN_EPD_RELEASE 1011
 #endif // SCREEN_EPD_RELEASE
 
 // Fonts
@@ -239,7 +239,7 @@ void displayValue(bool flag)
             // Release 2.2.0 replaces set_all() by set_all()
             myRGB.set_all(wsRed, wsGreen, wsBlue);
             hV_HAL_log(LEVEL_INFO, "Setting bulb color to > r: %u  g: %u  b: %u", r, g, b);
-            hV_HAL_Serial_crlf();
+            hV_HAL_log_crlf();
         }
         else
         {
@@ -573,10 +573,10 @@ void setup()
 {
     hV_HAL_begin();
 
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
 
     // Check EXT4
     if (myBoard.scope != BOARD_EXT4)

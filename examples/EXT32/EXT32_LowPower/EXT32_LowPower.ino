@@ -41,8 +41,8 @@ Pervasive_Wide_Small myDriver(eScreen_EPD_290_KS_0F, myBoard);
 Screen_EPD myScreen(&myDriver);
 
 // Checks
-#if (SCREEN_EPD_RELEASE < 1000)
-#error Required SCREEN_EPD_RELEASE 1000
+#if (SCREEN_EPD_RELEASE < 1011)
+#error Required SCREEN_EPD_RELEASE 1011
 #endif // SCREEN_EPD_RELEASE
 
 // Fonts
@@ -65,7 +65,7 @@ void wait(uint8_t second)
         hV_HAL_log(LEVEL_INFO, "Wait %i", i);
         hV_HAL_delayMilliseconds(1000);
     }
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
 }
 
 // Functions
@@ -76,7 +76,7 @@ void displayLowPower(bool flagLowPower = true)
     uint16_t x = 4;
     uint16_t y = 4;
 
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
     hV_HAL_log(LEVEL_INFO, flagLowPower ? "DISPLAY_LOW_POWER" : "DISPLAY_NORMAL_POWER");
 
     // Resume from low power, for demonstration purposes
@@ -118,10 +118,10 @@ void setup()
     hV_HAL_GPIO_set(LED_BUILTIN);
     hV_HAL_delayMilliseconds(1000);
 
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
 
     // Pin 8 = panelPower on EXT3.2 = flashCS on EXT3.1
     // setPanelPowerPin() sets flashCS = NOT_CONNECTED if already set to panelCS
@@ -166,7 +166,7 @@ void setup()
 
 #endif // DISPLAY_LOWPOWER
 
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
     hV_HAL_log(LEVEL_INFO, "Regenerate");
     myScreen.regenerate();
 

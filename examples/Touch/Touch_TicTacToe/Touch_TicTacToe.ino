@@ -46,8 +46,8 @@ Pervasive_Touch_Small myDriver(eScreen_EPD_271_KS_09_Touch, myBoard);
 Screen_EPD myScreen(&myDriver);
 
 // Checks
-#if (SCREEN_EPD_RELEASE < 1000)
-#error Required SCREEN_EPD_RELEASE 1000
+#if (SCREEN_EPD_RELEASE < 1011)
+#error Required SCREEN_EPD_RELEASE 1011
 #endif // SCREEN_EPD_RELEASE
 
 // Fonts
@@ -392,7 +392,7 @@ void printBoard()
 
         hV_HAL_Serial.print("]");
     }
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
 }
 
 bool checkHuman(coordinates_s & coordinates)
@@ -769,10 +769,10 @@ void setup()
 {
     hV_HAL_begin();
 
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
 
     // Screen
     myScreen.begin();

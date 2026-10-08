@@ -22,7 +22,6 @@ jobs:
       SKETCHES_REPORTS_PATH: sketches-reports
       LIBRARIES: |
         - source-path: ./
-        - source-url: https://github.com/PervasiveDisplays/Pervasive_BWRY_Large.git
         - name: PDLS_Common
         - name: Pervasive_Wide_Small
         - name: Pervasive_Wide_Medium
