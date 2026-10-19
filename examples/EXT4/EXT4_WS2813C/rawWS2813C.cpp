@@ -2,13 +2,15 @@
 /// @file rawWS2813C.cpp
 ///
 /// @brief Driver for WS2813C
-/// @version 103
-/// @date 16 Feb 2024
+/// @version 1011
+/// @date 21 Oct 2026
 ///
 /// @copyright (c) Pervasive Displays Inc., 2024
 /// @copyright License CC-BY-SA Creative Commons - Attribution - Share Alike
 /// https://creativecommons.org/licenses/by-sa/4.0/deed.en
 ///
+/// Release 103: Stability improvements
+/// Release 1011: Added profile for Zigbee
 
 #include "rawWS2813C.h"
 
@@ -46,6 +48,7 @@ void wsDefine(uint8_t port, uint8_t pin)
     wsWrite(0, 0, 0);
 }
 
+__attribute__((optimize("Os"), noinline))
 void wsWrite(uint8_t red, uint8_t green, uint8_t blue)
 {
     // uint32_t valueG70R70B70 = 0b111100001010101011001100; // 0xf0aacc
@@ -58,6 +61,55 @@ void wsWrite(uint8_t red, uint8_t green, uint8_t blue)
         valueB07R07G07 |= (valueG70R70B70 & 1);
         valueG70R70B70 >>= 1;
     }
+
+    uint32_t primask = __get_PRIMASK();
+    __disable_irq();
+
+#if defined (ARDUINO_ZIGBEE) // Zigbee profile
+
+    for (uint8_t i = 0; i < 24; i += 1)
+    {
+        if (valueB07R07G07 & 1)
+        {
+            // 1 code = T1H T1L
+            // T1H 1-code, High-level time 580ns~1.6μs
+            // T1L 1-code, Low-level time 220ns~420ns
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);  // 8 x = 870 ns
+
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);  // 2 x = 310 ns
+        }
+        else
+        {
+            // 0 code = T0H T0L
+            // T0H 0-code, High-level time 220ns~380ns
+            // T0L 0-code, Low-level time 580ns~1.6μs
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);  // 3 x = 350 ns
+
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);  // 10 x + loop = 1230 ns
+        }
+        valueB07R07G07 >>= 1;
+    }
+
+#else // General profile 
 
     for (uint8_t i = 0; i < 24; i += 1)
     {
@@ -117,6 +169,10 @@ void wsWrite(uint8_t red, uint8_t green, uint8_t blue)
         }
         valueB07R07G07 >>= 1;
     }
+
+#endif // ARDUINO_ZIGBEE
+
+    __set_PRIMASK(primask);
 }
 
 rawWS2813C::rawWS2813C(uint32_t num_leds, pin_size_t pin)

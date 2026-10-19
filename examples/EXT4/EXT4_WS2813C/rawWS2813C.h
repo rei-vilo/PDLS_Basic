@@ -1,8 +1,8 @@
 ///
 /// @file rawWS2813C.h
 /// @brief Driver for WS2813C
-/// @version 103
-/// @date 16 Feb 2024
+/// @version 1011
+/// @date 17 Oct 2026
 ///
 /// @copyright (c) Pervasive Displays Inc., 2024
 /// @copyright License CC-BY-SA Creative Commons - Attribution - Share Alike
@@ -10,9 +10,14 @@
 ///
 /// @see https://github.com/SiliconLabs/arduino/issues/106
 ///
+/// @warning `-Os` optimization level required to match the data transfer time of the WS2813C.
+/// @n By default, Arduino uses the `-O0` optimization level, too slow to transfer the data.
+/// @warning Different profiles, specific for ARDUINO_ZIGBEE and general
+/// @warning Measure data transfer time with a logic analyser and adapt the profile accordingly
+///
 
 #ifndef rawWS2813C_RELEASE
-#define rawWS2813C_RELEASE 103
+#define rawWS2813C_RELEASE 1011
 
 #include "Arduino.h"
 
