@@ -55,7 +55,14 @@ jobs:
             sketch-paths: |
               - examples/EXT4
               - examples/EXT4_Matter
-
+          - fqbn: SiliconLabs:silabs:nano_matter:protocol_stack=zigbee
+            artifact-suffix: nano-matter-zigbee
+            platforms: |
+              - name: SiliconLabs:silabs
+                source-url: https://siliconlabs.github.io/arduino/package_arduinosilabs_index.json
+            sketch-paths: |
+              - examples/EXT4_Zigbee
+              
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5

@@ -1,6 +1,5 @@
 Doxyfile
 .builds/
-.github/
 docs/
 mbed-os/
 
@@ -49,7 +48,6 @@ footer.html
 *.app
 
 # macOS
-.github/
 *.ctu-info
 *.dump
 .DS_Store
