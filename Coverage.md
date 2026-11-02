@@ -11,7 +11,7 @@ Test of the examples
 
 *Font16 examples target rp2040:rp2040:rpipico2*
 
-Report generated 2026-10-19 08:41:37
+Report generated 2026-11-02 11:55:20
 
 Version: 10.1.1
 
@@ -46,7 +46,9 @@ EXT4_Weather | SiliconLabs:silabs:nano_matter | OK
 EXT4_WhoAmI | SiliconLabs:silabs:nano_matter | OK
 EXT4_Matter_RGB | SiliconLabs:silabs:nano_matter | OK
 EXT4_Matter_Weather | SiliconLabs:silabs:nano_matter | OK
+EXT4_Zigbee_RGB | SiliconLabs:silabs:nano_matter:protocol_stack=zigbee | OK
+EXT4_Zigbee_Weather | SiliconLabs:silabs:nano_matter:protocol_stack=zigbee | OK
 
 ---
 
-Report completed 2026-10-19 08:41:37
+Report completed 2026-11-02 11:55:20
