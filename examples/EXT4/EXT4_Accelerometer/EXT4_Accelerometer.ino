@@ -222,7 +222,7 @@ void loop()
             myScreen.setPenSolid(false);
             myScreen.circle(dx, dy, dz  + 8, myColours.black);
 
-            myScreen.flush();
+            myScreen.flushFast();
             mySerial.print(" *");
         }
     }

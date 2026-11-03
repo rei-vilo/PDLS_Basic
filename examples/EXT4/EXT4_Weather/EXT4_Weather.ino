@@ -244,7 +244,7 @@ void loop()
         if (flagDisplay == true)
         {
             countFlush += 1;
-            myScreen.flush();
+            myScreen.flushFast();
 
             flagDisplay = false;
 

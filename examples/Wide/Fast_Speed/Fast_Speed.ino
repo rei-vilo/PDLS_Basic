@@ -85,7 +85,7 @@ void performTest()
     myScreen.dRectangle(0, dz * 0, x, dz, myColours.black);
 
     chrono = hV_HAL_getMilliseconds();
-    myScreen.flush();
+    myScreen.flushFast();
     chrono = hV_HAL_getMilliseconds() - chrono;
 
     // 1
@@ -97,7 +97,7 @@ void performTest()
     myScreen.gText(dx, dy, text);
     myScreen.dRectangle(0, dz * 1, x, dz, myColours.black);
 
-    myScreen.flush();
+    myScreen.flushFast();
 }
 
 #endif // DISPLAY_FAST_SPEED

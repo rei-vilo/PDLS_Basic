@@ -349,7 +349,7 @@ void displayAbout()
 
     displayQR("https://www.pervasivedisplays.com");
 
-    myScreen.flush();
+    myScreen.flushFast();
     hV_HAL_delayMilliseconds(10000);
     myScreen.clear();
 }
@@ -469,14 +469,14 @@ uint8_t menuOneButton(uint8_t button, const char * title, const char * option1, 
                 myScreen.dRectangle(0, bar_y0, x, 4, myColours.white);
                 myScreen.dRectangle(options_index * options_dx, bar_y0, options_dx * delay_count / delay_s, 2, myColours.black);
                 myScreen.setPenSolid(false);
-                myScreen.flush();
+                myScreen.flushFast();
             }
         }
         result = options_index + 1;
 
         myScreen.setPenSolid(true);
         myScreen.rectangle(0, area_y0, x, y, myColours.white);
-        // myScreen.flush();
+        // myScreen.flushFast();
     }
 
     return result;
@@ -492,7 +492,7 @@ void displayCommissioning()
 
     myScreen.gText(0, y, MATTER_EXAMPLE_NAME);
     y += dy * 2;
-    myScreen.flush();
+    myScreen.flushFast();
     myScreen.selectFont(fontMedium);
 
     hV_HAL_log(LEVEL_INFO, "Matter device not commissioned");
@@ -523,7 +523,7 @@ void displayCommissioning()
     y += dy;
     // displayQR(buffer);
     displayQR(Matter.getOnboardingQRCodePayload().c_str());
-    myScreen.flush();
+    myScreen.flushFast();
 }
 
 void displayDecommissioning()
@@ -535,13 +535,13 @@ void displayDecommissioning()
 
     myScreen.gText(0, y, MATTER_EXAMPLE_NAME);
     y += dy * 2;
-    myScreen.flush();
+    myScreen.flushFast();
     myScreen.selectFont(fontMedium);
 
     hV_HAL_log(LEVEL_INFO, "Decommissioning");
     myScreen.gText(0, y, "Decommissioning");
     y += dy;
-    myScreen.flush();
+    myScreen.flushFast();
 
     if (!Matter.isDeviceCommissioned())
     {
@@ -562,7 +562,7 @@ void displayDecommissioning()
     }
     hV_HAL_log(LEVEL_INFO, "Restart the device");
     myScreen.gText(0, y, "Restart the device");
-    myScreen.flush();
+    myScreen.flushFast();
 }
 // --- End of Matter
 
@@ -664,7 +664,7 @@ void setup()
     hV_HAL_log(LEVEL_INFO, MATTER_EXAMPLE_NAME);
     myScreen.gText(0, y, MATTER_EXAMPLE_NAME);
     y += dy * 2;
-    myScreen.flush();
+    myScreen.flushFast();
     myScreen.selectFont(fontMedium);
 
     hV_HAL_log(LEVEL_INFO, "Thread network");
@@ -674,7 +674,7 @@ void setup()
     hV_HAL_log(LEVEL_INFO, "Waiting");
     myScreen.gText(0, y, ". Waiting");
     y += dy;
-    myScreen.flush();
+    myScreen.flushFast();
 
     while (!Matter.isDeviceThreadConnected())
     {
@@ -683,7 +683,7 @@ void setup()
     hV_HAL_log(LEVEL_INFO, "Connected");
     myScreen.gText(0, y, ". Connected");
     y += dy;
-    myScreen.flush();
+    myScreen.flushFast();
 
     hV_HAL_log(LEVEL_INFO, "Matter device discovery");
     myScreen.gText(0, y, "Matter discovery");
@@ -692,7 +692,7 @@ void setup()
     hV_HAL_log(LEVEL_INFO, "Waiting");
     myScreen.gText(0, y, ". Waiting");
     y += dy;
-    myScreen.flush();
+    myScreen.flushFast();
 
     while (!myMatterRGB.is_online())
     {
@@ -701,7 +701,7 @@ void setup()
     hV_HAL_log(LEVEL_INFO, "Device online");
     myScreen.gText(0, y, ". Device online");
     y += dy;
-    myScreen.flush();
+    myScreen.flushFast();
 
     hV_HAL_delayMilliseconds(1000);
     // --- End of Matter
@@ -802,7 +802,7 @@ void loop()
             hV_HAL_log(LEVEL_INFO, "countFlush = 0 ! regenerate");
         }
         displayValue();
-        myScreen.flush();
+        myScreen.flushFast();
 
         flagDisplay = false;
     }

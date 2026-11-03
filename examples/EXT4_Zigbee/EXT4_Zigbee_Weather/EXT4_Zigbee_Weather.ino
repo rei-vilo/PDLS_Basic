@@ -331,7 +331,7 @@ void displayAbout()
 
     displayQR("https://www.pervasivedisplays.com");
 
-    myScreen.flush();
+    myScreen.flushFast();
     hV_HAL_delayMilliseconds(10000);
     myScreen.clear();
 }
@@ -453,14 +453,14 @@ uint8_t menuOneButton(uint8_t button, const char * title, const char * option1, 
                 myScreen.dRectangle(0, bar_y0, x, 4, myColours.white);
                 myScreen.dRectangle(options_index * options_dx, bar_y0, options_dx * delay_count / delay_s, 2, myColours.black);
                 myScreen.setPenSolid(false);
-                myScreen.flush();
+                myScreen.flushFast();
             }
         }
         result = options_index + 1;
 
         myScreen.setPenSolid(true);
         myScreen.rectangle(0, area_y0, x, y, myColours.white);
-        // myScreen.flush();
+        // myScreen.flushFast();
     }
 
     return result;
@@ -504,7 +504,7 @@ void displayCommissioning()
         myScreen.gText(0, y, "Commission on Zigbee hub");
         y += dy;
     }
-    myScreen.flush();
+    myScreen.flushFast();
 
     while (!myZigbee.isPaired())
     {
@@ -514,7 +514,7 @@ void displayCommissioning()
     hV_HAL_log(LEVEL_INFO, "Connecting to Zigbee network");
     myScreen.gText(0, y, "Connecting to Zigbee network");
     y += dy;
-    myScreen.flush();
+    myScreen.flushFast();
     while (!myZigbee.isConnectedToNetwork())
     {
         hV_HAL_delayMilliseconds(200);
@@ -536,7 +536,7 @@ void displayCommissioning()
     myScreen.gText(0, y, formatString("Node ID 0x%x", myZigbee.getNodeId()));
     y += dy;
 
-    myScreen.flush();
+    myScreen.flushFast();
 
     hV_HAL_delayMilliseconds(2000);
 }
@@ -550,13 +550,13 @@ void displayDecommissioning()
 
     myScreen.gText(0, y, ZIGBEE_EXAMPLE_NAME);
     y += dy * 2;
-    myScreen.flush();
+    myScreen.flushFast();
     myScreen.selectFont(fontMedium);
 
     hV_HAL_log(LEVEL_INFO, "Resetting");
     myScreen.gText(0, y, "Resetting");
     y += dy;
-    myScreen.flush();
+    myScreen.flushFast();
 
     if (!myZigbee.isPaired())
     {
@@ -576,7 +576,7 @@ void displayDecommissioning()
     }
     hV_HAL_log(LEVEL_INFO, "Restart the device");
     myScreen.gText(0, y, "Restart the device");
-    myScreen.flush();
+    myScreen.flushFast();
 
     hV_HAL_delayMilliseconds(2000);
 }
@@ -589,10 +589,10 @@ void setup()
 {
     hV_HAL_begin();
 
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
     hV_HAL_log(LEVEL_INFO, __FILE__);
     hV_HAL_log(LEVEL_INFO, __DATE__ " " __TIME__);
-    hV_HAL_Serial_crlf();
+    hV_HAL_log_crlf();
 
     // Check EXT4
     if (myBoard.scope != BOARD_EXT4)
@@ -639,12 +639,12 @@ void setup()
     // --- HDC2080
     hV_HAL_Wire_begin();
 
-    bufferWrite[0] = 0x0e;  // HDC20X0_CONFIGURATION
-    bufferWrite[1] = 0x00;  // HDC20X0_DEFAULT_SETTINGS
+    bufferWrite[0] = 0x0e; // HDC20X0_CONFIGURATION
+    bufferWrite[1] = 0x00; // HDC20X0_DEFAULT_SETTINGS
     hV_HAL_Wire_transfer(HDC_I2C, bufferWrite, 2, bufferRead, 0);
 
-    bufferWrite[0] = 0x0f;  // HDC20X0_MEASURE_CONFIGURATION
-    bufferWrite[1] = 0xfe;  // HDC20X0_MEASURE_SETTINGS
+    bufferWrite[0] = 0x0f; // HDC20X0_MEASURE_CONFIGURATION
+    bufferWrite[1] = 0xfe; // HDC20X0_MEASURE_SETTINGS
     hV_HAL_Wire_transfer(HDC_I2C, bufferWrite, 2, bufferRead, 0);
     // --- End of HDC2080
 
@@ -724,19 +724,19 @@ void loop()
     if (hV_HAL_getMilliseconds() > chrono32)
     {
         // HDC2080
-        bufferWrite[0] = 0x0f;  // HDC20X0_MEASURE_CONFIGURATION
-        bufferWrite[1] = 0xff;  // HDC20X0_DEFAULT_SETTINGS
+        bufferWrite[0] = 0x0f; // HDC20X0_MEASURE_CONFIGURATION
+        bufferWrite[1] = 0xff; // HDC20X0_DEFAULT_SETTINGS
         hV_HAL_Wire_transfer(HDC_I2C, bufferWrite, 2, bufferRead, 0);
         hV_HAL_delayMilliseconds(50);
 
         // Temperature
-        bufferWrite[0] = 0x00;  // HDC20X0_TEMPERATURE_LOW
+        bufferWrite[0] = 0x00; // HDC20X0_TEMPERATURE_LOW
         hV_HAL_Wire_transfer(HDC_I2C, bufferWrite, 1, bufferRead, 2);
         temperature.value = bufferRead[0] + bufferRead[1] * 256.0;
-        temperature.value = temperature.value * 165.0 / 65536.0 - 40.0;  // +273.15; // from °C to °K
+        temperature.value = temperature.value * 165.0 / 65536.0 - 40.0; // +273.15; // from °C to °K
 
         // Humidity
-        bufferWrite[0] = 0x02;  // HDC20X0_HUMIDITY_LOW
+        bufferWrite[0] = 0x02; // HDC20X0_HUMIDITY_LOW
         hV_HAL_Wire_transfer(HDC_I2C, bufferWrite, 1, bufferRead, 2);
         humidity.value = bufferRead[0] + bufferRead[1] * 256.0;
         humidity.value = humidity.value / 65536.0 * 100.0;
@@ -751,7 +751,6 @@ void loop()
         countSend %= SEND_BEFORE_FAST;
         if (countSend == 0)
         {
-
             countFlush %= FAST_BEFORE_NORMAL;
             if (countFlush == 0)
             {
@@ -765,7 +764,7 @@ void loop()
             if (flagDisplay == true)
             {
                 countFlush += 1;
-                myScreen.flush();
+                myScreen.flushFast();
 
                 flagDisplay = false;
 
@@ -779,7 +778,7 @@ void loop()
                    temperature.minimum, temperature.value, temperature.maximum,
                    humidity.minimum, humidity.value, humidity.maximum);
 
-        chrono32 = hV_HAL_getMilliseconds() + 1000;  // 10 s
+        chrono32 = hV_HAL_getMilliseconds() + 1000; // 1 s
     }
 
     hV_HAL_delayMilliseconds(100);

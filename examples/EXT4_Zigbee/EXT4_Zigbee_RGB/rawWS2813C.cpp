@@ -5,21 +5,22 @@
 /// @version 1011
 /// @date 21 Oct 2026
 ///
-/// @copyright (c) Pervasive Displays Inc., 2024
+/// @copyright (c) Pervasive Displays Inc., 2024-2026
 /// @copyright License CC-BY-SA Creative Commons - Attribution - Share Alike
 /// https://creativecommons.org/licenses/by-sa/4.0/deed.en
 ///
 /// Release 103: Stability improvements
 /// Release 1011: Added profile for Zigbee
+/// Release 1012: Improved stability for Matter
 
 #include "rawWS2813C.h"
 
-#include <stdio.h>
+// #include <stdio.h>
 #include <stdint.h>
-#include <stdbool.h>
+// #include <stdbool.h>
 #include "em_common.h"
 #include "em_gpio.h"
-#include "sl_udelay.h"
+// #include "sl_udelay.h"
 
 ///
 /// @brief Define GPIO for WS2813C
@@ -81,10 +82,10 @@ void wsWrite(uint8_t red, uint8_t green, uint8_t blue)
             GPIO_PinOutSet(wsPort, wsBit);
             GPIO_PinOutSet(wsPort, wsBit);
             GPIO_PinOutSet(wsPort, wsBit);
-            GPIO_PinOutSet(wsPort, wsBit);  // 8 x = 870 ns
+            GPIO_PinOutSet(wsPort, wsBit);  // 8 x =  ns
 
             GPIO_PinOutClear(wsPort, wsBit);
-            GPIO_PinOutClear(wsPort, wsBit);  // 2 x = 310 ns
+            GPIO_PinOutClear(wsPort, wsBit);  // 2 x =  ns
         }
         else
         {
@@ -93,7 +94,7 @@ void wsWrite(uint8_t red, uint8_t green, uint8_t blue)
             // T0L 0-code, Low-level time 580ns~1.6μs
             GPIO_PinOutSet(wsPort, wsBit);
             GPIO_PinOutSet(wsPort, wsBit);
-            GPIO_PinOutSet(wsPort, wsBit);  // 3 x = 350 ns
+            GPIO_PinOutSet(wsPort, wsBit);  // 3 x =  ns
 
             GPIO_PinOutClear(wsPort, wsBit);
             GPIO_PinOutClear(wsPort, wsBit);
@@ -104,7 +105,68 @@ void wsWrite(uint8_t red, uint8_t green, uint8_t blue)
             GPIO_PinOutClear(wsPort, wsBit);
             GPIO_PinOutClear(wsPort, wsBit);
             GPIO_PinOutClear(wsPort, wsBit);
-            GPIO_PinOutClear(wsPort, wsBit);  // 10 x + loop = 1230 ns
+            GPIO_PinOutClear(wsPort, wsBit);  // 10 x + loop =  ns
+        }
+        valueB07R07G07 >>= 1;
+    }
+
+#elif defined (ARDUINO_MATTER) // Matter profile
+
+    for (uint8_t i = 0; i < 24; i += 1)
+    {
+        if (valueB07R07G07 & 1)
+        {
+            // 1 code = T1H T1L
+            // T1H 1-code, High-level time 580ns~1.6μs
+            // T1L 1-code, Low-level time 220ns~420ns
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);  // 14 x =  ns
+
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);  // 6 x =  ns
+        }
+        else
+        {
+            // 0 code = T0H T0L
+            // T0H 0-code, High-level time 220ns~380ns
+            // T0L 0-code, Low-level time 580ns~1.6μs
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);
+            GPIO_PinOutSet(wsPort, wsBit);  // 5 x =  ns
+
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);
+            GPIO_PinOutClear(wsPort, wsBit);  // 15x + loop =  ns
         }
         valueB07R07G07 >>= 1;
     }
@@ -131,14 +193,14 @@ void wsWrite(uint8_t red, uint8_t green, uint8_t blue)
             GPIO_PinOutSet(wsPort, wsBit);  // 56 ns
             GPIO_PinOutSet(wsPort, wsBit);  // 56 ns
             GPIO_PinOutSet(wsPort, wsBit);  // 56 ns
-            GPIO_PinOutSet(wsPort, wsBit);  // 56 ns * 14 = 784 ns
+            GPIO_PinOutSet(wsPort, wsBit);  // 56 ns * 14 =  ns
 
             GPIO_PinOutClear(wsPort, wsBit);  // 46 ns
             GPIO_PinOutClear(wsPort, wsBit);  // 46 ns
             GPIO_PinOutClear(wsPort, wsBit);  // 46 ns
             GPIO_PinOutClear(wsPort, wsBit);  // 46 ns
             GPIO_PinOutClear(wsPort, wsBit);  // 46 ns
-            GPIO_PinOutClear(wsPort, wsBit);  // 46 ns * 6 = 276 ns
+            GPIO_PinOutClear(wsPort, wsBit);  // 46 ns * 6 =  ns
         }
         else
         {
@@ -149,7 +211,7 @@ void wsWrite(uint8_t red, uint8_t green, uint8_t blue)
             GPIO_PinOutSet(wsPort, wsBit);  // 56 ns
             GPIO_PinOutSet(wsPort, wsBit);  // 56 ns
             GPIO_PinOutSet(wsPort, wsBit);  // 56 ns
-            GPIO_PinOutSet(wsPort, wsBit);  // 56 ns * 5 = 280 ns
+            GPIO_PinOutSet(wsPort, wsBit);  // 56 ns * 5 =  ns
 
             GPIO_PinOutClear(wsPort, wsBit);  // 46 ns
             GPIO_PinOutClear(wsPort, wsBit);  // 46 ns
@@ -165,7 +227,7 @@ void wsWrite(uint8_t red, uint8_t green, uint8_t blue)
             GPIO_PinOutClear(wsPort, wsBit);  // 46 ns
             GPIO_PinOutClear(wsPort, wsBit);  // 46 ns
             GPIO_PinOutClear(wsPort, wsBit);  // 46 ns
-            GPIO_PinOutClear(wsPort, wsBit);  // 46 ns * 15 = 690 ns
+            GPIO_PinOutClear(wsPort, wsBit);  // 46 ns * 15 =  ns
         }
         valueB07R07G07 >>= 1;
     }

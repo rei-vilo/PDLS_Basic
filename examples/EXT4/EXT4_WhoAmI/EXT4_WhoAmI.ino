@@ -130,7 +130,7 @@ void displayWhoAmI()
 #endif // WITH_COLOURS_BWRY
     }
 
-    myScreen.flush();
+    myScreen.flushFast();
 }
 
 #endif // DISPLAY_WHOAMI

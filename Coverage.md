@@ -3,17 +3,17 @@
 
 Test of the examples
 
-*General examples target rp2040:rp2040:rpipico*
+* General examples target rp2040:rp2040:rpipico
 
-*EXT4 examples target SiliconLabs:silabs:nano_matter*
+* EXT4 examples target SiliconLabs:silabs:nano_matter
 
-*File examples target teensy:avr:teensy36*
+* File examples target teensy:avr:teensy36
 
-*Font16 examples target rp2040:rp2040:rpipico2*
+* Font16 examples target rp2040:rp2040:rpipico2
 
-Report generated 2026-11-02 11:55:20
+Report generated 2026-10-19 08:41:37
 
-Version: 10.1.1
+Version: 10.1.2
 
 Example |Board | Result
 --- | --- | ---
@@ -46,9 +46,7 @@ EXT4_Weather | SiliconLabs:silabs:nano_matter | OK
 EXT4_WhoAmI | SiliconLabs:silabs:nano_matter | OK
 EXT4_Matter_RGB | SiliconLabs:silabs:nano_matter | OK
 EXT4_Matter_Weather | SiliconLabs:silabs:nano_matter | OK
-EXT4_Zigbee_RGB | SiliconLabs:silabs:nano_matter:protocol_stack=zigbee | OK
-EXT4_Zigbee_Weather | SiliconLabs:silabs:nano_matter:protocol_stack=zigbee | OK
 
 ---
 
-Report completed 2026-11-02 11:55:20
+Report completed 2026-10-19 08:41:37

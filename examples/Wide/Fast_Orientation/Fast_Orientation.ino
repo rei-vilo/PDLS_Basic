@@ -64,7 +64,7 @@ uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 void flush_ms()
 {
     uint32_t chrono = (uint32_t)hV_HAL_getMilliseconds();
-    myScreen.flush();
+    myScreen.flushFast();
     hV_HAL_log(LEVEL_INFO, "%i ms", hV_HAL_getMilliseconds() - chrono);
 }
 

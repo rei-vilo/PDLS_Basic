@@ -64,7 +64,7 @@ uint8_t fontSmall, fontMedium, fontLarge, fontVery;
 void flush_ms()
 {
     uint32_t chrono = (uint32_t)hV_HAL_getMilliseconds();
-    myScreen.flush();
+    myScreen.flushFast();
     hV_HAL_log(LEVEL_INFO, "%i ms", hV_HAL_getMilliseconds() - chrono);
 }
 
@@ -82,7 +82,7 @@ void displayFastLine()
     myScreen.selectFont(fontMedium);
     myScreen.gText(0, 0, "Line");
 
-    myScreen.flush();
+    myScreen.flushFast();
 
     myScreen.setPenSolid(true);
     uint32_t chrono;
@@ -95,7 +95,7 @@ void displayFastLine()
 
         myScreen.line(x0, y0, x1, y1, myColours.black);
         chrono = hV_HAL_getMilliseconds();
-        myScreen.flush();
+        myScreen.flushFast();
         hV_HAL_log(LEVEL_INFO, "%i - %i = %i", chrono, hV_HAL_getMilliseconds(), hV_HAL_getMilliseconds() - chrono);
     }
 }

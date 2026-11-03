@@ -102,7 +102,7 @@ void displayWhoAmI()
 
 #endif // STRING_MODE
 
-    myScreen.flush();
+    myScreen.flushFast();
 }
 
 #endif // DISPLAY_SIZES

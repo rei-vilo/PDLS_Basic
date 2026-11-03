@@ -94,7 +94,7 @@ void displayGUI()
     myButtonInstant.draw();
     myText.draw("Empty");
 
-    myScreen.flush();
+    myScreen.flushFast();
 
     myGUI.delegate(true);
 

@@ -74,7 +74,7 @@ void displayTouch(bool flag = true)
     myScreen.clear();
     myScreen.gText(10, 10, "Draw!");
 
-    myScreen.flush();
+    myScreen.flushFast();
 
     touch_t touch;
     uint16_t k = 32; // 64; // 256;

@@ -1,10 +1,10 @@
 ///
 /// @file rawWS2813C.h
 /// @brief Driver for WS2813C
-/// @version 1011
-/// @date 17 Oct 2026
+/// @version 1012
+/// @date 21 Nov 2026
 ///
-/// @copyright (c) Pervasive Displays Inc., 2024
+/// @copyright (c) Pervasive Displays Inc., 2024-2026
 /// @copyright License CC-BY-SA Creative Commons - Attribution - Share Alike
 /// https://creativecommons.org/licenses/by-sa/4.0/deed.en
 ///
@@ -17,7 +17,7 @@
 ///
 
 #ifndef rawWS2813C_RELEASE
-#define rawWS2813C_RELEASE 1011
+#define rawWS2813C_RELEASE 1012
 
 #include "Arduino.h"
 
@@ -42,7 +42,7 @@ class rawWS2813C
     void begin();
 
     ///
-    /// @brief Set RGB LED
+    /// @brief Set RGB colours
     ///
     /// @param red red component, 0..255
     /// @param green green component, 0..255

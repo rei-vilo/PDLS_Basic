@@ -355,7 +355,7 @@ void displayAbout()
 
     displayQR("https://www.pervasivedisplays.com");
 
-    myScreen.flush();
+    myScreen.flushFast();
     hV_HAL_delayMilliseconds(10000);
     myScreen.clear();
 }
@@ -477,14 +477,14 @@ uint8_t menuOneButton(uint8_t button, const char * title, const char * option1, 
                 myScreen.dRectangle(0, bar_y0, x, 4, myColours.white);
                 myScreen.dRectangle(options_index * options_dx, bar_y0, options_dx * delay_count / delay_s, 2, myColours.black);
                 myScreen.setPenSolid(false);
-                myScreen.flush();
+                myScreen.flushFast();
             }
         }
         result = options_index + 1;
 
         myScreen.setPenSolid(true);
         myScreen.rectangle(0, area_y0, x, y, myColours.white);
-        // myScreen.flush();
+        // myScreen.flushFast();
     }
 
     return result;
@@ -527,7 +527,7 @@ void displayCommissioning()
         myScreen.gText(0, y, "Commission on Zigbee hub");
         y += dy;
     }
-    myScreen.flush();
+    myScreen.flushFast();
 
     while (!myZigbee.isPaired())
     {
@@ -537,7 +537,7 @@ void displayCommissioning()
     hV_HAL_log(LEVEL_INFO, "Connecting to Zigbee network");
     myScreen.gText(0, y, "Connecting to Zigbee network");
     y += dy;
-    myScreen.flush();
+    myScreen.flushFast();
     while (!myZigbee.isConnectedToNetwork())
     {
         hV_HAL_delayMilliseconds(200);
@@ -559,7 +559,7 @@ void displayCommissioning()
     myScreen.gText(0, y, formatString("Node ID 0x%x", myZigbee.getNodeId()));
     y += dy;
 
-    myScreen.flush();
+    myScreen.flushFast();
 
     hV_HAL_delayMilliseconds(2000);
 }
@@ -573,13 +573,13 @@ void displayDecommissioning()
 
     myScreen.gText(0, y, ZIGBEE_EXAMPLE_NAME);
     y += dy * 2;
-    myScreen.flush();
+    myScreen.flushFast();
     myScreen.selectFont(fontMedium);
 
     hV_HAL_log(LEVEL_INFO, "Resetting");
     myScreen.gText(0, y, "Resetting");
     y += dy;
-    myScreen.flush();
+    myScreen.flushFast();
 
     if (!myZigbee.isPaired())
     {
@@ -599,7 +599,7 @@ void displayDecommissioning()
     }
     hV_HAL_log(LEVEL_INFO, "Restart the device");
     myScreen.gText(0, y, "Restart the device");
-    myScreen.flush();
+    myScreen.flushFast();
 
     hV_HAL_delayMilliseconds(2000);
 }
@@ -774,7 +774,7 @@ void loop()
             hV_HAL_log(LEVEL_INFO, "countFlush = 0 ! regenerate");
         }
         displayValue();
-        myScreen.flush();
+        myScreen.flushFast();
 
         flagDisplay = false;
     }
