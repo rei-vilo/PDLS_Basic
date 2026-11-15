@@ -16,7 +16,7 @@
 /// @warning Measure data transfer time with a logic analyser and adapt the profile accordingly
 ///
 
-// Checks: Silicon Labs Matter only
+// Check: Silicon Labs only
 #ifndef ARDUINO_ARCH_SILABS
 #error Silicon Labs architecture required
 #endif
