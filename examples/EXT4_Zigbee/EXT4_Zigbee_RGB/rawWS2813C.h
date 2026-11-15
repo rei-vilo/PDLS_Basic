@@ -16,6 +16,11 @@
 /// @warning Measure data transfer time with a logic analyser and adapt the profile accordingly
 ///
 
+// Checks: Silicon Labs Matter only
+#ifndef ARDUINO_ARCH_SILABS
+#error Silicon Labs architecture required
+#endif
+
 #ifndef rawWS2813C_RELEASE
 #define rawWS2813C_RELEASE 1012
 
