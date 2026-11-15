@@ -71,7 +71,6 @@ jobs:
             --unpad-paren \
             --align-pointer=middle \
             --align-reference=middle \
-            --add-brackets \
             --mode=c \
             --align-method-colon \
             --suffix=none \
